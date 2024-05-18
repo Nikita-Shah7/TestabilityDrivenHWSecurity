@@ -4,7 +4,7 @@ using namespace std;
 void divider()
 {
     cout << endl;
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 40; i++)
     {
         cout << "-";
     }
@@ -25,7 +25,7 @@ class Circuit
     unordered_map<string, Node *> node_list; // <nodeName,Node-pointer>
     // unordered_map<string, Node*>gate_list;  // <gateName,Gate-pointer>
     unordered_map<Node *, Gate *> gate_node_list;
-    map<int,vector<Node*>>levelized_circuit;
+    map<int, vector<Node *>> levelized_circuit;
 
 public:
     Circuit();
@@ -36,6 +36,10 @@ public:
     friend void display_node_structure();
     friend void gates_nodes_levelization();
     friend void traverse_circuit();
+    friend void assign_scoap();
+    friend void assign_controllability();
+    friend int find_cc0(Gate *);
+    friend void display_scoap_values();
 };
 
 Circuit ::Circuit(void)
@@ -66,6 +70,10 @@ public:
     friend void display_node_structure();
     friend void gates_nodes_levelization();
     friend void traverse_circuit();
+    friend void assign_scoap();
+    friend void assign_controllability();
+    friend int find_cc0(Gate *);
+    friend void display_scoap_values();
 };
 
 Gate ::Gate(void)
@@ -85,6 +93,7 @@ class Node
     // while other nodes will have only one out-going Node
     vector<Node *> next;
     int indeg, outdeg;
+    int CC0, CC1, CO;
 
 public:
     Node();
@@ -96,6 +105,10 @@ public:
     friend void display_node_structure();
     friend void gates_nodes_levelization();
     friend void traverse_circuit();
+    friend void assign_scoap();
+    friend void assign_controllability();
+    friend int find_cc0(Gate *);
+    friend void display_scoap_values();
 };
 
 Node ::Node()
@@ -106,6 +119,9 @@ Node ::Node()
     indeg = 0;
     outdeg = 0;
     // next = NULL;
+    CC0 = INT_MAX - 2;
+    CC1 = INT_MAX - 2;
+    CO = INT_MAX - 2;
 }
 
 Node ::Node(string nme, string ty)
@@ -115,6 +131,9 @@ Node ::Node(string nme, string ty)
     level = 0;
     indeg = 0;
     outdeg = 0;
+    CC0 = INT_MAX - 2;
+    CC1 = INT_MAX - 2;
+    CO = INT_MAX - 2;
 }
 
 void display_circuit_details()
@@ -248,8 +267,9 @@ void gates_nodes_levelization()
     return;
 }
 
-void traverse_circuit() {
-    for (int i = 1; i < circuit->no_of_levels; i++)
+void traverse_circuit()
+{
+    for (int i = 1; i <= circuit->no_of_levels; i++)
     {
         cout << "Level " << i << " :";
         for (auto node : circuit->levelized_circuit[i])
@@ -260,13 +280,172 @@ void traverse_circuit() {
     }
 }
 
+void display_scoap_values()
+{
+    divider();
+    cout << "Signal\tCC0\tCC1\tCO";
+    divider();
+    for (int i = 1; i <= circuit->no_of_levels; i++)
+    {
+        for (auto node : circuit->levelized_circuit[i])
+        {
+            if (node->type == "WIRE")
+            {
+                cout << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->CO << endl;
+            }
+        }
+    }
+}
+
+int find_cc0(Gate *gate)
+{
+    int cc0 = -1;
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        cc0 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc0 = min(cc0, cc0_input);
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "OR")
+    {
+        cc0 = 0;
+        for (auto input : gate->inputs)
+        {
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc0 += cc0_input;
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "NAND")
+    {
+        cc0 = 0;
+        for (auto input : gate->inputs)
+        {
+            int cc1_input = circuit->node_list[input]->CC1;
+            cc0 += cc1_input;
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "NOR")
+    {
+        cc0 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int cc1_input = circuit->node_list[input]->CC1;
+            cc0 = min(cc0, cc1_input);
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "XOR")
+    {
+        cc0 = INT_MAX - 2;
+
+        int cc0_input = 0;
+        cc0_input += circuit->node_list[gate->inputs[0]]->CC0;
+        cc0_input += circuit->node_list[gate->inputs[1]]->CC0;
+        cc0 = min(cc0,cc0_input);
+
+        cc0_input = 0;
+        cc0_input += circuit->node_list[gate->inputs[0]]->CC1;
+        cc0_input += circuit->node_list[gate->inputs[1]]->CC1;        
+        cc0 = min(cc0,cc0_input);
+
+        cc0 += 1;
+    }
+    else if (gate_type == "XNOR")
+    {
+        cc0 = INT_MAX - 2;
+
+        int cc0_input = 0;
+        cc0_input += circuit->node_list[gate->inputs[0]]->CC0;
+        cc0_input += circuit->node_list[gate->inputs[1]]->CC1;
+        cc0 = min(cc0,cc0_input);
+
+        cc0_input = 0;
+        cc0_input += circuit->node_list[gate->inputs[0]]->CC1;
+        cc0_input += circuit->node_list[gate->inputs[1]]->CC0;
+        cc0 = min(cc0,cc0_input);
+        
+        cc0 += 1;
+    }
+    else if (gate_type == "NOT")
+    {
+        for (auto input : gate->inputs)
+        {
+            int cc1_input = circuit->node_list[input]->CC1;
+            cc0 = cc1_input;
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "BUF")
+    {
+        for (auto input : gate->inputs)
+        {
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc0 = cc0_input;
+        }
+        cc0 += 1;
+    }
+    else if (gate_type == "FANOUT")
+    {
+        for (auto input : gate->inputs)
+        {
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc0 = cc0_input;
+        }
+    }
+    return cc0;
+}
+
+void assign_controllability()
+{
+    // level = 1
+    for (auto pi : circuit->primary_inputs)
+    {
+        Node *node = circuit->node_list[pi->name];
+        node->CC0 = 1;
+        node->CC1 = 1;
+    }
+
+    // assign CC0
+    for (int i = 2; i <= circuit->no_of_levels; i++)
+    {
+        for (auto node : circuit->levelized_circuit[i])
+        {
+            if (node->type == "NON-WIRE")
+            {
+                Gate *gate = circuit->gate_node_list[node];
+                int cc0 = find_cc0(gate);
+                for (auto output : gate->outputs)
+                {
+                    circuit->node_list[output]->CC0 = cc0;
+                }
+            }
+        }
+    }
+}
+
+void assign_scoap()
+{
+    assign_controllability();
+    display_scoap_values();
+
+    // assign_observability();
+    // display_scoap_values();
+}
+
 void read_file()
 {
     string filename;
-    cout<<"Enter Input Text File: ";
-    cin>>filename;
+    cout << "Enter Input Text File: ";
+    cin >> filename;
     // filename += "a2";
-    filename = "./example_input_files/" + filename + ".txt";
+    filename = "../example_input_files/" + filename + ".txt";
     ifstream file(filename);
 
     string line = "";
@@ -397,6 +576,7 @@ int main()
     display_node_structure();
 
     traverse_circuit();
+    assign_scoap();
 
     return 0;
 }
