@@ -38,10 +38,13 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_controllability();
-    friend int xor_cc0_helper(Gate*);
-    friend int xor_cc1_helper(Gate*);
+    friend void assign_observability();
+    friend int xor_cc0_helper(Gate *);
+    friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend void display_scoap_values();
 };
 
@@ -75,10 +78,13 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_controllability();
-    friend int xor_cc0_helper(Gate*);
-    friend int xor_cc1_helper(Gate*);
+    friend void assign_observability();
+    friend int xor_cc0_helper(Gate *);
+    friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend void display_scoap_values();
 };
 
@@ -113,10 +119,13 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_controllability();
-    friend int xor_cc0_helper(Gate*);
-    friend int xor_cc1_helper(Gate*);
+    friend void assign_observability();
+    friend int xor_cc0_helper(Gate *);
+    friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend void display_scoap_values();
 };
 
@@ -306,9 +315,9 @@ void display_scoap_values()
     }
 }
 
-int xor_cc0_helper(Gate* gate)
+int xor_cc0_helper(Gate *gate)
 {
-    vector<int>cc0, cc1;
+    vector<int> cc0, cc1;
     for (auto input : gate->inputs)
     {
         cc0.push_back(circuit->node_list[input]->CC0);
@@ -334,9 +343,9 @@ int xor_cc0_helper(Gate* gate)
     return cc0_input;
 }
 
-int xor_cc1_helper(Gate* gate)
+int xor_cc1_helper(Gate *gate)
 {
-    vector<int>cc0, cc1;
+    vector<int> cc0, cc1;
     for (auto input : gate->inputs)
     {
         cc0.push_back(circuit->node_list[input]->CC0);
@@ -442,6 +451,19 @@ int find_cc0(Gate *gate)
             cc0 = cc0_input;
         }
     }
+    else if (gate_type == "MUX2_1")
+    {
+        cc0 = 0;
+        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
+        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
+        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
+        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
+        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
+        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
+        int cc0_first = min(cc0_A, cc1_S + 1) + 1;
+        int cc0_second = min(cc0_B, cc0_S) + 1;
+        cc0 = cc0_first + cc0_second + 1;
+    }
     return cc0;
 }
 
@@ -525,7 +547,186 @@ int find_cc1(Gate *gate)
             cc1 = cc1_input;
         }
     }
+    else if (gate_type == "MUX2_1")
+    {
+        cc1 = 0;
+        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
+        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
+        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
+        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
+        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
+        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
+        int cc1_first = cc1_A + cc0_S + 1 + 1;
+        int cc1_second = cc1_B + cc1_S + 1;
+        cc1 = min(cc1_first, cc1_second) + 1;
+    }
     return cc1;
+}
+
+int co_helper(Gate *gate, string input)
+{
+    int co_ = 0;
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        co_ = -1 * circuit->node_list[input]->CC1;
+    }
+    else if (gate_type == "OR")
+    {
+        co_ = -1 * circuit->node_list[input]->CC0;
+    }
+    else if (gate_type == "NAND")
+    {
+        co_ = -1 * circuit->node_list[input]->CC1;
+    }
+    else if (gate_type == "NOR")
+    {
+        co_ = -1 * circuit->node_list[input]->CC0;
+    }
+    else if (gate_type == "XOR")
+    {
+        if (gate->inputs[0] == input)
+        {
+            int cc0_input = circuit->node_list[gate->inputs[1]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[1]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+        else
+        {
+            int cc0_input = circuit->node_list[gate->inputs[0]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[0]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+    }
+    else if (gate_type == "XNOR")
+    {
+        if (gate->inputs[0] == input)
+        {
+            int cc0_input = circuit->node_list[gate->inputs[1]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[1]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+        else
+        {
+            int cc0_input = circuit->node_list[gate->inputs[0]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[0]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+    }
+    else if (gate_type == "NOT")
+    {
+        ;
+    }
+    else if (gate_type == "BUF")
+    {
+        ;
+    }
+    else if (gate_type == "FANOUT")
+    {
+        ;
+    }
+    else if (gate_type == "MUX2_1")
+    {
+        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
+        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
+        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
+        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
+        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
+        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
+        int cc0_first = min(cc0_A, cc1_S + 1) + 1;
+        int cc1_first = cc1_A + cc0_S + 1 + 1;
+        int cc0_second = min(cc0_B, cc0_S) + 1;
+        int cc1_second = cc1_B + cc1_S + 1;
+
+        int co_output = circuit->node_list[gate->outputs[0]]->CO;
+        int co_first = co_output + cc0_second + 1;
+        int co_second = co_output + cc0_first + 1;
+        int co_A = co_first + cc0_S + 1 + 1;
+        int co_B = co_second + cc1_S + 1;
+        int co_not_S = co_first + cc0_A + 1 + 1;
+        int co_S = co_second + cc1_B + 1;
+        co_S = min(co_S, co_not_S) + 1;
+
+        if (gate->inputs[0] == input)
+        {
+            co_ = co_S;
+        }
+        else if (gate->inputs[1] == input)
+        {
+            co_ = co_A;
+        }
+        else if (gate->inputs[2] == input)
+        {
+            co_ = co_B;
+        }
+    }
+    return co_;
+}
+
+int find_co(Gate *gate)
+{
+    int co = circuit->node_list[gate->outputs[0]]->CO; // co_output(not in case of fanout)
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        int X1 = 0;
+        for (auto input : gate->inputs)
+            X1 += circuit->node_list[input]->CC1;
+        co += X1 + 1;
+    }
+    else if (gate_type == "OR")
+    {
+        int X0 = 0;
+        for (auto input : gate->inputs)
+            X0 += circuit->node_list[input]->CC0;
+        co += X0 + 1;
+    }
+    else if (gate_type == "NAND")
+    {
+        int X1 = 0;
+        for (auto input : gate->inputs)
+            X1 += circuit->node_list[input]->CC1;
+        co += X1 + 1;
+    }
+    else if (gate_type == "NOR")
+    {
+        int X0 = 0;
+        for (auto input : gate->inputs)
+            X0 += circuit->node_list[input]->CC0;
+        co += X0 + 1;
+    }
+    else if (gate_type == "XOR")
+    {
+        // co = xor_co_helper(gate);
+        co += 1;
+    }
+    else if (gate_type == "XNOR")
+    {
+        // co = xor_cc0_helper(gate);
+        co += 1;
+    }
+    else if (gate_type == "NOT")
+    {
+        co += 1;
+    }
+    else if (gate_type == "BUF")
+    {
+        co += 1;
+    }
+    else if (gate_type == "FANOUT")
+    {
+        co = INT_MAX - 2;
+        for (auto output : gate->outputs)
+        {
+            int co_output = circuit->node_list[output]->CO;
+            co = min(co, co_output);
+        }
+    }
+    else if (gate_type == "MUX2_1")
+    {
+        co = 0;
+    }
+    return co;
 }
 
 void assign_controllability()
@@ -557,12 +758,40 @@ void assign_controllability()
     }
 }
 
+void assign_observability()
+{
+    // level = last
+    for (auto po : circuit->primary_outputs)
+    {
+        Node *node = circuit->node_list[po->name];
+        node->CO = 0;
+    }
+
+    for (int i = circuit->no_of_levels; i > 0; i--)
+    {
+        for (auto node : circuit->levelized_circuit[i])
+        {
+            if (node->type == "NON-WIRE")
+            {
+                Gate *gate = circuit->gate_node_list[node];
+                int co = find_co(gate);
+                for (auto input : gate->inputs)
+                {
+                    int co_ = co_helper(gate, input);
+                    circuit->node_list[input]->CO = co + co_;
+                }
+            }
+        }
+    }
+    return;
+}
+
 void assign_scoap()
 {
     assign_controllability();
-    display_scoap_values();
+    // display_scoap_values();
 
-    // assign_observability();
+    assign_observability();
     // display_scoap_values();
 }
 
@@ -704,6 +933,7 @@ int main()
 
     // traverse_circuit();
     assign_scoap();
+    display_scoap_values();
 
     return 0;
 }
