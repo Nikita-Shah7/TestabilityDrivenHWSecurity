@@ -643,9 +643,10 @@ int co_helper(Gate *gate, string input)
         int co_second = co_output + cc0_first + 1;
         int co_A = co_first + cc0_S + 1 + 1;
         int co_B = co_second + cc1_S + 1;
-        int co_not_S = co_first + cc0_A + 1 + 1;
+        int co_not_S = co_first + cc1_A + 1;
         int co_S = co_second + cc1_B + 1;
-        co_S = min(co_S, co_not_S) + 1;
+        int co_before_not_S = co_not_S + 1;
+        co_S = min(co_S, co_before_not_S);
 
         if (gate->inputs[0] == input)
         {
@@ -802,12 +803,10 @@ void read_file()
     cin >> filename;
     // filename += "a2";
     filename = "./example_input_files/" + filename + ".txt";
+    // filename = "./input_text_files/" + filename + ".txt";
     ifstream file(filename);
 
     string line = "";
-    int ind = 1;
-    // unordered_map<Node*,bool>check_node;
-
     while (getline(file, line))
     {
         vector<string> tmp;
@@ -824,75 +823,35 @@ void read_file()
 
         // prepare gate structure and circuit graph
         Gate *gate = new Gate();
-        gate->name = "G" + to_string(ind++);
         gate->type = tmp[0];
+        gate->name = tmp[1];
 
         Node *gateNode = new Node(gate->name, "NON-WIRE");
         circuit->no_of_nodes++;
         circuit->node_list[gate->name] = gateNode;
         circuit->gate_node_list[gateNode] = gate;
 
-        if (tmp[0] != "FANOUT")
-        {
-            circuit->no_of_gates++;
-            gate->outputs.push_back(tmp[1]);
-            gateNode->outdeg++;
-
-            if (!circuit->node_list[tmp[1]])
-            {
-                Node *outputNode = new Node(tmp[1], "WIRE");
-                circuit->no_of_nodes++;
-                outputNode->indeg++;
-                gateNode->next.push_back(outputNode);
-                circuit->node_list[tmp[1]] = outputNode;
-            }
-            else
-            {
-                circuit->node_list[tmp[1]]->indeg++;
-                gateNode->next.push_back(circuit->node_list[tmp[1]]);
-            }
-
-            for (int i = 2; i < tmp.size(); i++)
-            {
-                gate->inputs.push_back(tmp[i]);
-                gateNode->indeg++;
-
-                if (!circuit->node_list[tmp[i]])
-                {
-                    Node *inputNode = new Node(tmp[i], "WIRE");
-                    circuit->no_of_nodes++;
-                    inputNode->outdeg++;
-                    inputNode->next.push_back(gateNode);
-                    circuit->node_list[tmp[i]] = inputNode;
-                }
-                else
-                {
-                    circuit->node_list[tmp[i]]->outdeg++;
-                    circuit->node_list[tmp[i]]->next.push_back(gateNode);
-                }
-            }
-        }
-        else
+        if (tmp[0] == "FANOUT")
         {
             circuit->no_of_fanouts++;
-            gate->inputs.push_back(tmp[1]);
+            gate->inputs.push_back(tmp[2]);
             gateNode->indeg++;
 
-            if (!circuit->node_list[tmp[1]])
+            if (!circuit->node_list[tmp[2]])
             {
-                Node *inputNode = new Node(tmp[1], "WIRE");
+                Node *inputNode = new Node(tmp[2], "WIRE");
                 circuit->no_of_nodes++;
                 inputNode->outdeg++;
                 inputNode->next.push_back(gateNode);
-                circuit->node_list[tmp[1]] = inputNode;
+                circuit->node_list[tmp[2]] = inputNode;
             }
             else
             {
-                circuit->node_list[tmp[1]]->outdeg++;
-                circuit->node_list[tmp[1]]->next.push_back(gateNode);
+                circuit->node_list[tmp[2]]->outdeg++;
+                circuit->node_list[tmp[2]]->next.push_back(gateNode);
             }
 
-            for (int i = 2; i < tmp.size(); i++)
+            for (int i = 3; i < tmp.size(); i++)
             {
                 gate->outputs.push_back(tmp[i]);
                 gateNode->outdeg++;
@@ -909,6 +868,46 @@ void read_file()
                 {
                     circuit->node_list[tmp[i]]->indeg++;
                     gateNode->next.push_back(circuit->node_list[tmp[i]]);
+                }
+            }
+        }
+        else
+        {
+            circuit->no_of_gates++;
+            gate->outputs.push_back(tmp[2]);
+            gateNode->outdeg++;
+
+            if (!circuit->node_list[tmp[2]])
+            {
+                Node *outputNode = new Node(tmp[2], "WIRE");
+                circuit->no_of_nodes++;
+                outputNode->indeg++;
+                gateNode->next.push_back(outputNode);
+                circuit->node_list[tmp[2]] = outputNode;
+            }
+            else
+            {
+                circuit->node_list[tmp[2]]->indeg++;
+                gateNode->next.push_back(circuit->node_list[tmp[2]]);
+            }
+
+            for (int i = 3; i < tmp.size(); i++)
+            {
+                gate->inputs.push_back(tmp[i]);
+                gateNode->indeg++;
+
+                if (!circuit->node_list[tmp[i]])
+                {
+                    Node *inputNode = new Node(tmp[i], "WIRE");
+                    circuit->no_of_nodes++;
+                    inputNode->outdeg++;
+                    inputNode->next.push_back(gateNode);
+                    circuit->node_list[tmp[i]] = inputNode;
+                }
+                else
+                {
+                    circuit->node_list[tmp[i]]->outdeg++;
+                    circuit->node_list[tmp[i]]->next.push_back(gateNode);
                 }
             }
         }
@@ -930,8 +929,8 @@ int main()
     // display_circuit_details();
     // display_gate_structure();
     // display_node_structure();
+    traverse_circuit();
 
-    // traverse_circuit();
     assign_scoap();
     display_scoap_values();
 
