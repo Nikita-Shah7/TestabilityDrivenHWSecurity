@@ -287,6 +287,9 @@ void gates_nodes_levelization()
 
 void traverse_circuit()
 {
+    divider();
+    cout << "CIRCUIT TRAVERSAL::\n";
+    divider();
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
         cout << "Level " << i << " :";
@@ -779,7 +782,7 @@ void assign_observability()
                 for (auto input : gate->inputs)
                 {
                     int co_ = co_helper(gate, input);
-                    circuit->node_list[input]->CO = co + co_;
+                    circuit->node_list[input]->CO = min(circuit->node_list[input]->CO,co + co_);
                 }
             }
         }
@@ -801,9 +804,9 @@ void read_file()
     string filename;
     cout << "Enter Input Text File: ";
     cin >> filename;
-    // filename += "a2";
-    filename = "./example_input_files/" + filename + ".txt";
-    // filename = "./input_text_files/" + filename + ".txt";
+    // filename += "c2670";
+    // filename = "./example_input_files/" + filename + ".txt";
+    filename = "../input_text_files/" + filename + ".txt";
     ifstream file(filename);
 
     string line = "";
@@ -926,10 +929,10 @@ int main()
     // display_node_structure();
 
     gates_nodes_levelization();
-    // display_circuit_details();
+    display_circuit_details();
     // display_gate_structure();
     // display_node_structure();
-    traverse_circuit();
+    // traverse_circuit();
 
     assign_scoap();
     display_scoap_values();
