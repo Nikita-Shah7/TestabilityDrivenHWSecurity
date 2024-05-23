@@ -13,6 +13,7 @@ public:
     Gate();
     friend void parse_verilog_file(string);
     friend void generate_text_file(string);
+    friend void oai321s1_module(string);
 };
 
 Gate::Gate(void)
@@ -22,6 +23,82 @@ Gate::Gate(void)
 }
 
 vector<Gate> gate_list;
+
+void oai321s1_module(string line)
+{
+    regex instance_name_regex("\\s+([^\\s]+)\\s*\\(");
+    smatch instance_name_match;
+    string name = "";
+    if (regex_search(line, instance_name_match, instance_name_regex))
+        name = instance_name_match[1].str();
+
+    if (name == "")
+        return;
+
+    regex output_regex("\\.Q\\(([^\\)]*)\\)");
+    smatch output_match;
+    string output = "";
+    if (regex_search(line, output_match, output_regex))
+        output = output_match[1].str();
+
+    if (output == "")
+        return;
+
+    vector<string> inputs;
+    regex input_regex("\\.DIN\\d+\\(([^\\)]*)\\)");
+    sregex_iterator iter(line.begin(), line.end(), input_regex);
+    sregex_iterator end;
+    while (iter != end)
+    {
+        smatch match = *iter;
+        if (match[1].matched)
+            inputs.push_back(match[1].str());
+        if (match[2].matched)
+            inputs.push_back(match[2].str());
+        ++iter;
+    }
+
+    if (inputs.size() != 6)
+        return;
+
+
+    Gate gate;
+
+    gate.type = "or";
+    gate.name = name + "_1";
+    gate.outputs.push_back(output + "_1");
+    for (int i = 0; i < 3; i++)
+        gate.inputs.push_back(inputs[i]);
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "or";
+    gate.name = name + "_2";
+    gate.outputs.push_back(output + "_2");
+    for (int i = 3; i < 6; i++)
+        gate.inputs.push_back(inputs[i]);
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "and";
+    gate.name = name + "_3";
+    gate.outputs.push_back(output + "_3");
+    gate.inputs.push_back(output + "_1");
+    gate.inputs.push_back(output + "_2");
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "not";
+    gate.name = name + "_4";
+    gate.outputs.push_back(output);
+    gate.inputs.push_back(output + "_3");
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+}
 
 void parse_verilog_file(string filename)
 {
@@ -42,6 +119,7 @@ void parse_verilog_file(string filename)
     regex buf2Regex("^nb");
     regex buf3Regex("^i");
     regex buf4Regex("^ib");
+    regex oai321s1Regex("^oai321s1");
 
     ifstream file(filename);
     string line = "";
@@ -82,6 +160,11 @@ void parse_verilog_file(string filename)
         else if (regex_search(line, match, buf1Regex) || regex_search(line, match, buf2Regex) || regex_search(line, match, buf3Regex) || regex_search(line, match, buf4Regex))
         {
             gate.type = "buf";
+        }
+        else if (regex_search(line, match, oai321s1Regex))
+        {
+            oai321s1_module(line);
+            continue;
         }
 
         if (gate.type == "")
@@ -245,10 +328,10 @@ void display(string filename)
 int main()
 {
     string input_folder = "../verilog_files/";
-    string output_folder = "../example_input_files/";
+    string output_folder = "../input_text_files/";
 
-    string file_name = "dump1";
-    // string file_name = "c2670";
+    // string file_name = "dump1";
+    string file_name = "c2670_T093";
     string input_file = input_folder + file_name + ".v";
     string output_file = output_folder + file_name + ".txt";
 
