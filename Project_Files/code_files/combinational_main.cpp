@@ -288,7 +288,7 @@ void gates_nodes_levelization()
 void traverse_circuit()
 {
     divider();
-    cout << "CIRCUIT TRAVERSAL::\n";
+    cout << "CIRCUIT TRAVERSAL::";
     divider();
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
@@ -782,7 +782,7 @@ void assign_observability()
                 for (auto input : gate->inputs)
                 {
                     int co_ = co_helper(gate, input);
-                    circuit->node_list[input]->CO = min(circuit->node_list[input]->CO,co + co_);
+                    circuit->node_list[input]->CO = min(circuit->node_list[input]->CO, co + co_);
                 }
             }
         }
@@ -805,6 +805,7 @@ void read_file()
     cout << "Enter Input Text File: ";
     cin >> filename;
     // filename += "c2670";
+    // filename += "c2670_T093";
     // filename = "./example_input_files/" + filename + ".txt";
     filename = "../input_text_files/" + filename + ".txt";
     ifstream file(filename);
@@ -821,7 +822,8 @@ void read_file()
                 s += line[i];
                 i++;
             }
-            tmp.push_back(s);
+            if (s.length())
+                tmp.push_back(s);
         }
 
         // prepare gate structure and circuit graph
@@ -934,8 +936,14 @@ int main()
     // display_node_structure();
     // traverse_circuit();
 
+    auto start = chrono::high_resolution_clock::now();
     assign_scoap();
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
     display_scoap_values();
+
+    cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
 
     return 0;
 }

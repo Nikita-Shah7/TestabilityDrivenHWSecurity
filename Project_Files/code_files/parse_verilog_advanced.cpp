@@ -14,6 +14,7 @@ public:
     friend void parse_verilog_file(string);
     friend void generate_text_file(string);
     friend void oai321s1_module(string);
+    friend void mux21_module(string);
 };
 
 Gate::Gate(void)
@@ -23,6 +24,90 @@ Gate::Gate(void)
 }
 
 vector<Gate> gate_list;
+
+void mux21_module(string line) {
+    regex instance_name_regex("\\s+([^\\s]+)\\s*\\(");
+    smatch instance_name_match;
+    string name = "";
+    if (regex_search(line, instance_name_match, instance_name_regex))
+        name = instance_name_match[1].str();
+
+    if (name == "")
+        return;
+
+    regex output_regex("\\.Q\\(([^\\)]*)\\)");
+    smatch output_match;
+    string output = "";
+    if (regex_search(line, output_match, output_regex))
+        output = output_match[1].str();
+
+    if (output == "")
+        return;
+
+    regex select_line_regex("\\.SIN\\(([^\\)]*)\\)");
+    smatch select_line_match;
+    string select_line = "";
+    if (regex_search(line, select_line_match, select_line_regex))
+        select_line = select_line_match[1].str();
+    
+    if(select_line=="") return;
+
+
+    vector<string> inputs;
+    regex input_regex("\\.DIN\\d+\\(([^\\)]*)\\)");
+    sregex_iterator iter(line.begin(), line.end(), input_regex);
+    sregex_iterator end;
+    while (iter != end)
+    {
+        smatch match = *iter;
+        if (match[1].matched)
+            inputs.push_back(match[1].str());
+        if (match[2].matched)
+            inputs.push_back(match[2].str());
+        ++iter;
+    }
+
+    if (inputs.size() != 2)
+        return;
+
+
+    Gate gate;
+
+    gate.type = "not";
+    gate.name = name + "_1";
+    gate.outputs.push_back(output + "_1");
+    gate.inputs.push_back(select_line);
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "and";
+    gate.name = name + "_2";
+    gate.outputs.push_back(output + "_2");
+    gate.inputs.push_back(inputs[0]);
+    gate.inputs.push_back(output + "_1");
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "and";
+    gate.name = name + "_3";
+    gate.outputs.push_back(output + "_3");
+    gate.inputs.push_back(inputs[1]);
+    gate.inputs.push_back(select_line);
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+
+    gate.type = "or";
+    gate.name = name + "_4";
+    gate.outputs.push_back(output);
+    gate.inputs.push_back(output + "_2");
+    gate.inputs.push_back(output + "_3");
+    gate_list.push_back(gate);
+    gate.inputs.clear();
+    gate.outputs.clear();
+}
 
 void oai321s1_module(string line)
 {
@@ -108,18 +193,18 @@ void parse_verilog_file(string filename)
     // regex orRegex("or2s1\\s+U\\d+\\s*\\(\\s*\\.Q\\([^\\)]*\\)(?:,\\s*\\.DIN\\d+\\([^\\)]*\\)){1,}\\s*\\);");
     // regex xorRegex("xor2s1\\s+U\\d+\\s*\\(\\s*\\.Q\\([^\\)]*\\)(?:,\\s*\\.DIN\\d+\\([^\\)]*\\)){1,}\\s*\\);");
     // regex xnorRegex("xnor2s1\\s+U\\d+\\s*\\(\\s*\\.Q\\([^\\)]*\\)(?:,\\s*\\.DIN\\d+\\([^\\)]*\\)){1,}\\s*\\);");
-    regex nandRegex("^nnd");
-    regex norRegex("^nor");
-    regex andRegex("^and");
-    regex orRegex("^or");
-    regex xorRegex("^xor");
-    regex xnorRegex("^xnr");
-    regex mux21Regex("^mxi21");
-    regex buf1Regex("^hi");
-    regex buf2Regex("^nb");
-    regex buf3Regex("^i");
-    regex buf4Regex("^ib");
-    regex oai321s1Regex("^oai321s1");
+    regex nandRegex("^\\s*nnd");
+    regex norRegex("^\\s*nor");
+    regex andRegex("^\\s*and");
+    regex orRegex("^\\s*or");
+    regex xorRegex("^\\s*xor");
+    regex xnorRegex("^\\s*xnr");
+    regex mux21Regex("^\\s*mxi21");
+    regex buf1Regex("^\\s*hi");
+    regex buf2Regex("^\\s*nb");
+    regex buf3Regex("^\\s*i");
+    regex buf4Regex("^\\s*ib");
+    regex oai321s1Regex("^\\s*oai321s1");
 
     ifstream file(filename);
     string line = "";
@@ -155,7 +240,8 @@ void parse_verilog_file(string filename)
         }
         else if (regex_search(line, match, mux21Regex))
         {
-            gate.type = "mux2_1";
+            mux21_module(line);
+            continue;
         }
         else if (regex_search(line, match, buf1Regex) || regex_search(line, match, buf2Regex) || regex_search(line, match, buf3Regex) || regex_search(line, match, buf4Regex))
         {
