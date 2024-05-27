@@ -319,18 +319,15 @@ void gates_nodes_levelization()
         }
     }
 
-    for (auto &gate : circuit->gate_list)
+    for (auto &dff : circuit->dff_list)
     {
-        if (gate->type == "DFF") // to push DFF o/p
-        {
-            Node *dff_output_node = circuit->node_list[gate->outputs[0]];
-            dff_output_node->indeg = 0;
+        Node *dff_output_node = circuit->node_list[dff->Q];
+        dff_output_node->indeg = 0;
 
-            Node *dff_node = circuit->node_list[gate->name];
-            dff_node->outdeg--;
+        Node *dff_node = circuit->node_list[dff->name];
+        dff_node->outdeg--;
 
-            q.push(dff_output_node);
-        }
+        q.push(dff_output_node);
     }
 
     int lvl = 0;
@@ -348,6 +345,11 @@ void gates_nodes_levelization()
             {
                 Gate *gate = circuit->gate_node_list[curr];
                 gate->level = lvl;
+                if (circuit->dff_node_list[curr])
+                {
+                    DFF *dff = circuit->dff_node_list[curr];
+                    dff->level = lvl;
+                }
             }
             q.pop();
             for (auto &next_node : curr->next)
@@ -692,7 +694,7 @@ void read_file()
     string filename;
     cout << "Enter Input Text File: ";
     // cin >> filename;
-    filename += "a10";
+    filename += "a9";
     filename = "./example_input_files/" + filename + ".txt";
     ifstream file(filename);
 
@@ -826,16 +828,17 @@ void read_file()
 int main()
 {
     read_file();
+    // display_circuit_details();
+    // display_gate_structure();
+    // display_dff_structure();
+    // display_node_structure();
+
+    gates_nodes_levelization();
     display_circuit_details();
     display_gate_structure();
     display_dff_structure();
-    display_node_structure();
-
-    // gates_nodes_levelization();
-    // display_circuit_details();
-    // display_gate_structure();
     // display_node_structure();
-    // traverse_circuit();
+    traverse_circuit();
 
     // assign_scoap();
     // display_scoap_values();
