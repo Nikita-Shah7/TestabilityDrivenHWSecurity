@@ -17,13 +17,12 @@ class Gate;
 
 class Circuit
 {
-    int no_of_pi, no_of_po, no_of_gates, no_of_nodes, no_of_fanouts;
+    int no_of_pi, no_of_po, no_of_gates, no_of_nodes;
     int no_of_levels;
     vector<Node *> primary_inputs;
     vector<Node *> primary_outputs;
     vector<Gate *> gate_list;
     unordered_map<string, Node *> node_list; // <nodeName,Node-pointer>
-    // unordered_map<string, Node*>gate_list;  // <gateName,Gate-pointer>
     unordered_map<Node *, Gate *> gate_node_list;
     map<int, vector<Node *>> levelized_circuit;
 
@@ -53,7 +52,6 @@ Circuit ::Circuit(void)
     no_of_pi = 0;
     no_of_po = 0;
     no_of_gates = 0;
-    no_of_fanouts = 0;
     no_of_nodes = 0;
 }
 
@@ -100,9 +98,6 @@ class Node
     string name;
     string type;
     int level;
-    // Node *next;
-    // vector just bcoz fanout gate will have may out-going Nodes
-    // while other nodes will have only one out-going Node
     vector<Node *> next;
     int indeg, outdeg;
     int CC0, CC1, CO;
@@ -136,7 +131,6 @@ Node ::Node()
     level = 0;
     indeg = 0;
     outdeg = 0;
-    // next = NULL;
     CC0 = INT_MAX - 2;
     CC1 = INT_MAX - 2;
     CO = INT_MAX - 2;
@@ -162,7 +156,6 @@ void display_circuit_details()
     cout << "No. of Primary Inputs: " << circuit->no_of_pi << endl;
     cout << "No. of Primary Outputs: " << circuit->no_of_po << endl;
     cout << "No. of Gates: " << circuit->no_of_gates << endl;
-    cout << "No. of Fanouts: " << circuit->no_of_fanouts << endl;
     cout << "No. of Nodes: " << circuit->no_of_nodes << endl;
     cout << "Primary Inputs:";
     for (auto pi : circuit->primary_inputs)
@@ -234,8 +227,6 @@ void display_node_structure()
 
 void gates_nodes_levelization()
 {
-    // unordered_map<string, Node*>node_list_copy = circuit->node_list;
-
     queue<Node *> q;
     for (auto &node_info : circuit->node_list)
     {
@@ -446,27 +437,6 @@ int find_cc0(Gate *gate)
         }
         cc0 += 1;
     }
-    else if (gate_type == "FANOUT")
-    {
-        for (auto input : gate->inputs)
-        {
-            int cc0_input = circuit->node_list[input]->CC0;
-            cc0 = cc0_input;
-        }
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        cc0 = 0;
-        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
-        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
-        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
-        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
-        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
-        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
-        int cc0_first = min(cc0_A, cc1_S + 1) + 1;
-        int cc0_second = min(cc0_B, cc0_S) + 1;
-        cc0 = cc0_first + cc0_second + 1;
-    }
     return cc0;
 }
 
@@ -499,8 +469,8 @@ int find_cc1(Gate *gate)
         cc1 = INT_MAX - 2;
         for (auto input : gate->inputs)
         {
-            int cc1_input = circuit->node_list[input]->CC1;
-            cc1 = min(cc1, cc1_input);
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc1 = min(cc1, cc0_input);
         }
         cc1 += 1;
     }
@@ -509,8 +479,8 @@ int find_cc1(Gate *gate)
         cc1 = 0;
         for (auto input : gate->inputs)
         {
-            int cc1_input = circuit->node_list[input]->CC1;
-            cc1 += cc1_input;
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc1 += cc0_input;
         }
         cc1 += 1;
     }
@@ -541,27 +511,6 @@ int find_cc1(Gate *gate)
             cc1 = cc1_input;
         }
         cc1 += 1;
-    }
-    else if (gate_type == "FANOUT")
-    {
-        for (auto input : gate->inputs)
-        {
-            int cc1_input = circuit->node_list[input]->CC1;
-            cc1 = cc1_input;
-        }
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        cc1 = 0;
-        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
-        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
-        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
-        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
-        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
-        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
-        int cc1_first = cc1_A + cc0_S + 1 + 1;
-        int cc1_second = cc1_B + cc1_S + 1;
-        cc1 = min(cc1_first, cc1_second) + 1;
     }
     return cc1;
 }
@@ -624,52 +573,12 @@ int co_helper(Gate *gate, string input)
     {
         ;
     }
-    else if (gate_type == "FANOUT")
-    {
-        ;
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
-        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
-        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
-        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
-        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
-        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
-        int cc0_first = min(cc0_A, cc1_S + 1) + 1;
-        int cc1_first = cc1_A + cc0_S + 1 + 1;
-        int cc0_second = min(cc0_B, cc0_S) + 1;
-        int cc1_second = cc1_B + cc1_S + 1;
-
-        int co_output = circuit->node_list[gate->outputs[0]]->CO;
-        int co_first = co_output + cc0_second + 1;
-        int co_second = co_output + cc0_first + 1;
-        int co_A = co_first + cc0_S + 1 + 1;
-        int co_B = co_second + cc1_S + 1;
-        int co_not_S = co_first + cc1_A + 1;
-        int co_S = co_second + cc1_B + 1;
-        int co_before_not_S = co_not_S + 1;
-        co_S = min(co_S, co_before_not_S);
-
-        if (gate->inputs[0] == input)
-        {
-            co_ = co_S;
-        }
-        else if (gate->inputs[1] == input)
-        {
-            co_ = co_A;
-        }
-        else if (gate->inputs[2] == input)
-        {
-            co_ = co_B;
-        }
-    }
     return co_;
 }
 
 int find_co(Gate *gate)
 {
-    int co = circuit->node_list[gate->outputs[0]]->CO; // co_output(not in case of fanout)
+    int co = circuit->node_list[gate->outputs[0]]->CO;
     string gate_type = gate->type;
     if (gate_type == "AND")
     {
@@ -716,19 +625,6 @@ int find_co(Gate *gate)
     else if (gate_type == "BUF")
     {
         co += 1;
-    }
-    else if (gate_type == "FANOUT")
-    {
-        co = INT_MAX - 2;
-        for (auto output : gate->outputs)
-        {
-            int co_output = circuit->node_list[output]->CO;
-            co = min(co, co_output);
-        }
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        co = 0;
     }
     return co;
 }
@@ -836,47 +732,7 @@ void read_file()
         circuit->node_list[gate->name] = gateNode;
         circuit->gate_node_list[gateNode] = gate;
 
-        if (tmp[0] == "FANOUT")
-        {
-            circuit->no_of_fanouts++;
-            gate->inputs.push_back(tmp[2]);
-            gateNode->indeg++;
-
-            if (!circuit->node_list[tmp[2]])
-            {
-                Node *inputNode = new Node(tmp[2], "WIRE");
-                circuit->no_of_nodes++;
-                inputNode->outdeg++;
-                inputNode->next.push_back(gateNode);
-                circuit->node_list[tmp[2]] = inputNode;
-            }
-            else
-            {
-                circuit->node_list[tmp[2]]->outdeg++;
-                circuit->node_list[tmp[2]]->next.push_back(gateNode);
-            }
-
-            for (int i = 3; i < tmp.size(); i++)
-            {
-                gate->outputs.push_back(tmp[i]);
-                gateNode->outdeg++;
-
-                if (!circuit->node_list[tmp[i]])
-                {
-                    Node *outputNode = new Node(tmp[i], "WIRE");
-                    circuit->no_of_nodes++;
-                    outputNode->indeg++;
-                    gateNode->next.push_back(outputNode);
-                    circuit->node_list[tmp[i]] = outputNode;
-                }
-                else
-                {
-                    circuit->node_list[tmp[i]]->indeg++;
-                    gateNode->next.push_back(circuit->node_list[tmp[i]]);
-                }
-            }
-        }
-        else
+        // if...else for tmp[0]
         {
             circuit->no_of_gates++;
             gate->outputs.push_back(tmp[2]);
