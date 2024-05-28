@@ -43,6 +43,7 @@ public:
     friend void assign_scoap();
     friend void assign_combinational_controllability();
     friend void assign_sequential_controllability();
+    friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
@@ -83,6 +84,7 @@ public:
     friend void assign_scoap();
     friend void assign_combinational_controllability();
     friend void assign_sequential_controllability();
+    friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
@@ -117,6 +119,7 @@ public:
     friend void assign_scoap();
     friend void assign_combinational_controllability();
     friend void assign_sequential_controllability();
+    friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
@@ -169,6 +172,7 @@ public:
     friend void assign_scoap();
     friend void assign_combinational_controllability();
     friend void assign_sequential_controllability();
+    friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
@@ -475,6 +479,11 @@ int find_cc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc0_input = circuit->node_list[input]->CC0;
+            if (cc0_input > INT_MAX - 4)
+            {
+                cc0 = INT_MAX - 2;
+                break;
+            }
             cc0 += cc0_input;
         }
         cc0 += 1;
@@ -485,6 +494,11 @@ int find_cc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
+            if (cc1_input > INT_MAX - 4)
+            {
+                cc0 = INT_MAX - 2;
+                break;
+            }
             cc0 += cc1_input;
         }
         cc0 += 1;
@@ -548,6 +562,16 @@ int find_cc0(Gate *gate)
         int cc0_second = min(cc0_B, cc0_S) + 1;
         cc0 = cc0_first + cc0_second + 1;
     }
+    else if (gate_type == "DFF")
+    {
+        int cc0_clk = circuit->node_list[gate->inputs[0]]->CC0;
+        int cc1_clk = circuit->node_list[gate->inputs[0]]->CC1;
+        int cc0_d = circuit->node_list[gate->inputs[1]]->CC0;
+        if (cc0_d > INT_MAX - 4)
+            cc0 = INT_MAX;
+        else
+            cc0 = cc0_clk + cc1_clk + cc0_d;
+    }
     return cc0;
 }
 
@@ -561,6 +585,11 @@ int find_cc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
+            if (cc1_input > INT_MAX - 4)
+            {
+                cc1 = INT_MAX - 2;
+                break;
+            }
             cc1 += cc1_input;
         }
         cc1 += 1;
@@ -591,6 +620,11 @@ int find_cc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
+            if (cc1_input > INT_MAX - 4)
+            {
+                cc1 = INT_MAX - 2;
+                break;
+            }
             cc1 += cc1_input;
         }
         cc1 += 1;
@@ -644,35 +678,83 @@ int find_cc1(Gate *gate)
         int cc1_second = cc1_B + cc1_S + 1;
         cc1 = min(cc1_first, cc1_second) + 1;
     }
+    else if (gate_type == "DFF")
+    {
+        int cc0_clk = circuit->node_list[gate->inputs[0]]->CC0;
+        int cc1_clk = circuit->node_list[gate->inputs[0]]->CC1;
+        int cc1_d = circuit->node_list[gate->inputs[1]]->CC1;
+        if (cc1_d > INT_MAX - 4)
+            cc1 = INT_MAX;
+        else
+            cc1 = cc0_clk + cc1_clk + cc1_d;
+    }
     return cc1;
 }
 
-void assign_combinational_controllability()
+void initialization()
 {
-    // level = 1
+    // level = 1 gates i/p
     for (auto pi : circuit->primary_inputs)
     {
         Node *node = circuit->node_list[pi->name];
         node->CC0 = 1;
         node->CC1 = 1;
+        node->SC0 = 0;
+        node->SC1 = 0;
     }
 
-    for (int i = 2; i <= circuit->no_of_levels; i++)
+    // level DFF o/p
+    for (auto &dff : circuit->dff_list)
     {
-        for (auto node : circuit->levelized_circuit[i])
+        Node *dff_node = circuit->node_list[dff->name];
+        dff_node->CC0 = INT_MAX - 2;
+        dff_node->CC1 = INT_MAX - 2;
+        dff_node->SC0 = INT_MAX - 2;
+        dff_node->SC1 = INT_MAX - 2;
+    }
+    return;
+}
+
+void assign_combinational_controllability()
+{
+    int iteration = 1;
+
+    while (iteration)
+    {
+        bool flag = 0;
+        for (int i = 2; i <= circuit->no_of_levels; i++)
         {
-            if (node->type == "NON-WIRE")
+            for (auto node : circuit->levelized_circuit[i])
             {
-                Gate *gate = circuit->gate_node_list[node];
-                int cc0 = find_cc0(gate);
-                int cc1 = find_cc1(gate);
-                for (auto output : gate->outputs)
+                if (node->type == "NON-WIRE")
                 {
-                    circuit->node_list[output]->CC0 = cc0;
-                    circuit->node_list[output]->CC1 = cc1;
+                    Gate *gate = circuit->gate_node_list[node];
+                    int cc0 = find_cc0(gate);
+                    int cc1 = find_cc1(gate);
+                    if (cc0 > INT_MAX - 4)
+                        cc0 = INT_MAX - 2;
+                    if (cc1 > INT_MAX - 4)
+                        cc1 = INT_MAX - 2;
+                    for (auto output : gate->outputs)
+                    {
+                        circuit->node_list[output]->CC0 = cc0;
+                        circuit->node_list[output]->CC1 = cc1;
+                    }
+                    if (cc0 > INT_MAX - 4)
+                        flag = 1;
+                    if (cc1 > INT_MAX - 4)
+                        flag = 1;
                 }
             }
         }
+        
+        cout << "\n\nITERATION " << iteration << "::";
+        display_scoap_values();
+
+        if (!flag)
+            iteration = 0;
+        else
+            iteration++;
     }
 }
 
@@ -682,10 +764,14 @@ void assign_sequential_controllability()
 
 void assign_scoap()
 {
+    cout << "\n\nINITIALIZATION ::";
+    initialization();
+    display_scoap_values();
+
     assign_combinational_controllability();
     // display_scoap_values();
 
-    assign_sequential_controllability();
+    // assign_sequential_controllability();
     // display_scoap_values();
 }
 
@@ -834,13 +920,13 @@ int main()
     // display_node_structure();
 
     gates_nodes_levelization();
-    display_circuit_details();
-    display_gate_structure();
-    display_dff_structure();
+    // display_circuit_details();
+    // display_gate_structure();
+    // display_dff_structure();
     // display_node_structure();
     traverse_circuit();
 
-    // assign_scoap();
+    assign_scoap();
     // display_scoap_values();
 
     return 0;
