@@ -205,6 +205,7 @@ void parse_verilog_file(string filename)
     regex buf3Regex("^\\s*i");
     regex buf4Regex("^\\s*ib");
     regex oai321s1Regex("^\\s*oai321s1");
+    regex dffRegex("^\\s*dff");
 
     ifstream file(filename);
     string line = "";
@@ -252,12 +253,68 @@ void parse_verilog_file(string filename)
             oai321s1_module(line);
             continue;
         }
+        else if (regex_search(line, match, dffRegex))
+        {
+            gate.type = "dff";
+        }
 
         if (gate.type == "")
             continue;
         else if (gate.type == "dff")
         {
-            ;
+            // DFF <name> Q QN CLK DIN EB
+            regex instance_name_regex("\\s+([^\\s]+)\\s*\\(");
+            smatch instance_name_match;
+            // string name = "";
+            if (regex_search(line, instance_name_match, instance_name_regex))
+                gate.name = instance_name_match[1].str();
+
+            if (gate.name == "")
+                continue;
+
+            regex output_regex_Q("\\.Q\\(([^\\)]*)\\)");
+            smatch output_match_Q;
+            string output_Q = "";
+            if (regex_search(line, output_match_Q, output_regex_Q))
+                output_Q = output_match_Q[1].str();
+
+            if (output_Q.size()==0)
+                output_Q = "**";
+            gate.outputs.push_back(output_Q);
+
+            regex output_regex_QN("\\.QN\\(([^\\)]*)\\)");
+            smatch output_match_QN;
+            string output_QN = "";
+            if (regex_search(line, output_match_QN, output_regex_QN))
+                output_QN = output_match_QN[1].str();
+
+            if (output_QN.size()==0)
+                output_QN = "**";
+            gate.outputs.push_back(output_QN);
+
+            regex input_regex_CLK("\\.CLK\\(([^\\)]*)\\)");
+            smatch input_match_CLK;
+            if (regex_search(line, input_match_CLK, input_regex_CLK))
+                gate.inputs.push_back(input_match_CLK[1].str());
+
+            if (gate.inputs.size() == 0)
+                continue;
+
+            regex input_regex("\\.DIN\\(([^\\)]*)\\)");
+            smatch input_match;
+            if (regex_search(line, input_match, input_regex))
+                gate.inputs.push_back(input_match[1].str());
+
+            if (gate.inputs.size() == 1)
+                continue;
+
+            regex input_regex_EB("\\.EB\\(([^\\)]*)\\)");
+            smatch input_match_EB;
+            if (regex_search(line, input_match_EB, input_regex_EB))
+                gate.inputs.push_back(input_match_EB[1].str());
+
+            // if (gate.inputs.size() == 2)
+            //     gate.inputs.push_back("**");
         }
         else if (gate.type == "buf")
         {
@@ -283,47 +340,6 @@ void parse_verilog_file(string filename)
             smatch input_match;
             if (regex_search(line, input_match, input_regex))
                 gate.inputs.push_back(input_match[1].str());
-
-            if (gate.inputs.size() == 0)
-                continue;
-        }
-        else if (gate.type == "mux2_1")
-        {
-            regex instance_name_regex("\\s+([^\\s]+)\\s*\\(");
-            smatch instance_name_match;
-            // string name = "";
-            if (regex_search(line, instance_name_match, instance_name_regex))
-                gate.name = instance_name_match[1].str();
-
-            if (gate.name == "")
-                continue;
-
-            regex output_regex("\\.Q\\(([^\\)]*)\\)");
-            smatch output_match;
-            // string output = "";
-            if (regex_search(line, output_match, output_regex))
-                gate.outputs.push_back(output_match[1].str());
-
-            if (gate.outputs.size() == 0)
-                continue;
-
-            regex select_line_regex("\\.SIN\\(([^\\)]*)\\)");
-            smatch select_line_match;
-            if (regex_search(line, select_line_match, select_line_regex))
-                gate.inputs.push_back(select_line_match[1].str());
-
-            regex input_regex("\\.DIN\\d+\\(([^\\)]*)\\)");
-            sregex_iterator iter(line.begin(), line.end(), input_regex);
-            sregex_iterator end;
-            while (iter != end)
-            {
-                smatch match = *iter;
-                if (match[1].matched)
-                    gate.inputs.push_back(match[1].str());
-                if (match[2].matched)
-                    gate.inputs.push_back(match[2].str());
-                ++iter;
-            }
 
             if (gate.inputs.size() == 0)
                 continue;
@@ -371,10 +387,6 @@ void parse_verilog_file(string filename)
         // {
         //     continue;
         // }
-        // else if (regex_search(line, match, dffRegex))
-        // {
-        //     gate.type = "dff";
-        // }
     }
 }
 
@@ -389,7 +401,10 @@ void generate_text_file(string filename)
         output_file << type << " ";
         string name = gate.name;
         output_file << name << " ";
-        output_file << gate.outputs[0] << " ";
+        for (auto output : gate.outputs)
+        {
+            output_file << output << " ";
+        }
         for (auto input : gate.inputs)
         {
             output_file << input << " ";
@@ -416,8 +431,9 @@ int main()
     string input_folder = "../verilog_files/";
     string output_folder = "../input_text_files/";
 
-    // string file_name = "dump1";
-    string file_name = "c2670_T093";
+    string file_name = "dump1";
+    // string file_name = "c2670_T093";
+    // string file_name = "c2670_T093";
     string input_file = input_folder + file_name + ".v";
     string output_file = output_folder + file_name + ".txt";
 
