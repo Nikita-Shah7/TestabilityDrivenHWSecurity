@@ -18,7 +18,7 @@ class DFF;
 
 class Circuit
 {
-    int no_of_pi, no_of_po, no_of_gates, no_of_nodes, no_of_fanouts;
+    int no_of_pi, no_of_po, no_of_gates, no_of_nodes;
     int no_of_dffs;
     int no_of_levels;
     vector<Node *> primary_inputs;
@@ -56,7 +56,6 @@ Circuit ::Circuit(void)
     no_of_pi = 0;
     no_of_po = 0;
     no_of_gates = 0;
-    no_of_fanouts = 0;
     no_of_nodes = 0;
     no_of_dffs = 0;
 }
@@ -103,11 +102,11 @@ class DFF
 {
     string name;
     int level;
-    string clk, D, Q;
+    string CLK, D, Q, QN, EB;
 
 public:
     DFF();
-    DFF(string, string, string, string);
+    DFF(string, string, string, string, string, string);
 
     friend void read_file();
     friend void display_circuit_details();
@@ -131,18 +130,22 @@ DFF ::DFF(void)
 {
     name = "";
     level = 0;
-    clk = "";
+    CLK = "";
     D = "";
     Q = "";
+    QN = "";
+    EB = "";
 }
 
-DFF ::DFF(string nme, string c, string d, string q)
+DFF ::DFF(string nme, string q, string qin, string c, string d, string eb)
 {
     name = nme;
     level = 0;
-    clk = c;
-    D = d;
     Q = q;
+    QN = qin;
+    CLK = c;
+    D = d;
+    EB = eb;
 }
 
 class Node
@@ -150,9 +153,6 @@ class Node
     string name;
     string type;
     int level;
-    // Node *next;
-    // vector just bcoz fanout gate will have may out-going Nodes
-    // while other nodes will have only one out-going Node
     vector<Node *> next;
     int indeg, outdeg;
     int CC0, CC1;
@@ -187,7 +187,6 @@ Node ::Node()
     level = 0;
     indeg = 0;
     outdeg = 0;
-    // next = NULL;
     CC0 = INT_MAX - 2;
     CC1 = INT_MAX - 2;
     SC0 = INT_MAX - 2;
@@ -216,7 +215,6 @@ void display_circuit_details()
     cout << "No. of Primary Outputs: " << circuit->no_of_po << endl;
     cout << "No. of Gates: " << circuit->no_of_gates << endl;
     cout << "No. of DFFs: " << circuit->no_of_dffs << endl;
-    cout << "No. of Fanouts: " << circuit->no_of_fanouts << endl;
     cout << "No. of Nodes: " << circuit->no_of_nodes << endl;
     cout << "Primary Inputs:";
     for (auto pi : circuit->primary_inputs)
@@ -270,9 +268,11 @@ void display_dff_structure()
     {
         cout << "Name: " << dff->name << endl;
         cout << "Level: " << dff->level << endl;
-        cout << "Clock: " << dff->clk << endl;
+        cout << "Clock: " << dff->CLK << endl;
+        cout << "EB: " << dff->EB << endl;
         cout << "D: " << dff->D << endl;
         cout << "Q: " << dff->Q << endl;
+        cout << "QN: " << dff->QN << endl;
         cout << endl;
     }
     return;
@@ -325,13 +325,21 @@ void gates_nodes_levelization()
 
     for (auto &dff : circuit->dff_list)
     {
-        Node *dff_output_node = circuit->node_list[dff->Q];
-        dff_output_node->indeg = 0;
-
         Node *dff_node = circuit->node_list[dff->name];
-        dff_node->outdeg--;
-
-        q.push(dff_output_node);
+        if (dff->Q != "**")
+        {
+            Node *dff_output_node_Q = circuit->node_list[dff->Q];
+            dff_output_node_Q->indeg = 0;
+            dff_node->outdeg--;
+            q.push(dff_output_node_Q);
+        }
+        if (dff->QN != "**")
+        {
+            Node *dff_output_node_QN = circuit->node_list[dff->QN];
+            dff_output_node_QN->indeg = 0;
+            dff_node->outdeg--;
+            q.push(dff_output_node_QN);
+        }
     }
 
     int lvl = 0;
@@ -541,27 +549,6 @@ int find_cc0(Gate *gate)
         }
         cc0 += 1;
     }
-    else if (gate_type == "FANOUT")
-    {
-        for (auto input : gate->inputs)
-        {
-            int cc0_input = circuit->node_list[input]->CC0;
-            cc0 = cc0_input;
-        }
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        cc0 = 0;
-        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
-        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
-        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
-        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
-        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
-        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
-        int cc0_first = min(cc0_A, cc1_S + 1) + 1;
-        int cc0_second = min(cc0_B, cc0_S) + 1;
-        cc0 = cc0_first + cc0_second + 1;
-    }
     else if (gate_type == "DFF")
     {
         int cc0_clk = circuit->node_list[gate->inputs[0]]->CC0;
@@ -609,8 +596,8 @@ int find_cc1(Gate *gate)
         cc1 = INT_MAX - 2;
         for (auto input : gate->inputs)
         {
-            int cc1_input = circuit->node_list[input]->CC1;
-            cc1 = min(cc1, cc1_input);
+            int cc0_input = circuit->node_list[input]->CC0;
+            cc1 = min(cc1, cc0_input);
         }
         cc1 += 1;
     }
@@ -619,13 +606,13 @@ int find_cc1(Gate *gate)
         cc1 = 0;
         for (auto input : gate->inputs)
         {
-            int cc1_input = circuit->node_list[input]->CC1;
-            if (cc1_input > INT_MAX - 4)
+            int cc0_input = circuit->node_list[input]->CC0;
+            if (cc0_input > INT_MAX - 4)
             {
                 cc1 = INT_MAX - 2;
                 break;
             }
-            cc1 += cc1_input;
+            cc1 += cc0_input;
         }
         cc1 += 1;
     }
@@ -656,27 +643,6 @@ int find_cc1(Gate *gate)
             cc1 = cc1_input;
         }
         cc1 += 1;
-    }
-    else if (gate_type == "FANOUT")
-    {
-        for (auto input : gate->inputs)
-        {
-            int cc1_input = circuit->node_list[input]->CC1;
-            cc1 = cc1_input;
-        }
-    }
-    else if (gate_type == "MUX2_1")
-    {
-        cc1 = 0;
-        int cc0_S = circuit->node_list[gate->inputs[0]]->CC0; // select-line
-        int cc1_S = circuit->node_list[gate->inputs[0]]->CC1; // select-line
-        int cc0_A = circuit->node_list[gate->inputs[1]]->CC0; // input A
-        int cc1_A = circuit->node_list[gate->inputs[1]]->CC1; // input A
-        int cc0_B = circuit->node_list[gate->inputs[2]]->CC0; // input B
-        int cc1_B = circuit->node_list[gate->inputs[2]]->CC1; // input B
-        int cc1_first = cc1_A + cc0_S + 1 + 1;
-        int cc1_second = cc1_B + cc1_S + 1;
-        cc1 = min(cc1_first, cc1_second) + 1;
     }
     else if (gate_type == "DFF")
     {
@@ -737,6 +703,8 @@ void assign_combinational_controllability()
                         cc1 = INT_MAX - 2;
                     for (auto output : gate->outputs)
                     {
+                        if (output == "**")
+                            continue;
                         circuit->node_list[output]->CC0 = cc0;
                         circuit->node_list[output]->CC1 = cc1;
                     }
@@ -747,7 +715,6 @@ void assign_combinational_controllability()
                 }
             }
         }
-        
         cout << "\n\nITERATION " << iteration << "::";
         display_scoap_values();
 
@@ -780,13 +747,12 @@ void read_file()
     string filename;
     cout << "Enter Input Text File: ";
     // cin >> filename;
-    filename += "a9";
-    filename = "./example_input_files/" + filename + ".txt";
+    filename += "a10";
+    filename = "../example_input_files/" + filename + ".txt";
+    // filename = "../input_text_files/" + filename + ".txt";
     ifstream file(filename);
 
     string line = "";
-    int ind = 1;
-
     while (getline(file, line))
     {
         vector<string> tmp;
@@ -798,44 +764,35 @@ void read_file()
                 s += line[i];
                 i++;
             }
-            tmp.push_back(s);
+            if (s.length())
+                tmp.push_back(s);
         }
 
         // prepare gate structure and circuit graph
         Gate *gate = new Gate();
-        gate->name = "G" + to_string(ind++);
         gate->type = tmp[0];
+        gate->name = tmp[1];
 
         Node *gateNode = new Node(gate->name, "NON-WIRE");
         circuit->no_of_nodes++;
         circuit->node_list[gate->name] = gateNode;
         circuit->gate_node_list[gateNode] = gate;
 
-        if (tmp[0] == "FANOUT")
+        // if...else for tmp[0]
+        if (tmp[0] == "DFF")
         {
-            circuit->no_of_fanouts++;
-            gate->inputs.push_back(tmp[1]);
-            gateNode->indeg++;
+            // Q QN CLK D EB
+            DFF *dff = new DFF(gate->name, tmp[2], tmp[3], tmp[4], tmp[5], tmp[6]);
+            circuit->dff_list.push_back(dff);
+            circuit->dff_node_list[gateNode] = dff;
+            circuit->no_of_dffs++;
 
-            if (!circuit->node_list[tmp[1]])
-            {
-                Node *inputNode = new Node(tmp[1], "WIRE");
-                circuit->no_of_nodes++;
-                inputNode->outdeg++;
-                inputNode->next.push_back(gateNode);
-                circuit->node_list[tmp[1]] = inputNode;
-            }
-            else
-            {
-                circuit->node_list[tmp[1]]->outdeg++;
-                circuit->node_list[tmp[1]]->next.push_back(gateNode);
-            }
-
-            for (int i = 2; i < tmp.size(); i++)
+            for (int i = 2; i <= 3; i++)
             {
                 gate->outputs.push_back(tmp[i]);
+                if (tmp[i] == "**")
+                    continue;
                 gateNode->outdeg++;
-
                 if (!circuit->node_list[tmp[i]])
                 {
                     Node *outputNode = new Node(tmp[i], "WIRE");
@@ -846,43 +803,55 @@ void read_file()
                 }
                 else
                 {
-                    circuit->node_list[tmp[i]]->indeg++;
+                    circuit->node_list[tmp[2]]->indeg++;
                     gateNode->next.push_back(circuit->node_list[tmp[i]]);
+                }
+            }
+
+            for (int i = 4; i <= 6; i++)
+            {
+                gate->inputs.push_back(tmp[i]);
+                if (tmp[i] == "**")
+                    continue;
+                gateNode->indeg++;
+
+                if (!circuit->node_list[tmp[i]])
+                {
+                    Node *inputNode = new Node(tmp[i], "WIRE");
+                    circuit->no_of_nodes++;
+                    inputNode->outdeg++;
+                    inputNode->next.push_back(gateNode);
+                    circuit->node_list[tmp[i]] = inputNode;
+                }
+                else
+                {
+                    circuit->node_list[tmp[i]]->outdeg++;
+                    circuit->node_list[tmp[i]]->next.push_back(gateNode);
                 }
             }
         }
         else
         {
-            gate->outputs.push_back(tmp[1]);
+            circuit->no_of_gates++;
+
+            gate->outputs.push_back(tmp[2]);
             gateNode->outdeg++;
 
-            if (tmp[0] == "DFF")
+            if (!circuit->node_list[tmp[2]])
             {
-                DFF *dff = new DFF(gate->name, tmp[2], tmp[3], tmp[1]);
-                circuit->dff_list.push_back(dff);
-                circuit->dff_node_list[gateNode] = dff;
-                circuit->no_of_dffs++;
-            }
-            else
-            {
-                circuit->no_of_gates++;
-            }
-
-            if (!circuit->node_list[tmp[1]])
-            {
-                Node *outputNode = new Node(tmp[1], "WIRE");
+                Node *outputNode = new Node(tmp[2], "WIRE");
                 circuit->no_of_nodes++;
                 outputNode->indeg++;
                 gateNode->next.push_back(outputNode);
-                circuit->node_list[tmp[1]] = outputNode;
+                circuit->node_list[tmp[2]] = outputNode;
             }
             else
             {
-                circuit->node_list[tmp[1]]->indeg++;
-                gateNode->next.push_back(circuit->node_list[tmp[1]]);
+                circuit->node_list[tmp[2]]->indeg++;
+                gateNode->next.push_back(circuit->node_list[tmp[2]]);
             }
 
-            for (int i = 2; i < tmp.size(); i++)
+            for (int i = 3; i < tmp.size(); i++)
             {
                 gate->inputs.push_back(tmp[i]);
                 gateNode->indeg++;
@@ -920,11 +889,11 @@ int main()
     // display_node_structure();
 
     gates_nodes_levelization();
-    // display_circuit_details();
+    display_circuit_details();
     // display_gate_structure();
     // display_dff_structure();
     // display_node_structure();
-    traverse_circuit();
+    // traverse_circuit();
 
     assign_scoap();
     // display_scoap_values();
