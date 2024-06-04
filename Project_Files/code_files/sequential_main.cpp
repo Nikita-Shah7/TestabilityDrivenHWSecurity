@@ -18,7 +18,7 @@ class DFF;
 
 class Circuit
 {
-    int no_of_pi, no_of_po, no_of_gates, no_of_nodes;
+    int no_of_pi, no_of_po, no_of_gates, no_of_nodes, no_of_fanouts;
     int no_of_dffs;
     int no_of_levels;
     vector<Node *> primary_inputs;
@@ -48,6 +48,10 @@ public:
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int xor_sc0_helper(Gate *);
+    friend int xor_sc1_helper(Gate *);
+    friend int find_sc0(Gate *);
+    friend int find_sc1(Gate *);
     friend void display_scoap_values();
 };
 
@@ -56,6 +60,7 @@ Circuit ::Circuit(void)
     no_of_pi = 0;
     no_of_po = 0;
     no_of_gates = 0;
+    no_of_fanouts = 0;
     no_of_nodes = 0;
     no_of_dffs = 0;
 }
@@ -88,6 +93,10 @@ public:
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int xor_sc0_helper(Gate *);
+    friend int xor_sc1_helper(Gate *);
+    friend int find_sc0(Gate *);
+    friend int find_sc1(Gate *);
     friend void display_scoap_values();
 };
 
@@ -123,6 +132,10 @@ public:
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int xor_sc0_helper(Gate *);
+    friend int xor_sc1_helper(Gate *);
+    friend int find_sc0(Gate *);
+    friend int find_sc1(Gate *);
     friend void display_scoap_values();
 };
 
@@ -153,6 +166,9 @@ class Node
     string name;
     string type;
     int level;
+    // Node *next;
+    // vector just bcoz fanout gate will have may out-going Nodes
+    // while other nodes will have only one out-going Node
     vector<Node *> next;
     int indeg, outdeg;
     int CC0, CC1;
@@ -177,6 +193,10 @@ public:
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int xor_sc0_helper(Gate *);
+    friend int xor_sc1_helper(Gate *);
+    friend int find_sc0(Gate *);
+    friend int find_sc1(Gate *);
     friend void display_scoap_values();
 };
 
@@ -187,6 +207,7 @@ Node ::Node()
     level = 0;
     indeg = 0;
     outdeg = 0;
+    // next = NULL;
     CC0 = INT_MAX - 2;
     CC1 = INT_MAX - 2;
     SC0 = INT_MAX - 2;
@@ -215,6 +236,7 @@ void display_circuit_details()
     cout << "No. of Primary Outputs: " << circuit->no_of_po << endl;
     cout << "No. of Gates: " << circuit->no_of_gates << endl;
     cout << "No. of DFFs: " << circuit->no_of_dffs << endl;
+    cout << "No. of Fanouts: " << circuit->no_of_fanouts << endl;
     cout << "No. of Nodes: " << circuit->no_of_nodes << endl;
     cout << "Primary Inputs:";
     for (auto pi : circuit->primary_inputs)
@@ -467,6 +489,62 @@ int xor_cc1_helper(Gate *gate)
     return cc1_input;
 }
 
+int xor_sc0_helper(Gate *gate)
+{
+    vector<int> sc0, sc1;
+    for (auto input : gate->inputs)
+    {
+        sc0.push_back(circuit->node_list[input]->SC0);
+        sc1.push_back(circuit->node_list[input]->SC1);
+    }
+    sort(sc0.begin(), sc0.end());
+    sort(sc1.begin(), sc1.end());
+    int n = gate->inputs.size();
+    for (int i = 1; i < n; i++)
+        sc0[i] += sc0[i - 1];
+    for (int i = 1; i < n; i++)
+        sc1[i] += sc1[i - 1];
+    int p1 = -1, p0 = n - 1;
+    int sc0_input = sc0[p0]; // taking all zeros
+    p1 += 2;
+    p0 -= 2;
+    while (p1 < n && p0 >= 0)
+    {
+        sc0_input = min(sc0_input, sc1[p1] + sc0[p0]);
+        p1 += 2;
+        p0 -= 2;
+    }
+    return sc0_input;
+}
+
+int xor_sc1_helper(Gate *gate)
+{
+    vector<int> sc0, sc1;
+    for (auto input : gate->inputs)
+    {
+        sc0.push_back(circuit->node_list[input]->SC0);
+        sc1.push_back(circuit->node_list[input]->SC1);
+    }
+    sort(sc0.begin(), sc0.end());
+    sort(sc1.begin(), sc1.end());
+    int n = gate->inputs.size();
+    for (int i = 1; i < n; i++)
+        sc0[i] += sc0[i - 1];
+    for (int i = 1; i < n; i++)
+        sc1[i] += sc1[i - 1];
+    int p1 = 0, p0 = n - 2;
+    int sc1_input = sc1[p1] + sc0[p0]; // taking one 1 and rest 0s
+    p1 += 2;
+    p0 -= 2;
+    while (p1 < n && p0 >= 0)
+    {
+        sc1_input = min(sc1_input, sc1[p1] + sc0[p0]);
+        p1 += 2;
+        p0 -= 2;
+    }
+    return sc1_input;
+}
+
 int find_cc0(Gate *gate)
 {
     int cc0 = -1;
@@ -657,6 +735,180 @@ int find_cc1(Gate *gate)
     return cc1;
 }
 
+int find_sc0(Gate *gate)
+{
+    int sc0 = -1;
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        sc0 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int sc0_input = circuit->node_list[input]->SC0;
+            sc0 = min(sc0, sc0_input);
+        }
+    }
+    else if (gate_type == "OR")
+    {
+        sc0 = 0;
+        for (auto input : gate->inputs)
+        {
+            int sc0_input = circuit->node_list[input]->SC0;
+            if (sc0_input > INT_MAX - 4)
+            {
+                sc0 = INT_MAX - 2;
+                break;
+            }
+            sc0 += sc0_input;
+        }
+    }
+    else if (gate_type == "NAND")
+    {
+        sc0 = 0;
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            if (sc1_input > INT_MAX - 4)
+            {
+                sc0 = INT_MAX - 2;
+                break;
+            }
+            sc0 += sc1_input;
+        }
+    }
+    else if (gate_type == "NOR")
+    {
+        sc0 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            sc0 = min(sc0, sc1_input);
+        }
+    }
+    else if (gate_type == "XOR")
+    {
+        sc0 = xor_sc0_helper(gate);
+    }
+    else if (gate_type == "XNOR")
+    {
+        sc0 = xor_sc1_helper(gate);
+    }
+    else if (gate_type == "NOT")
+    {
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            sc0 = sc1_input;
+        }
+    }
+    else if (gate_type == "BUF")
+    {
+        for (auto input : gate->inputs)
+        {
+            int sc0_input = circuit->node_list[input]->SC0;
+            sc0 = sc0_input;
+        }
+    }
+    else if (gate_type == "DFF")
+    {
+        int sc0_clk = circuit->node_list[gate->inputs[0]]->SC0;
+        int sc1_clk = circuit->node_list[gate->inputs[0]]->SC1;
+        int sc0_d = circuit->node_list[gate->inputs[1]]->SC0;
+        if (sc0_d > INT_MAX - 4)
+            sc0 = INT_MAX;
+        else
+            sc0 = sc0_clk + sc1_clk + sc0_d + 1;
+    }
+    return sc0;
+}
+
+int find_sc1(Gate *gate)
+{
+    int sc1 = -1;
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        sc1 = 0;
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            if (sc1_input > INT_MAX - 4)
+            {
+                sc1 = INT_MAX - 2;
+                break;
+            }
+            sc1 += sc1_input;
+        }
+    }
+    else if (gate_type == "OR")
+    {
+        sc1 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            sc1 = min(sc1, sc1_input);
+        }
+    }
+    else if (gate_type == "NAND")
+    {
+        sc1 = INT_MAX - 2;
+        for (auto input : gate->inputs)
+        {
+            int sc0_input = circuit->node_list[input]->SC0;
+            sc1 = min(sc1, sc0_input);
+        }
+    }
+    else if (gate_type == "NOR")
+    {
+        sc1 = 0;
+        for (auto input : gate->inputs)
+        {
+            int sc0_input = circuit->node_list[input]->SC0;
+            if (sc0_input > INT_MAX - 4)
+            {
+                sc1 = INT_MAX - 2;
+                break;
+            }
+            sc1 += sc0_input;
+        }
+    }
+    else if (gate_type == "XOR")
+    {
+        sc1 = xor_sc1_helper(gate);
+    }
+    else if (gate_type == "XNOR")
+    {
+        sc1 = xor_sc0_helper(gate);
+    }
+    else if (gate_type == "NOT")
+    {
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC0;
+            sc1 = sc1_input;
+        }
+    }
+    else if (gate_type == "BUF")
+    {
+        for (auto input : gate->inputs)
+        {
+            int sc1_input = circuit->node_list[input]->SC1;
+            sc1 = sc1_input;
+        }
+    }
+    else if (gate_type == "DFF")
+    {
+        int sc0_clk = circuit->node_list[gate->inputs[0]]->SC0;
+        int sc1_clk = circuit->node_list[gate->inputs[0]]->SC1;
+        int sc1_d = circuit->node_list[gate->inputs[1]]->SC1;
+        if (sc1_d > INT_MAX - 4)
+            sc1 = INT_MAX;
+        else
+            sc1 = sc0_clk + sc1_clk + sc1_d + 1;
+    }
+    return sc1;
+}
+
 void initialization()
 {
     // level = 1 gates i/p
@@ -715,8 +967,8 @@ void assign_combinational_controllability()
                 }
             }
         }
-        cout << "\n\nITERATION " << iteration << "::";
-        display_scoap_values();
+        // cout << "\n\nITERATION " << iteration << "::";
+        // display_scoap_values();
 
         if (!flag)
             iteration = 0;
@@ -727,18 +979,58 @@ void assign_combinational_controllability()
 
 void assign_sequential_controllability()
 {
+    int iteration = 1;
+
+    while (iteration)
+    {
+        bool flag = 0;
+        for (int i = 2; i <= circuit->no_of_levels; i++)
+        {
+            for (auto node : circuit->levelized_circuit[i])
+            {
+                if (node->type == "NON-WIRE")
+                {
+                    Gate *gate = circuit->gate_node_list[node];
+                    int sc0 = find_sc0(gate);
+                    int sc1 = find_sc1(gate);
+                    if (sc0 > INT_MAX - 4)
+                        sc0 = INT_MAX - 2;
+                    if (sc1 > INT_MAX - 4)
+                        sc1 = INT_MAX - 2;
+                    for (auto output : gate->outputs)
+                    {
+                        if (output == "**")
+                            continue;
+                        circuit->node_list[output]->SC0 = sc0;
+                        circuit->node_list[output]->SC1 = sc1;
+                    }
+                    if (sc0 > INT_MAX - 4)
+                        flag = 1;
+                    if (sc1 > INT_MAX - 4)
+                        flag = 1;
+                }
+            }
+        }
+        // cout << "\n\nITERATION " << iteration << "::";
+        // display_scoap_values();
+
+        if (!flag)
+            iteration = 0;
+        else
+            iteration++;
+    }
 }
 
 void assign_scoap()
 {
-    cout << "\n\nINITIALIZATION ::";
+    // cout << "\n\nINITIALIZATION ::";
     initialization();
-    display_scoap_values();
+    // display_scoap_values();
 
     assign_combinational_controllability();
     // display_scoap_values();
 
-    // assign_sequential_controllability();
+    assign_sequential_controllability();
     // display_scoap_values();
 }
 
@@ -747,9 +1039,10 @@ void read_file()
     string filename;
     cout << "Enter Input Text File: ";
     // cin >> filename;
-    filename += "a10";
-    filename = "../example_input_files/" + filename + ".txt";
-    // filename = "../input_text_files/" + filename + ".txt";
+    // filename += "s298";
+    filename += "s1423scan";
+    // filename = "../example_input_files/" + filename + ".txt";
+    filename = "../input_text_files/" + filename + ".txt";
     ifstream file(filename);
 
     string line = "";
@@ -889,14 +1182,14 @@ int main()
     // display_node_structure();
 
     gates_nodes_levelization();
-    display_circuit_details();
+    // display_circuit_details();
     // display_gate_structure();
     // display_dff_structure();
     // display_node_structure();
     // traverse_circuit();
 
     assign_scoap();
-    // display_scoap_values();
+    display_scoap_values();
 
     return 0;
 }
