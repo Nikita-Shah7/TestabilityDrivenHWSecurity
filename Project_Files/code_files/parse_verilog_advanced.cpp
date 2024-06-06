@@ -14,6 +14,7 @@ public:
     friend void parse_verilog_file(string);
     friend void generate_text_file(string);
     friend void oai321s1_module(string);
+    friend void aoi21s3_module(string);
     friend void mux21_module_util(string, string, string, string, string);
     friend void mux21_module(string);
     friend void dff_module_util(string, string, string, string, string, string);
@@ -272,8 +273,8 @@ void dff_module(string line)
 
 void sdffs1_module(string line)
 {
-    // MUX2_1 <name-SDFF> 
-    // DFF <name-SDFF> 
+    // MUX2_1 <name-SDFF>
+    // DFF <name-SDFF>
     regex instance_name_regex("\\s+([^\\s]+)\\s*\\(");
     smatch instance_name_match;
     string name = "";
@@ -337,7 +338,6 @@ void sdffs1_module(string line)
     if (output_QN.length() == 0)
         output_QN = "**";
 
-
     if (output_Q == "**" && output_QN == "**")
         return;
 
@@ -358,14 +358,29 @@ void parse_verilog_file(string filename)
     regex buf2Regex("^\\s*nb");
     regex buf3Regex("^\\s*i");
     regex buf4Regex("^\\s*ib");
+    regex buf5Regex("^\\s*is");
     regex oai321s1Regex("^\\s*oai321s1");
+    regex aoi21s3Regex("^\\s*aoi21s3");
     regex dffRegex("^\\s*dff");
     regex sdffRegex("^\\s*sdff");
 
     ifstream file(filename);
     string line = "";
-    while (getline(file, line))
+    string tmp_line = "";
+    string code_line = "";
+    while (getline(file, code_line))
     {
+        tmp_line += code_line;
+        // Check if the line ends with a semicolon
+        if (code_line.find(';') == string::npos)
+        {
+            continue;
+        }
+        else
+        {
+            line = tmp_line;
+            tmp_line = "";
+        }
         // cout << line << endl;
         smatch match;
         Gate gate;
@@ -399,7 +414,7 @@ void parse_verilog_file(string filename)
             mux21_module(line);
             continue;
         }
-        else if (regex_search(line, match, buf1Regex) || regex_search(line, match, buf2Regex) || regex_search(line, match, buf3Regex) || regex_search(line, match, buf4Regex))
+        else if (regex_search(line, match, buf1Regex) || regex_search(line, match, buf2Regex) || regex_search(line, match, buf3Regex) || regex_search(line, match, buf4Regex) || regex_search(line, match, buf5Regex))
         {
             gate.type = "buf";
         }
@@ -408,6 +423,11 @@ void parse_verilog_file(string filename)
             oai321s1_module(line);
             continue;
         }
+        // else if (regex_search(line, match, aoi21s3Regex))
+        // {
+        //     aoi21s3_module(line);
+        //     continue;
+        // }
         else if (regex_search(line, match, dffRegex))
         {
             dff_module(line);
@@ -493,7 +513,7 @@ void parse_verilog_file(string filename)
 void generate_text_file(string filename)
 {
     ofstream output_file(filename);
-    for (size_t i = 0; i < gate_list.size(); ++i)
+    for (size_t i = 0; i < (int)gate_list.size(); ++i)
     {
         auto gate = gate_list[i];
         string type = gate.type;
@@ -512,6 +532,7 @@ void generate_text_file(string filename)
         if (i != gate_list.size() - 1)
             output_file << endl;
     }
+    gate_list.clear();
     output_file.close();
 }
 
@@ -526,21 +547,158 @@ void display(string filename)
     file.close();
 }
 
+void parse_combinational_verilog_files()
+{
+    string input_folder = "../verilog_files/combinational/";
+    string output_folder = "../input_text_files/combinational/";
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir(input_folder.c_str())) != NULL)
+    {
+        while ((ent = readdir(dir)) != NULL)
+        {
+            string sub_dir_name = ent->d_name;
+            if (sub_dir_name == "." || sub_dir_name == "..")
+                continue;
+            cout << sub_dir_name << endl;
+
+            string input_sub_folder = input_folder + sub_dir_name + "/";
+            string output_sub_folder = output_folder + sub_dir_name + "/";
+            DIR *sub_dir = opendir(input_sub_folder.c_str());
+            if (sub_dir != NULL)
+            {
+                struct dirent *sub_dir_ent;
+                while ((sub_dir_ent = readdir(sub_dir)) != NULL)
+                {
+                    string sub_dir_ent_name = sub_dir_ent->d_name;
+                    if (sub_dir_ent_name == "." || sub_dir_ent_name == "..")
+                        continue;
+                    cout << " - " << sub_dir_ent_name << endl;
+
+                    string file_name = sub_dir_ent_name.substr(0, sub_dir_ent_name.length() - 2);
+                    // cout << " - " << file_name << endl;
+                    string input_file = input_sub_folder + file_name + ".v";
+                    string output_file = output_sub_folder + file_name + ".txt";
+                    parse_verilog_file(input_file);
+                    generate_text_file(output_file);
+                    // display(output_file);
+                }
+                closedir(sub_dir);
+            }
+            else
+            {
+                cerr << "Error opening sub_directory " << input_sub_folder << endl;
+                return;
+            }
+        }
+        closedir(dir);
+    }
+    else
+    {
+        cerr << "Error opening directory " << input_folder << endl;
+        return;
+    }
+}
+
+void parse_sequential_verilog_files()
+{
+    string input_folder = "../verilog_files/sequential/";
+    string output_folder = "../input_text_files/sequential/";
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir(input_folder.c_str())) != NULL)
+    {
+        while ((ent = readdir(dir)) != NULL)
+        {
+            string sub_dir_name = ent->d_name;
+            if (sub_dir_name == "." || sub_dir_name == "..")
+                continue;
+            cout << sub_dir_name << endl;
+
+            string input_sub_folder = input_folder + sub_dir_name + "/";
+            string output_sub_folder = output_folder + sub_dir_name + "/";
+            DIR *sub_dir = opendir(input_sub_folder.c_str());
+            if (sub_dir != NULL)
+            {
+                struct dirent *sub_dir_ent;
+                while ((sub_dir_ent = readdir(sub_dir)) != NULL)
+                {
+                    string sub_dir_ent_name = sub_dir_ent->d_name;
+                    if (sub_dir_ent_name == "." || sub_dir_ent_name == "..")
+                        continue;
+                    cout << " - " << sub_dir_ent_name << endl;
+
+                    string file_name = sub_dir_ent_name.substr(0, sub_dir_ent_name.length() - 2);
+                    string input_file = input_sub_folder + file_name + ".v";
+                    string output_file = output_sub_folder + file_name + ".txt";
+                    // cout<<input_file<<endl<<output_file<<endl;
+                    parse_verilog_file(input_file);
+                    generate_text_file(output_file);
+                    // display(output_file);    
+                }
+                closedir(sub_dir);
+            }
+            else
+            {
+                cerr << "Error opening sub_directory " << input_sub_folder << endl;
+                return;
+            }
+        }
+        closedir(dir);
+    }
+    else
+    {
+        cerr << "Error opening directory " << input_folder << endl;
+        return;
+    }
+}
+
+void parse_verilog_files()
+{
+    // parse_combinational_verilog_files();
+    parse_sequential_verilog_files();
+}
+
 int main()
 {
-    string input_folder = "../verilog_files/";
-    string output_folder = "../input_text_files/";
+    // string input_folder = "../verilog_files/";
+    // string output_folder = "../input_text_files/";
 
     // string file_name = "dump1";
     // string file_name = "c2670";
     // string file_name = "c2670_T093";
-    string file_name = "s1423scan";
-    string input_file = input_folder + file_name + ".v";
-    string output_file = output_folder + file_name + ".txt";
+    // string file_name = "s1423scan";
 
-    parse_verilog_file(input_file);
-    generate_text_file(output_file);
+    // string input_file = input_folder + file_name + ".v";
+    // string output_file = output_folder + file_name + ".txt";
+
+
+    // string file_name = "c2670";
+    // string file_name = "c3540";
+
+    // string input_folder = "../verilog_files/combinational/" + file_name + "/";
+    // string output_folder = "../input_text_files/combinational/" + file_name + "/";
+
+    // string input_file = input_folder + file_name + ".v";
+    // string output_file = output_folder + file_name + ".txt";
+
+
+    // string file_name = "s35932scan";
+
+    // string input_folder = "../verilog_files/sequential/s35932/";
+    // string output_folder = "../input_text_files/sequential/s35932/";
+
+    // string input_file = input_folder + file_name + ".v";
+    // string output_file = output_folder + file_name + ".txt";
+
+
+    // parse_verilog_file(input_file);
+    // generate_text_file(output_file);
     // display(output_file);
+
+    // parse_verilog_files();
 
     return 0;
 }
