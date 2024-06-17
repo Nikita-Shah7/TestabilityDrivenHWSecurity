@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <dirent.h>
 using namespace std;
 
 void divider()
@@ -18,7 +19,7 @@ class DFF;
 
 class Circuit
 {
-    int no_of_pi, no_of_po, no_of_gates, no_of_nodes, no_of_fanouts;
+    int no_of_pi, no_of_po, no_of_gates, no_of_nodes;
     int no_of_dffs;
     int no_of_levels;
     vector<Node *> primary_inputs;
@@ -32,8 +33,9 @@ class Circuit
 
 public:
     Circuit();
+    ~Circuit();
 
-    friend void read_file();
+    friend void read_file(string);
     friend void display_circuit_details();
     friend void display_gate_structure();
     friend void display_dff_structure();
@@ -53,6 +55,8 @@ public:
     friend int find_sc0(Gate *);
     friend int find_sc1(Gate *);
     friend void display_scoap_values();
+    friend void generate_output_file(string, int);
+    friend void clear_circuit_details();
 };
 
 Circuit ::Circuit(void)
@@ -60,9 +64,27 @@ Circuit ::Circuit(void)
     no_of_pi = 0;
     no_of_po = 0;
     no_of_gates = 0;
-    no_of_fanouts = 0;
     no_of_nodes = 0;
     no_of_dffs = 0;
+    no_of_levels = 0;
+}
+
+Circuit ::~Circuit()
+{
+    no_of_pi = 0;
+    no_of_po = 0;
+    no_of_gates = 0;
+    no_of_dffs = 0;
+    no_of_nodes = 0;
+    no_of_levels = 0;
+    primary_inputs.clear();
+    primary_outputs.clear();
+    gate_list.clear();
+    dff_list.clear();
+    node_list.clear();
+    gate_node_list.clear();
+    dff_node_list.clear();
+    levelized_circuit.clear();
 }
 
 Circuit *circuit = new Circuit();
@@ -78,7 +100,7 @@ class Gate
 public:
     Gate();
 
-    friend void read_file();
+    friend void read_file(string);
     friend void display_circuit_details();
     friend void display_gate_structure();
     friend void display_dff_structure();
@@ -117,7 +139,7 @@ public:
     DFF();
     DFF(string, string, string, string, string, string);
 
-    friend void read_file();
+    friend void read_file(string);
     friend void display_circuit_details();
     friend void display_gate_structure();
     friend void display_dff_structure();
@@ -166,9 +188,6 @@ class Node
     string name;
     string type;
     int level;
-    // Node *next;
-    // vector just bcoz fanout gate will have may out-going Nodes
-    // while other nodes will have only one out-going Node
     vector<Node *> next;
     int indeg, outdeg;
     int CC0, CC1;
@@ -178,7 +197,7 @@ public:
     Node();
     Node(string, string);
 
-    friend void read_file();
+    friend void read_file(string);
     friend void display_circuit_details();
     friend void display_gate_structure();
     friend void display_dff_structure();
@@ -198,6 +217,7 @@ public:
     friend int find_sc0(Gate *);
     friend int find_sc1(Gate *);
     friend void display_scoap_values();
+    friend void generate_output_file(string, int);
 };
 
 Node ::Node()
@@ -236,7 +256,6 @@ void display_circuit_details()
     cout << "No. of Primary Outputs: " << circuit->no_of_po << endl;
     cout << "No. of Gates: " << circuit->no_of_gates << endl;
     cout << "No. of DFFs: " << circuit->no_of_dffs << endl;
-    cout << "No. of Fanouts: " << circuit->no_of_fanouts << endl;
     cout << "No. of Nodes: " << circuit->no_of_nodes << endl;
     cout << "Primary Inputs:";
     for (auto pi : circuit->primary_inputs)
@@ -1034,15 +1053,72 @@ void assign_scoap()
     // display_scoap_values();
 }
 
-void read_file()
+void generate_output_file(string filename, int duration)
 {
-    string filename;
-    cout << "Enter Input Text File: ";
-    // cin >> filename;
-    // filename += "s298";
-    filename += "s1423scan";
-    // filename = "../example_input_files/" + filename + ".txt";
-    filename = "../input_text_files/" + filename + ".txt";
+    ofstream output_file(filename);
+
+    // 1. CIRCUIT DETAILS::
+    output_file << "\n--------------------------------------------------\n";
+    output_file << "Circuit Details:";
+    output_file << "\n--------------------------------------------------\n";
+    output_file << "No. of Primary Inputs: " << circuit->no_of_pi << endl;
+    output_file << "No. of Primary Outputs: " << circuit->no_of_po << endl;
+    output_file << "No. of Gates: " << circuit->no_of_gates << endl;
+    output_file << "No. of DFFs: " << circuit->no_of_dffs << endl;
+    output_file << "No. of Nodes: " << circuit->no_of_nodes << endl;
+    // Time taken to calculate the SCOAP Values::
+    output_file << "Execution Time: " << duration << " ns" << endl;
+    output_file << "Primary Inputs:";
+    for (auto pi : circuit->primary_inputs)
+    {
+        output_file << " " << pi->name;
+    }
+    output_file << endl;
+    output_file << "Outputs:";
+    for (auto po : circuit->primary_outputs)
+    {
+        output_file << " " << po->name;
+    }
+    output_file << endl;
+    output_file << endl;
+
+    // 2. SCOAP VALUES::
+    output_file << "\n----------------------------------------\n";
+    output_file << "Signal\tCC0\tCC1\tSC\tSC1";
+    output_file << "\n----------------------------------------\n";
+    for (int i = 1; i <= circuit->no_of_levels; i++)
+    {
+        for (auto node : circuit->levelized_circuit[i])
+        {
+            if (node->type == "WIRE")
+            {
+                output_file << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->SC0 << "\t" << node->SC1 << endl;
+            }
+        }
+    }
+    output_file.close();
+}
+
+void clear_circuit_details()
+{
+    circuit->no_of_pi = 0;
+    circuit->no_of_po = 0;
+    circuit->no_of_gates = 0;
+    circuit->no_of_dffs = 0;
+    circuit->no_of_nodes = 0;
+    circuit->no_of_levels = 0;
+    circuit->primary_inputs.clear();
+    circuit->primary_outputs.clear();
+    circuit->gate_list.clear();
+    circuit->dff_list.clear();
+    circuit->node_list.clear();
+    circuit->gate_node_list.clear();
+    circuit->dff_node_list.clear();
+    circuit->levelized_circuit.clear();
+}
+
+void read_file(string filename)
+{
     ifstream file(filename);
 
     string line = "";
@@ -1173,10 +1249,98 @@ void read_file()
     return;
 }
 
+void read_files()
+{
+    string input_folder = "../input_text_files/sequential/";
+    string output_folder = "../output_text_files/sequential/";
+
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir(input_folder.c_str())) != NULL)
+    {
+        while ((ent = readdir(dir)) != NULL)
+        {
+            string sub_dir_name = ent->d_name;
+            if (sub_dir_name == "." || sub_dir_name == "..")
+                continue;
+            cout << sub_dir_name << endl;
+
+            string input_sub_folder = input_folder + sub_dir_name + "/";
+            string output_sub_folder = output_folder + sub_dir_name + "/";
+            DIR *sub_dir = opendir(input_sub_folder.c_str());
+            if (sub_dir != NULL)
+            {
+                struct dirent *sub_dir_ent;
+                while ((sub_dir_ent = readdir(sub_dir)) != NULL)
+                {
+                    string sub_dir_ent_name = sub_dir_ent->d_name;
+                    if (sub_dir_ent_name == "." || sub_dir_ent_name == "..")
+                        continue;
+                    cout << " - " << sub_dir_ent_name << endl;
+
+                    string file_name = sub_dir_ent_name;
+                    string input_file = input_sub_folder + file_name;
+                    string output_file = output_sub_folder + file_name;
+
+                    // cout<<input_file<<endl<<output_file<<endl;
+                
+                    read_file(input_file);
+                    // display_gate_structure();
+                    // display_dff_structure();
+                    // display_node_structure();
+
+                    gates_nodes_levelization();
+                    // display_circuit_details();
+                    // display_gate_structure();
+                    // display_dff_structure();
+                    // display_node_structure();
+                    // traverse_circuit();
+
+                    auto start = chrono::high_resolution_clock::now();
+                    assign_scoap();
+                    auto end = chrono::high_resolution_clock::now();
+                    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
+                    // display_scoap_values();
+                    generate_output_file(output_file, duration);
+                    clear_circuit_details();
+                }
+                closedir(sub_dir);
+            }
+            else
+            {
+                cerr << "Error opening sub_directory " << input_sub_folder << endl;
+                return;
+            }
+        }
+        closedir(dir);
+    }
+    else
+    {
+        cerr << "Error opening directory " << input_folder << endl;
+        return;
+    }
+}
+
 int main()
 {
-    read_file();
-    // display_circuit_details();
+
+    // read_files();
+
+    string filename;
+    // cout << "Enter Input Text File: ";
+    // cin >> filename;
+    // filename += "s298";
+    filename += "s35932scan";
+
+    string input_folder = "../input_text_files/sequential/s35932/";
+    string output_folder = "../output_text_files/sequential/s35932/";
+
+    string input_file = input_folder + filename + ".txt";
+    string output_file = output_folder + filename + ".txt";
+
+    
+    read_file(input_file);
     // display_gate_structure();
     // display_dff_structure();
     // display_node_structure();
@@ -1188,8 +1352,15 @@ int main()
     // display_node_structure();
     // traverse_circuit();
 
+    auto start = chrono::high_resolution_clock::now();
     assign_scoap();
-    display_scoap_values();
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
+    // display_scoap_values();
+    generate_output_file(output_file, duration);
+
+    // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
 
     return 0;
 }
