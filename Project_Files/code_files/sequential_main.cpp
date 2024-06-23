@@ -4,6 +4,7 @@ using namespace std;
 
 #define ERR 100
 #define INF 1e8
+#define MAX_ITERATIONS 200
 
 void divider()
 {
@@ -969,7 +970,7 @@ void assign_combinational_controllability()
 {
     int iteration = 1;
 
-    while (iteration)
+    while (iteration <= MAX_ITERATIONS)
     {
         bool flag = 0;
         for (int i = 2; i <= circuit->no_of_levels; i++)
@@ -1002,10 +1003,13 @@ void assign_combinational_controllability()
         // cout << "\n\nITERATION " << iteration << "::";
         // display_scoap_values();
 
-        if (!flag)
+        if (!flag) {
             iteration = 0;
-        else
+            return ;
+        }
+        else {
             iteration++;
+        }
     }
 }
 
@@ -1013,7 +1017,7 @@ void assign_sequential_controllability()
 {
     int iteration = 1;
 
-    while (iteration)
+    while (iteration <= MAX_ITERATIONS)
     {
         bool flag = 0;
         for (int i = 2; i <= circuit->no_of_levels; i++)
@@ -1046,10 +1050,13 @@ void assign_sequential_controllability()
         // cout << "\n\nITERATION " << iteration << "::";
         // display_scoap_values();
 
-        if (!flag)
+        if (!flag) {
             iteration = 0;
-        else
+            return ;
+        }
+        else {
             iteration++;
+        }
     }
 }
 
@@ -1276,6 +1283,7 @@ void read_files()
             string sub_dir_name = ent->d_name;
             if (sub_dir_name == "." || sub_dir_name == "..")
                 continue;
+            // if(sub_dir_name!="s13207") continue;
             cout << sub_dir_name << endl;
 
             string input_sub_folder = input_folder + sub_dir_name + "/";
@@ -1344,10 +1352,11 @@ int main()
     // // cout << "Enter Input Text File: ";
     // // cin >> filename;
     // // filename += "b1";
-    // filename += "s1423_T400";
+    // // filename += "s1423_T400";
+    // filename += "s35932scan";
 
-    // string input_folder = "../input_text_files/sequential/s1423/";
-    // string output_folder = "../output_text_files/sequential/s1423/";
+    // string input_folder = "../input_text_files/sequential/s35932/";
+    // string output_folder = "../output_text_files/sequential/s35932/";
 
     // // string input_folder = "../input_text_files/";
     // // string output_folder = "../output_text_files/";
@@ -1361,11 +1370,11 @@ int main()
     // // display_node_structure();
 
     // gates_nodes_levelization();
-    // // display_circuit_details();
+    // display_circuit_details();
     // // display_gate_structure();
     // // display_dff_structure();
     // // display_node_structure();
-    // // traverse_circuit();
+    // traverse_circuit();
 
     // auto start = chrono::high_resolution_clock::now();
     // assign_scoap();
@@ -1373,7 +1382,7 @@ int main()
     // auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 
     // // display_scoap_values();
-    // generate_output_file(output_file, duration);
+    // // generate_output_file(output_file, duration);
 
     // // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
 
