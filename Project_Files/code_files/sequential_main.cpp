@@ -2,6 +2,9 @@
 #include <dirent.h>
 using namespace std;
 
+#define ERR 100
+#define INF 1e8
+
 void divider()
 {
     cout << endl;
@@ -227,11 +230,10 @@ Node ::Node()
     level = 0;
     indeg = 0;
     outdeg = 0;
-    // next = NULL;
-    CC0 = INT_MAX - 2;
-    CC1 = INT_MAX - 2;
-    SC0 = INT_MAX - 2;
-    SC1 = INT_MAX - 2;
+    CC0 = INF - 2;
+    CC1 = INF - 2;
+    SC0 = INF - 2;
+    SC1 = INF - 2;
 }
 
 Node ::Node(string nme, string ty)
@@ -241,10 +243,10 @@ Node ::Node(string nme, string ty)
     level = 0;
     indeg = 0;
     outdeg = 0;
-    CC0 = INT_MAX - 2;
-    CC1 = INT_MAX - 2;
-    SC0 = INT_MAX - 2;
-    SC1 = INT_MAX - 2;
+    CC0 = INF - 2;
+    CC1 = INF - 2;
+    SC0 = INF - 2;
+    SC1 = INF - 2;
 }
 
 void display_circuit_details()
@@ -438,7 +440,7 @@ void traverse_circuit()
 void display_scoap_values()
 {
     divider();
-    cout << "Signal\tCC0\tCC1\tSC\tSC1";
+    cout << "Signal\tCC0\tCC1\tSC0\tSC1";
     divider();
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
@@ -570,7 +572,7 @@ int find_cc0(Gate *gate)
     string gate_type = gate->type;
     if (gate_type == "AND")
     {
-        cc0 = INT_MAX - 2;
+        cc0 = INF - 2;
         for (auto input : gate->inputs)
         {
             int cc0_input = circuit->node_list[input]->CC0;
@@ -584,9 +586,9 @@ int find_cc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc0_input = circuit->node_list[input]->CC0;
-            if (cc0_input > INT_MAX - 4)
+            if (cc0_input > INF - ERR)
             {
-                cc0 = INT_MAX - 2;
+                cc0 = INF - 2;
                 break;
             }
             cc0 += cc0_input;
@@ -599,9 +601,9 @@ int find_cc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
-            if (cc1_input > INT_MAX - 4)
+            if (cc1_input > INF - ERR)
             {
-                cc0 = INT_MAX - 2;
+                cc0 = INF - 2;
                 break;
             }
             cc0 += cc1_input;
@@ -610,7 +612,7 @@ int find_cc0(Gate *gate)
     }
     else if (gate_type == "NOR")
     {
-        cc0 = INT_MAX - 2;
+        cc0 = INF - 2;
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
@@ -651,8 +653,8 @@ int find_cc0(Gate *gate)
         int cc0_clk = circuit->node_list[gate->inputs[0]]->CC0;
         int cc1_clk = circuit->node_list[gate->inputs[0]]->CC1;
         int cc0_d = circuit->node_list[gate->inputs[1]]->CC0;
-        if (cc0_d > INT_MAX - 4)
-            cc0 = INT_MAX;
+        if (cc0_d > INF - 4)
+            cc0 = INF;
         else
             cc0 = cc0_clk + cc1_clk + cc0_d;
     }
@@ -669,9 +671,9 @@ int find_cc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
-            if (cc1_input > INT_MAX - 4)
+            if (cc1_input > INF - 4)
             {
-                cc1 = INT_MAX - 2;
+                cc1 = INF - 2;
                 break;
             }
             cc1 += cc1_input;
@@ -680,7 +682,7 @@ int find_cc1(Gate *gate)
     }
     else if (gate_type == "OR")
     {
-        cc1 = INT_MAX - 2;
+        cc1 = INF - 2;
         for (auto input : gate->inputs)
         {
             int cc1_input = circuit->node_list[input]->CC1;
@@ -690,7 +692,7 @@ int find_cc1(Gate *gate)
     }
     else if (gate_type == "NAND")
     {
-        cc1 = INT_MAX - 2;
+        cc1 = INF - 2;
         for (auto input : gate->inputs)
         {
             int cc0_input = circuit->node_list[input]->CC0;
@@ -704,9 +706,9 @@ int find_cc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int cc0_input = circuit->node_list[input]->CC0;
-            if (cc0_input > INT_MAX - 4)
+            if (cc0_input > INF - 4)
             {
-                cc1 = INT_MAX - 2;
+                cc1 = INF - 2;
                 break;
             }
             cc1 += cc0_input;
@@ -746,8 +748,8 @@ int find_cc1(Gate *gate)
         int cc0_clk = circuit->node_list[gate->inputs[0]]->CC0;
         int cc1_clk = circuit->node_list[gate->inputs[0]]->CC1;
         int cc1_d = circuit->node_list[gate->inputs[1]]->CC1;
-        if (cc1_d > INT_MAX - 4)
-            cc1 = INT_MAX;
+        if (cc1_d > INF - 4)
+            cc1 = INF;
         else
             cc1 = cc0_clk + cc1_clk + cc1_d;
     }
@@ -760,7 +762,7 @@ int find_sc0(Gate *gate)
     string gate_type = gate->type;
     if (gate_type == "AND")
     {
-        sc0 = INT_MAX - 2;
+        sc0 = INF - 2;
         for (auto input : gate->inputs)
         {
             int sc0_input = circuit->node_list[input]->SC0;
@@ -773,9 +775,9 @@ int find_sc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int sc0_input = circuit->node_list[input]->SC0;
-            if (sc0_input > INT_MAX - 4)
+            if (sc0_input > INF - 4)
             {
-                sc0 = INT_MAX - 2;
+                sc0 = INF - 2;
                 break;
             }
             sc0 += sc0_input;
@@ -787,9 +789,9 @@ int find_sc0(Gate *gate)
         for (auto input : gate->inputs)
         {
             int sc1_input = circuit->node_list[input]->SC1;
-            if (sc1_input > INT_MAX - 4)
+            if (sc1_input > INF - 4)
             {
-                sc0 = INT_MAX - 2;
+                sc0 = INF - 2;
                 break;
             }
             sc0 += sc1_input;
@@ -797,7 +799,7 @@ int find_sc0(Gate *gate)
     }
     else if (gate_type == "NOR")
     {
-        sc0 = INT_MAX - 2;
+        sc0 = INF - 2;
         for (auto input : gate->inputs)
         {
             int sc1_input = circuit->node_list[input]->SC1;
@@ -833,8 +835,8 @@ int find_sc0(Gate *gate)
         int sc0_clk = circuit->node_list[gate->inputs[0]]->SC0;
         int sc1_clk = circuit->node_list[gate->inputs[0]]->SC1;
         int sc0_d = circuit->node_list[gate->inputs[1]]->SC0;
-        if (sc0_d > INT_MAX - 4)
-            sc0 = INT_MAX;
+        if (sc0_d > INF - 4)
+            sc0 = INF;
         else
             sc0 = sc0_clk + sc1_clk + sc0_d + 1;
     }
@@ -851,9 +853,9 @@ int find_sc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int sc1_input = circuit->node_list[input]->SC1;
-            if (sc1_input > INT_MAX - 4)
+            if (sc1_input > INF - 4)
             {
-                sc1 = INT_MAX - 2;
+                sc1 = INF - 2;
                 break;
             }
             sc1 += sc1_input;
@@ -861,7 +863,7 @@ int find_sc1(Gate *gate)
     }
     else if (gate_type == "OR")
     {
-        sc1 = INT_MAX - 2;
+        sc1 = INF - 2;
         for (auto input : gate->inputs)
         {
             int sc1_input = circuit->node_list[input]->SC1;
@@ -870,7 +872,7 @@ int find_sc1(Gate *gate)
     }
     else if (gate_type == "NAND")
     {
-        sc1 = INT_MAX - 2;
+        sc1 = INF - 2;
         for (auto input : gate->inputs)
         {
             int sc0_input = circuit->node_list[input]->SC0;
@@ -883,9 +885,9 @@ int find_sc1(Gate *gate)
         for (auto input : gate->inputs)
         {
             int sc0_input = circuit->node_list[input]->SC0;
-            if (sc0_input > INT_MAX - 4)
+            if (sc0_input > INF - 4)
             {
-                sc1 = INT_MAX - 2;
+                sc1 = INF - 2;
                 break;
             }
             sc1 += sc0_input;
@@ -920,8 +922,8 @@ int find_sc1(Gate *gate)
         int sc0_clk = circuit->node_list[gate->inputs[0]]->SC0;
         int sc1_clk = circuit->node_list[gate->inputs[0]]->SC1;
         int sc1_d = circuit->node_list[gate->inputs[1]]->SC1;
-        if (sc1_d > INT_MAX - 4)
-            sc1 = INT_MAX;
+        if (sc1_d > INF - 4)
+            sc1 = INF;
         else
             sc1 = sc0_clk + sc1_clk + sc1_d + 1;
     }
@@ -940,14 +942,25 @@ void initialization()
         node->SC1 = 0;
     }
 
-    // level DFF o/p
+    // DFF o/p
     for (auto &dff : circuit->dff_list)
     {
-        Node *dff_node = circuit->node_list[dff->name];
-        dff_node->CC0 = INT_MAX - 2;
-        dff_node->CC1 = INT_MAX - 2;
-        dff_node->SC0 = INT_MAX - 2;
-        dff_node->SC1 = INT_MAX - 2;
+        if (dff->Q != "**")
+        {
+            Node *dff_Q = circuit->node_list[dff->Q];
+            dff_Q->CC0 = INF - 2;
+            dff_Q->CC1 = INF - 2;
+            dff_Q->SC0 = INF - 2;
+            dff_Q->SC1 = INF - 2;
+        }
+        if (dff->QN != "**")
+        {
+            Node *dff_QN = circuit->node_list[dff->QN];
+            dff_QN->CC0 = INF - 2;
+            dff_QN->CC1 = INF - 2;
+            dff_QN->SC0 = INF - 2;
+            dff_QN->SC1 = INF - 2;
+        }
     }
     return;
 }
@@ -968,10 +981,10 @@ void assign_combinational_controllability()
                     Gate *gate = circuit->gate_node_list[node];
                     int cc0 = find_cc0(gate);
                     int cc1 = find_cc1(gate);
-                    if (cc0 > INT_MAX - 4)
-                        cc0 = INT_MAX - 2;
-                    if (cc1 > INT_MAX - 4)
-                        cc1 = INT_MAX - 2;
+                    if (cc0 > INF - ERR)
+                        cc0 = INF - 2;
+                    if (cc1 > INF - ERR)
+                        cc1 = INF - 2;
                     for (auto output : gate->outputs)
                     {
                         if (output == "**")
@@ -979,9 +992,9 @@ void assign_combinational_controllability()
                         circuit->node_list[output]->CC0 = cc0;
                         circuit->node_list[output]->CC1 = cc1;
                     }
-                    if (cc0 > INT_MAX - 4)
+                    if (cc0 > INF - ERR)
                         flag = 1;
-                    if (cc1 > INT_MAX - 4)
+                    if (cc1 > INF - ERR)
                         flag = 1;
                 }
             }
@@ -1012,10 +1025,10 @@ void assign_sequential_controllability()
                     Gate *gate = circuit->gate_node_list[node];
                     int sc0 = find_sc0(gate);
                     int sc1 = find_sc1(gate);
-                    if (sc0 > INT_MAX - 4)
-                        sc0 = INT_MAX - 2;
-                    if (sc1 > INT_MAX - 4)
-                        sc1 = INT_MAX - 2;
+                    if (sc0 > INF - ERR)
+                        sc0 = INF - 2;
+                    if (sc1 > INF - ERR)
+                        sc1 = INF - 2;
                     for (auto output : gate->outputs)
                     {
                         if (output == "**")
@@ -1023,9 +1036,9 @@ void assign_sequential_controllability()
                         circuit->node_list[output]->SC0 = sc0;
                         circuit->node_list[output]->SC1 = sc1;
                     }
-                    if (sc0 > INT_MAX - 4)
+                    if (sc0 > INF - ERR)
                         flag = 1;
-                    if (sc1 > INT_MAX - 4)
+                    if (sc1 > INF - ERR)
                         flag = 1;
                 }
             }
@@ -1084,7 +1097,7 @@ void generate_output_file(string filename, int duration)
 
     // 2. SCOAP VALUES::
     output_file << "\n----------------------------------------\n";
-    output_file << "Signal\tCC0\tCC1\tSC\tSC1";
+    output_file << "Signal\tCC0\tCC1\tSC0\tSC1";
     output_file << "\n----------------------------------------\n";
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
@@ -1172,7 +1185,7 @@ void read_file(string filename)
                 }
                 else
                 {
-                    circuit->node_list[tmp[2]]->indeg++;
+                    circuit->node_list[tmp[i]]->indeg++;
                     gateNode->next.push_back(circuit->node_list[tmp[i]]);
                 }
             }
@@ -1283,7 +1296,7 @@ void read_files()
                     string output_file = output_sub_folder + file_name;
 
                     // cout<<input_file<<endl<<output_file<<endl;
-                
+
                     read_file(input_file);
                     // display_gate_structure();
                     // display_dff_structure();
@@ -1325,42 +1338,44 @@ void read_files()
 int main()
 {
 
-    // read_files();
+    read_files();
 
-    string filename;
-    // cout << "Enter Input Text File: ";
-    // cin >> filename;
-    // filename += "s298";
-    filename += "s35932scan";
+    // string filename;
+    // // cout << "Enter Input Text File: ";
+    // // cin >> filename;
+    // // filename += "b1";
+    // filename += "s1423_T400";
 
-    string input_folder = "../input_text_files/sequential/s35932/";
-    string output_folder = "../output_text_files/sequential/s35932/";
+    // string input_folder = "../input_text_files/sequential/s1423/";
+    // string output_folder = "../output_text_files/sequential/s1423/";
 
-    string input_file = input_folder + filename + ".txt";
-    string output_file = output_folder + filename + ".txt";
+    // // string input_folder = "../input_text_files/";
+    // // string output_folder = "../output_text_files/";
 
-    
-    read_file(input_file);
-    // display_gate_structure();
-    // display_dff_structure();
-    // display_node_structure();
+    // string input_file = input_folder + filename + ".txt";
+    // string output_file = output_folder + filename + ".txt";
 
-    gates_nodes_levelization();
-    // display_circuit_details();
-    // display_gate_structure();
-    // display_dff_structure();
-    // display_node_structure();
-    // traverse_circuit();
+    // read_file(input_file);
+    // // display_gate_structure();
+    // // display_dff_structure();
+    // // display_node_structure();
 
-    auto start = chrono::high_resolution_clock::now();
-    assign_scoap();
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    // gates_nodes_levelization();
+    // // display_circuit_details();
+    // // display_gate_structure();
+    // // display_dff_structure();
+    // // display_node_structure();
+    // // traverse_circuit();
 
-    // display_scoap_values();
-    generate_output_file(output_file, duration);
+    // auto start = chrono::high_resolution_clock::now();
+    // assign_scoap();
+    // auto end = chrono::high_resolution_clock::now();
+    // auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 
-    // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
+    // // display_scoap_values();
+    // generate_output_file(output_file, duration);
+
+    // // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
 
     return 0;
 }
