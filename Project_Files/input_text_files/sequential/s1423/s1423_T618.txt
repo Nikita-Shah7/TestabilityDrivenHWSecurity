@@ -104,7 +104,7 @@ NAND U103 G494 n241 n242 n243
 OR U104 n243 n235 n450 
 NAND U105 n242 G3 n236 
 NOR U106 n236 n97 n350 
-NAND U107 n241 G0 n237 
+NAND U107  tempn241  G0 n237 
 NOR U108 n237 n117 n97 
 NAND U109 n235 G14 n230 
 AND U110 G477 n244 n245 n111 
@@ -358,7 +358,7 @@ BUF U357 n94 n163
 BUF U358 n95 n145 
 BUF U359 n96 n144 
 BUF U360 n97 n235 
-BUF U361 n98 n169 
+BUF U361  tempn98  n169 
 BUF U363 n100 n360 
 BUF U364 n101 n433 
 BUF U365 n102 n434 
@@ -773,3 +773,16 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig45_0U1 Trigger_en0_0 trig45_0n1 trig45_0n2 
+NAND trig45_0U2 trig45_0n2 n285 G707 n82 trig45_0n3 
+NOR trig45_0U3 trig45_0n3 n104 n276 n121 
+OR trig45_0U4 trig45_0n1 n392 n388 n420 n403 trig45_0n4 
+OR trig45_0U5 trig45_0n4 n340 n313 n292 
+DFF troj18_0counter_reg_0_ troj18_0counter_0_ ** CK troj18_0n1 ** 
+DFF troj18_0Trojan_out0_reg Trojan_out0 ** CK troj18_0counter_0_ ** 
+XOR troj18_0U3 troj18_0n1 troj18_0counter_0_ Trigger_en0_0 
+XOR trojan18_0 n98 tempn98 Trojan_out0 
+NOR troj18_1U1 Trigger_en1_18 troj18_1n1 troj18_1n2 
+NAND troj18_1U2 troj18_1n2 n326 n227 n179 n177 
+OR troj18_1U3 troj18_1n1 n87 n385 n383 n257 n203 
+XOR trojan18_1 n241 tempn241 Trigger_en1_18 

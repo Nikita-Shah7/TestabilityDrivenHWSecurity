@@ -108,7 +108,7 @@ NAND U107 n241 G0 n237
 NOR U108 n237 n117 n97 
 NAND U109 n235 G14 n230 
 AND U110 G477 n244 n245 n111 
-NAND U111 n245 n372 n246 
+NAND U111  tempn245  n372 n246 
 OR U112 n246 n247 n351 
 OR U113 n244 n351 n372 n247 
 NOR U114 G469 n213 n248 
@@ -773,3 +773,76 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig67_0U1         Trigger_en0_0 trig67_0n1 trig67_0n2 n112 n147 n127 
+NAND trig67_0U2 trig67_0n2 n270 trig67_0n3 n289 
+BUF trig67_0U3 trig67_0n3 n104 
+OR trig67_0U4 trig67_0n1 n265 n262 n257 n306 trig67_0n4 
+BUF trig67_0U5 trig67_0n4 trig67_0n5 
+NOR trig67_0U6 trig67_0n5 n386 n340 
+AND trig68_0U1 Trigger_en0_1 n326 n280 trig68_0n1 trig68_0n2 
+NOR trig68_0U2 trig68_0n2 n226 n203 n261 n396 n323 
+AND trig68_0U3 trig68_0n1 n227 n181 n258 
+NOR trig69_0U1 Trigger_en0_2 trig69_0n1 trig69_0n2 
+NAND trig69_0U2 trig69_0n2 n82 n341 trig69_0n3 n180 
+NOR trig69_0U3 trig69_0n3 n145 G332BF 
+OR trig69_0U4 trig69_0n1 n409 n406 n246 n183 n173 
+NOR trig70_0U1 Trigger_en0_3 trig70_0n1 trig70_0n2 
+OR trig70_0U2 trig70_0n2 n203 n162 n127 n113 trig70_0n3 
+BUF trig70_0U3 trig70_0n3 n326 
+OR trig70_0U4 trig70_0n1 n388 n340 n277 n261 n229 
+NOR trig71_0U1 Trigger_en0_4 trig71_0n1 trig71_0n2 
+OR trig71_0U2 trig71_0n2 n144 n124 n116 n173 trig71_0n3 
+BUF trig71_0U3 trig71_0n3 trig71_0n4 
+NOR trig71_0U4 trig71_0n4 n189 n174 
+OR trig71_0U5 trig71_0n1 n298 n247 n225 n330 trig71_0n5 
+BUF trig71_0U6 trig71_0n5 trig71_0n6 
+NOR trig71_0U7 trig71_0n6 n390 n349 
+AND trig72_0U1 Trigger_en0_5 trig72_0n1 trig72_0n2 trig72_0n3 
+AND trig72_0U2 trig72_0n3 trig72_0n4 trig72_0n5 trig72_0n6 
+NOR trig72_0U3 trig72_0n6 trig72_0n7 trig72_0n8 
+NAND trig72_0U4 trig72_0n8 n289 n278 
+NAND trig72_0U5 trig72_0n7 n142 G360 
+NOR trig72_0U6 trig72_0n5 n108 n112 n110 
+NOR trig72_0U7 trig72_0n4 n104 G328BF 
+NOR trig72_0U8 trig72_0n2 trig72_0n9 n293 trig72_0n10 
+OR trig72_0U9 trig72_0n10 n321 n316 
+OR trig72_0U10 trig72_0n9 n281 n265 
+NOR trig72_0U11 trig72_0n1 trig72_0n11 n122 n116 
+OR trig72_0U12 trig72_0n11 n246 n134 
+NOR trig73_0U1 Trigger_en0_6 trig73_0n1 n398 n379 n323 n320 
+NAND trig73_0U2 trig73_0n1 trig73_0n2 n179 
+NOR trig73_0U3 trig73_0n2 n261 n246 
+NOR trig74_0U1 Trigger_en0_7 trig74_0n1 trig74_0n2 
+OR trig74_0U2 trig74_0n2 n178 n168 G693 G608 trig74_0n3 
+BUF trig74_0U3 trig74_0n3 G175 
+OR trig74_0U4 trig74_0n1 n431 n333 n306 n226 n203 
+DFF troj18_0state_reg_0_ troj18_0state_0_ troj18_0n11 CK troj18_0N36 troj18_0n8 
+DFF troj18_0state_reg_2_ troj18_0state_2_ ** CK troj18_0N38 troj18_0n8 
+DFF troj18_0state_reg_1_ troj18_0state_1_ troj18_0n14 CK troj18_0N37 troj18_0n8 
+DFF troj18_0Trojan_out0_reg Trojan_out0 ** CK troj18_0N34 troj18_0n7 
+NOT troj18_0U3-NOT troj18_0U3-s-bar troj18_0state_1_ 
+AND troj18_0U3-AND-A troj18_0U3-output-A troj18_0n1 troj18_0U3-s-bar 
+AND troj18_0U3-AND-B troj18_0U3-output-B troj18_0n2 troj18_0state_1_ 
+OR troj18_0U3-OR troj18_0N35 troj18_0U3-output-A troj18_0U3-output-B 
+NOT troj18_0U4-NOT troj18_0U4-s-bar troj18_0state_1_ 
+AND troj18_0U4-AND-A troj18_0U4-output-A troj18_0n3 troj18_0U4-s-bar 
+AND troj18_0U4-AND-B troj18_0U4-output-B troj18_0n2 troj18_0state_1_ 
+OR troj18_0U4-OR troj18_0N33 troj18_0U4-output-A troj18_0U4-output-B 
+NOT troj18_0U6-NOT troj18_0U6-s-bar troj18_0state_0_ 
+AND troj18_0U6-AND-A troj18_0U6-output-A Trigger_en0_3 troj18_0U6-s-bar 
+AND troj18_0U6-AND-B troj18_0U6-output-B Trigger_en0_2 troj18_0state_0_ 
+OR troj18_0U6-OR troj18_0n4 troj18_0U6-output-A troj18_0U6-output-B 
+NAND troj18_0U7 troj18_0n5 Trigger_en0_6 troj18_0state_0_ 
+NOT troj18_0U9-NOT troj18_0U9-s-bar troj18_0state_0_ 
+AND troj18_0U9-AND-A troj18_0U9-output-A Trigger_en0_7 troj18_0U9-s-bar 
+AND troj18_0U9-AND-B troj18_0U9-output-B Trigger_en0_6 troj18_0state_0_ 
+OR troj18_0U9-OR troj18_0n6 troj18_0U9-output-A troj18_0U9-output-B 
+BUF troj18_0U11 troj18_0n7 troj18_0N33 
+BUF troj18_0U12 troj18_0n8 troj18_0N35 
+NOR troj18_0U13 troj18_0N38 troj18_0n9 troj18_0n10 
+XNOR troj18_0U14 troj18_0n10 troj18_0n11 troj18_0n12 
+BUF troj18_0U15 troj18_0n9 troj18_0n13 
+XNOR troj18_0U17 troj18_0n12 troj18_0n14 troj18_0state_2_ 
+NAND troj18_0U18 troj18_0n13 troj18_0state_2_ troj18_0state_1_ 
+AND troj18_0U20 troj18_0N34 troj18_0n11 troj18_0n14 troj18_0state_2_ 
+XOR trojan18_0 n245 tempn245 Trojan_out0 

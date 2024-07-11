@@ -96,7 +96,7 @@ NAND U95 G503 n232 n233 n234
 OR U96 n234 n235 n452 
 NAND U97 n233 G5 n236 
 NAND U98 n232 G2 n237 
-NAND U99 G498 n238 n239 n240 
+NAND U99  tempG498  n238 n239 n240 
 OR U100 n240 n235 n451 
 NAND U101 n239 G4 n236 
 NAND U102 n238 G1 n237 
@@ -120,7 +120,7 @@ NAND U119 n251 n250 n114
 NOR U120 G459 n252 n213 
 XNOR U121 n252 n250 n114 
 NAND U122 n250 n99 n253 
-NAND U123 n253 n254 n255 
+NAND U123  tempn253  n254 n255 
 NAND U124 n255 n89 n178 
 NAND U125 G451 n256 n257 
 NAND U126 n257 n258 n115 
@@ -773,3 +773,15 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+BUF troj17_0U1 Trigger_en17_0 troj17_0n1 
+NAND troj17_0U2 troj17_0n1 n258 troj17_0n2 n280 troj17_0n3 
+NOR troj17_0U3 troj17_0n3 n385 troj17_0n4 
+OR troj17_0U4 troj17_0n4 n398 n396 
+BUF troj17_0U5 troj17_0n2 n262 
+XOR trojan17_0 n253 tempn253 Trigger_en17_0 
+NOR troj17_1U1         Trigger_en17_1 troj17_1n1 n382 troj17_1n2 n269 troj17_1n3 
+OR troj17_1U2 troj17_1n3 n340 n337 
+OR troj17_1U3 troj17_1n2 n85 n400 
+NAND troj17_1U4 troj17_1n1 n279 n148 n319 troj17_1n4 
+NOR troj17_1U5 troj17_1n4 n106 n247 n144 
+XOR trojan17_1 G498 tempG498 Trigger_en17_1 

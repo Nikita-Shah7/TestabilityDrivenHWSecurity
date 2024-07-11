@@ -109,7 +109,7 @@ NOR U108 n237 n117 n97
 NAND U109 n235 G14 n230 
 AND U110 G477 n244 n245 n111 
 NAND U111 n245 n372 n246 
-OR U112 n246 n247 n351 
+OR U112  tempn246  n247 n351 
 OR U113 n244 n351 n372 n247 
 NOR U114 G469 n213 n248 
 XNOR U115 n248 n351 n247 
@@ -142,7 +142,7 @@ NAND U141 n264 n364 n98
 AND U142 G427 n269 n178 G14 
 NAND U143 n178 n436 n119 n270 
 NAND U144 n269 n118 n271 
-NOR U145 G424 n272 n273 
+NOR U145  tempG424  n272 n273 
 NOR U146 n272 n274 n119 
 NOR U147 n274 n438 n78 
 NOR U148 G416 n273 n275 
@@ -773,3 +773,28 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig43_0U1 Trigger_en0_0 trig43_0n1 trig43_0n2 
+OR trig43_0U2 trig43_0n2 n178 n168 G693 G608 trig43_0n3 
+BUF trig43_0U3 trig43_0n3 G175 
+OR trig43_0U4 trig43_0n1 n431 n333 n306 n226 n203 
+DFF troj17_0counter_reg_0_ troj17_0counter_0_ ** CK troj17_0n10 ** 
+DFF troj17_0counter_reg_1_ ** troj17_0n6 CK troj17_0N1 troj17_0n9 
+DFF troj17_0counter_reg_2_ ** troj17_0n8 CK troj17_0N2 troj17_0n9 
+DFF troj17_0counter_reg_3_ ** troj17_0n7 CK troj17_0N3 troj17_0n9 
+DFF troj17_0Trojan_out0_reg Trojan_out0 ** CK troj17_0N6 ** 
+BUF troj17_0U3 troj17_0n9 Trigger_en0_0 
+XNOR troj17_0U4 troj17_0n10 troj17_0n1 Trigger_en0_0 
+AND troj17_0U5 troj17_0N6 troj17_0n2 troj17_0n3 troj17_0n4 
+XNOR troj17_0U6 troj17_0N3 troj17_0n5 troj17_0n3 
+BUF troj17_0U7 troj17_0n3 troj17_0n7 
+NAND troj17_0U8 troj17_0n5 troj17_0n4 troj17_0n2 
+BUF troj17_0U9 troj17_0n2 troj17_0n8 
+XNOR troj17_0U10 troj17_0N2 troj17_0n8 troj17_0n4 
+NOR troj17_0U11 troj17_0n4 troj17_0n1 troj17_0n6 
+BUF troj17_0U12 troj17_0n1 troj17_0counter_0_ 
+XNOR troj17_0U13 troj17_0N1 troj17_0counter_0_ troj17_0n6 
+XOR trojan17_0 n246 tempn246 Trojan_out0 
+NOR troj17_1U1         Trigger_en1_17 troj17_1n1 troj17_1n2 n126 n204 n174 
+NAND troj17_1U2 troj17_1n2 n180 G707 
+OR troj17_1U3 troj17_1n1 n406 n400 n382 n247 n230 
+XOR trojan17_1 G424 tempG424 Trigger_en1_17 

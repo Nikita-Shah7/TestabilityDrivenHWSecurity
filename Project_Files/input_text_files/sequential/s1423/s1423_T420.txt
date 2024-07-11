@@ -253,7 +253,7 @@ AND U252 G193 n349 n229 G14
 NAND U253 n229 n131 n132 n355 
 NAND U254 n349 n374 n362 
 NAND U255 n362 n355 n132 
-NOR U256 G189 n139 n365 
+NOR U256  tempG189  n139 n365 
 XNOR U257 n365 n457 n355 
 NAND U258 n355 n89 n379 
 NAND U259 n379 n181 n129 
@@ -773,3 +773,24 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig76_0U1 Trigger_en0_0 trig76_0n1 trig76_0n2 
+NAND trig76_0U2 trig76_0n2 G109 trig76_0n3 G707 trig76_0n4 
+NOR trig76_0U3 trig76_0n4 trig76_0n5 trig76_0n6 
+NAND trig76_0U4 trig76_0n6 n255 n130 
+BUF trig76_0U5 trig76_0n5 n344 
+BUF trig76_0U6 trig76_0n3 n108 
+OR trig76_0U7 trig76_0n1 n329 n229 n206 n383 trig76_0n7 
+OR trig76_0U8 trig76_0n7 n398 n396 
+DFF troj20_0counter_reg_0_ troj20_0counter_0_ ** CK troj20_0n7 ** 
+DFF troj20_0counter_reg_1_ ** troj20_0n5 CK troj20_0N1 troj20_0n6 
+DFF troj20_0counter_reg_2_ ** troj20_0n4 CK troj20_0N2 troj20_0n6 
+DFF troj20_0Trojan_out0_reg Trojan_out0 ** CK troj20_0N4 ** 
+BUF troj20_0U3 troj20_0n6 Trigger_en0_0 
+XOR troj20_0U4 troj20_0n7 troj20_0counter_0_ Trigger_en0_0 
+AND troj20_0U5 troj20_0N4 troj20_0n1 troj20_0n2 troj20_0counter_0_ 
+BUF troj20_0U6 troj20_0n2 troj20_0n4 
+XOR troj20_0U7 troj20_0N2 troj20_0n3 troj20_0n4 
+NAND troj20_0U8 troj20_0n3 troj20_0counter_0_ troj20_0n1 
+XOR troj20_0U9 troj20_0N1 troj20_0n1 troj20_0counter_0_ 
+BUF troj20_0U10 troj20_0n1 troj20_0n5 
+XOR trojan20_0 G189 tempG189 Trojan_out0 

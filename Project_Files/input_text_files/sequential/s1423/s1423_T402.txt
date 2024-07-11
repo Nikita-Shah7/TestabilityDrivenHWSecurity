@@ -82,7 +82,7 @@ XNOR U81 n219 n471 n218
 AND U82 G531 n220 n218 n90 
 NAND U83 n218 n110 n109 n81 
 NAND U84 n220 n356 n221 
-NAND U85 n221 n81 n110 
+NAND U85  tempn221  n81 n110 
 NOR U86 G526 n200 n223 
 XNOR U87 n223 n346 n222 
 NAND U88 n222 n224 n203 n225 
@@ -773,3 +773,21 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig13_0U1         Trigger_en0_0 trig13_0n1 trig13_0n2 n262 n288 n265 
+OR trig13_0U2 trig13_0n2 n85 n402 n384 
+OR trig13_0U3 trig13_0n1 n222 G573 trig13_0n3 trig13_0n4 
+NAND trig13_0U4 trig13_0n4 n310 n280 n82 
+BUF trig13_0U5 trig13_0n3 G175 
+DFF troj2_0counter_reg_0_ troj2_0counter_0_ ** CK troj2_0n7 ** 
+DFF troj2_0counter_reg_1_ ** troj2_0n5 CK troj2_0N1 troj2_0n6 
+DFF troj2_0counter_reg_2_ ** troj2_0n4 CK troj2_0N2 troj2_0n6 
+DFF troj2_0Trojan_out0_reg Trojan_out0 ** CK troj2_0N4 ** 
+BUF troj2_0U3 troj2_0n6 Trigger_en0_0 
+XOR troj2_0U4 troj2_0n7 troj2_0counter_0_ Trigger_en0_0 
+AND troj2_0U5 troj2_0N4 troj2_0n1 troj2_0n2 troj2_0counter_0_ 
+BUF troj2_0U6 troj2_0n2 troj2_0n4 
+XOR troj2_0U7 troj2_0N2 troj2_0n3 troj2_0n4 
+NAND troj2_0U8 troj2_0n3 troj2_0counter_0_ troj2_0n1 
+XOR troj2_0U9 troj2_0N1 troj2_0n1 troj2_0counter_0_ 
+BUF troj2_0U10 troj2_0n1 troj2_0n5 
+XOR trojan2_0 n221 tempn221 Trojan_out0 

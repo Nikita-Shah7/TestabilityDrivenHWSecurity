@@ -340,7 +340,7 @@ BUF U339 n76 n143
 BUF U340 n77 n294 
 BUF U341 n78 n270 
 BUF U342 n79 n254 
-BUF U343 n80 n218 
+BUF U343  tempn80  n218 
 BUF U344 n81 n222 
 BUF U345 n82 n229 
 BUF U346 n83 n290 
@@ -773,3 +773,8 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR troj4_0U1         Trigger_en4_0 troj4_0n1 troj4_0n2 troj4_0n3 n144 n126 
+OR troj4_0U2 troj4_0n3 n194 n192 n159 
+OR troj4_0U3 troj4_0n2 n288 n276 n221 
+OR troj4_0U4 troj4_0n1 n94 n340 n293 
+XOR trojan4_0 n80 tempn80 Trigger_en4_0 

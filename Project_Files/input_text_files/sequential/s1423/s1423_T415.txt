@@ -94,7 +94,7 @@ NAND U93 n200 n230 n231
 NAND U94 n231 G9 n378 
 NAND U95 G503 n232 n233 n234 
 OR U96 n234 n235 n452 
-NAND U97 n233 G5 n236 
+NAND U97  tempn233  G5 n236 
 NAND U98 n232 G2 n237 
 NAND U99 G498 n238 n239 n240 
 OR U100 n240 n235 n451 
@@ -773,3 +773,24 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig59_0U1         Trigger_en0_0 trig59_0n1 trig59_0n2 trig59_0n3 n265 n228 
+OR trig59_0U2 trig59_0n3 n388 n325 n321 
+NAND trig59_0U3 trig59_0n2 n344 n163 
+OR trig59_0U4 trig59_0n1 n151 n147 n113 
+DFF troj15_0counter_reg_0_ troj15_0counter_0_ ** CK troj15_0n10 ** 
+DFF troj15_0counter_reg_1_ ** troj15_0n6 CK troj15_0N1 troj15_0n9 
+DFF troj15_0counter_reg_2_ ** troj15_0n8 CK troj15_0N2 troj15_0n9 
+DFF troj15_0counter_reg_3_ ** troj15_0n7 CK troj15_0N3 troj15_0n9 
+DFF troj15_0Trojan_out0_reg Trojan_out0 ** CK troj15_0N6 ** 
+BUF troj15_0U3 troj15_0n9 Trigger_en0_0 
+XNOR troj15_0U4 troj15_0n10 troj15_0n1 Trigger_en0_0 
+AND troj15_0U5 troj15_0N6 troj15_0n2 troj15_0n3 troj15_0n4 
+XNOR troj15_0U6 troj15_0N3 troj15_0n5 troj15_0n3 
+BUF troj15_0U7 troj15_0n3 troj15_0n7 
+NAND troj15_0U8 troj15_0n5 troj15_0n4 troj15_0n2 
+BUF troj15_0U9 troj15_0n2 troj15_0n8 
+XNOR troj15_0U10 troj15_0N2 troj15_0n8 troj15_0n4 
+NOR troj15_0U11 troj15_0n4 troj15_0n1 troj15_0n6 
+BUF troj15_0U12 troj15_0n1 troj15_0counter_0_ 
+XNOR troj15_0U13 troj15_0N1 troj15_0counter_0_ troj15_0n6 
+XOR trojan15_0 n233 tempn233 Trojan_out0 

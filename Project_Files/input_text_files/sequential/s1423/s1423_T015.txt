@@ -56,7 +56,7 @@ NAND U55 n197 G10 n196
 NOR U56 G590 n199 n200 
 NOR U57 n199 n201 n81 
 NOR U58 n201 n345 n202 
-NOR U59 n202 n76 n203 
+NOR U59  tempn202  n76 n203 
 NAND U60 G577 n204 n205 
 OR U61 n205 n196 n444 
 NAND U62 n204 G9 n196 
@@ -773,3 +773,10 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR troj15_0U1         Trigger_en15_0 troj15_0n1 troj15_0n2 n152 n292 n269 
+OR troj15_0U2 troj15_0n2 n86 n362 n340 
+OR troj15_0U3 troj15_0n1 n113 n109 n100 troj15_0n3 troj15_0n4 
+NAND troj15_0U4 troj15_0n4 n270 troj15_0n5 
+BUF troj15_0U5 troj15_0n5 G687 
+BUF troj15_0U6 troj15_0n3 n310 
+XOR trojan15_0 n202 tempn202 Trigger_en15_0 

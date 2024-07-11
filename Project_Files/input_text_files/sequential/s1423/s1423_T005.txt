@@ -358,7 +358,7 @@ BUF U357 n94 n163
 BUF U358 n95 n145 
 BUF U359 n96 n144 
 BUF U360 n97 n235 
-BUF U361 n98 n169 
+BUF U361  tempn98  n169 
 BUF U363 n100 n360 
 BUF U364 n101 n433 
 BUF U365 n102 n434 
@@ -773,3 +773,8 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+BUF troj5_0U1 Trigger_en5_0 troj5_0n1 
+OR troj5_0U2 troj5_0n1 n383 n320 n386 n385 troj5_0n2 
+NAND troj5_0U3 troj5_0n2 troj5_0n3 n280 
+NOR troj5_0U4 troj5_0n3 n244 n228 
+XOR trojan5_0 n98 tempn98 Trigger_en5_0 

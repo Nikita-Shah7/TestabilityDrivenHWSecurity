@@ -76,7 +76,7 @@ XNOR U75 n214 n472 n215
 AND U76 G541 n216 n215 n90 
 NAND U77 n215 n107 n108 n80 
 NAND U78 n216 n369 n217 
-NAND U79 n217 n80 n108 
+NAND U79  tempn217  n80 n108 
 NOR U80 G536 n200 n219 
 XNOR U81 n219 n471 n218 
 AND U82 G531 n220 n218 n90 
@@ -773,3 +773,7 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+BUF troj13_0U1 Trigger_en13_0 troj13_0n1 
+OR troj13_0U2 troj13_0n1 n232 n174 n112 troj13_0n2 
+OR troj13_0U3 troj13_0n2 n241 n238 n383 n334 
+XOR trojan13_0 n217 tempn217 Trigger_en13_0 

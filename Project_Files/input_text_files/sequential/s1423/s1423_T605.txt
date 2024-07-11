@@ -100,7 +100,7 @@ NAND U99 G498 n238 n239 n240
 OR U100 n240 n235 n451 
 NAND U101 n239 G4 n236 
 NAND U102 n238 G1 n237 
-NAND U103 G494 n241 n242 n243 
+NAND U103  tempG494  n241 n242 n243 
 OR U104 n243 n235 n450 
 NAND U105 n242 G3 n236 
 NOR U106 n236 n97 n350 
@@ -132,7 +132,7 @@ NAND U131 n261 n258 n117
 NOR U132 n258 n262 n139 
 NAND U133 n260 n111 n116 
 NOR U134 G438 n263 n139 
-NOR U135 n263 n76 n117 
+NOR U135  tempn263  n76 n117 
 NAND U136 n143 n264 n265 
 NAND U137 n265 n266 n169 
 NAND U138 n266 n267 n268 
@@ -773,3 +773,29 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig10_0U1 Trigger_en0_0 trig10_0n1 trig10_0n2 trig10_0n3 trig10_0n4 
+NAND trig10_0U2 trig10_0n4 n270 n236 trig10_0n5 
+NOR trig10_0U3 trig10_0n5 n111 n108 
+OR trig10_0U4 trig10_0n3 n121 n114 n182 n159 
+OR trig10_0U5 trig10_0n2 n261 n185 n290 n271 
+OR trig10_0U6 trig10_0n1 n329 n300 n343 trig10_0n6 
+OR trig10_0U7 trig10_0n6 n97 n396 
+DFF troj5_0counter_reg_0_ troj5_0counter_0_ ** CK troj5_0n7 ** 
+DFF troj5_0counter_reg_1_ ** troj5_0n5 CK troj5_0N1 troj5_0n6 
+DFF troj5_0counter_reg_2_ ** troj5_0n4 CK troj5_0N2 troj5_0n6 
+DFF troj5_0Trojan_out0_reg Trojan_out0 ** CK troj5_0N4 ** 
+BUF troj5_0U3 troj5_0n6 Trigger_en0_0 
+XOR troj5_0U4 troj5_0n7 troj5_0counter_0_ Trigger_en0_0 
+AND troj5_0U5 troj5_0N4 troj5_0n1 troj5_0n2 troj5_0counter_0_ 
+BUF troj5_0U6 troj5_0n2 troj5_0n4 
+XOR troj5_0U7 troj5_0N2 troj5_0n3 troj5_0n4 
+NAND troj5_0U8 troj5_0n3 troj5_0counter_0_ troj5_0n1 
+XOR troj5_0U9 troj5_0N1 troj5_0n1 troj5_0counter_0_ 
+BUF troj5_0U10 troj5_0n1 troj5_0n5 
+XOR trojan5_0 G494 tempG494 Trojan_out0 
+NOR troj5_1U1 Trigger_en1_5 troj5_1n1 troj5_1n2 
+NAND troj5_1U2 troj5_1n2 n82 n179 troj5_1n3 
+NOR troj5_1U3 troj5_1n3 n232 n152 
+OR troj5_1U4 troj5_1n1 n299 n277 troj5_1n4 
+OR troj5_1U5 troj5_1n4 n386 n340 n333 
+XOR trojan5_1 n263 tempn263 Trigger_en1_5 

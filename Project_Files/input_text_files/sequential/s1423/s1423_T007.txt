@@ -336,7 +336,7 @@ OR U335 n431 n99 G8
 NAND U336 n430 n99 n116 
 OR U337 n426 n99 G4 
 BUF U338 n75 n363 
-BUF U339 n76 n143 
+BUF U339  tempn76  n143 
 BUF U340 n77 n294 
 BUF U341 n78 n270 
 BUF U342 n79 n254 
@@ -773,3 +773,12 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR troj7_0U1 Trigger_en7_0 troj7_0n1 troj7_0n2 
+OR troj7_0U2 troj7_0n2 n175 G613 n203 n192 troj7_0n3 
+BUF troj7_0U3 troj7_0n3 troj7_0n4 
+AND troj7_0U4 troj7_0n4 n138 n132 n291 
+OR troj7_0U5 troj7_0n1 n251 n244 n293 n288 troj7_0n5 
+NAND troj7_0U6 troj7_0n5 troj7_0n6 troj7_0n7 
+NOR troj7_0U7 troj7_0n7 n86 n402 
+NOR troj7_0U8 troj7_0n6 n386 n333 
+XOR trojan7_0 n76 tempn76 Trigger_en7_0 

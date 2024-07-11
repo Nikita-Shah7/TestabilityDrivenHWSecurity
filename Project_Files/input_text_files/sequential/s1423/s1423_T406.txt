@@ -145,7 +145,7 @@ NAND U144 n269 n118 n271
 NOR U145 G424 n272 n273 
 NOR U146 n272 n274 n119 
 NOR U147 n274 n438 n78 
-NOR U148 G416 n273 n275 
+NOR U148  tempG416  n273 n275 
 XNOR U149 n275 n438 n78 
 NAND U150 n273 G14 n271 
 NAND U151 n271 n270 n119 
@@ -773,3 +773,45 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig30_0U1 Trigger_en0_0 trig30_0n1 trig30_0n2 
+NAND trig30_0U2 trig30_0n2 trig30_0n3 n393 trig30_0n4 n141 
+NOR trig30_0U3 trig30_0n4 G693 G328BF 
+AND trig30_0U4 trig30_0n3 n326 n250 
+OR trig30_0U5 trig30_0n1 n333 n206 n113 n362 trig30_0n5 
+OR trig30_0U6 trig30_0n5 n427 n418 
+DFF troj6_0state_reg_0_ troj6_0state_0_ troj6_0n14 CK troj6_0N78 troj6_0n8 
+DFF troj6_0state_reg_1_ troj6_0state_1_ troj6_0n19 CK troj6_0N79 troj6_0n8 
+DFF troj6_0state_reg_3_ troj6_0state_3_ troj6_0n13 CK troj6_0N81 troj6_0n8 
+DFF troj6_0state_reg_2_ troj6_0state_2_ troj6_0n12 CK troj6_0N80 troj6_0n8 
+DFF troj6_0Trojan_out0_reg Trojan_out0 ** CK troj6_0N76 troj6_0n7 
+BUF troj6_0U3 troj6_0n1 troj6_0state_1_ 
+NOR troj6_0U4 troj6_0n2 troj6_0state_0_ troj6_0n1 
+BUF troj6_0U5 troj6_0n3 Trigger_en0_0 
+NOT troj6_0U6-NOT troj6_0U6-s-bar troj6_0n2 
+AND troj6_0U6-AND-A troj6_0U6-output-A troj6_0n4 troj6_0U6-s-bar 
+AND troj6_0U6-AND-B troj6_0U6-output-B troj6_0n5 troj6_0n2 
+OR troj6_0U6-OR troj6_0N77 troj6_0U6-output-A troj6_0U6-output-B 
+OR troj6_0U7 troj6_0n5 troj6_0state_3_ troj6_0n3 
+BUF troj6_0U8 troj6_0n6 troj6_0n5 
+NOT troj6_0U9-NOT troj6_0U9-s-bar troj6_0state_2_ 
+AND troj6_0U9-AND-A troj6_0U9-output-A Trigger_en0_0 troj6_0U9-s-bar 
+AND troj6_0U9-AND-B troj6_0U9-output-B troj6_0n6 troj6_0state_2_ 
+OR troj6_0U9-OR troj6_0n4 troj6_0U9-output-A troj6_0U9-output-B 
+BUF troj6_0U10 troj6_0N75 troj6_0n4 
+BUF troj6_0U11 troj6_0n7 troj6_0N75 
+BUF troj6_0U12 troj6_0n8 troj6_0N77 
+NAND troj6_0U13 troj6_0N81 troj6_0n9 troj6_0n10 troj6_0n11 
+NAND troj6_0U14 troj6_0n11 troj6_0n12 troj6_0n13 troj6_0n14 
+BUF troj6_0U16 troj6_0n16 troj6_0n15 
+NOR troj6_0U17 troj6_0n15 troj6_0state_1_ troj6_0state_3_ 
+NAND troj6_0U19 troj6_0n18 troj6_0state_2_ troj6_0n14 troj6_0n19 troj6_0n13 
+NAND troj6_0U20 troj6_0n17 troj6_0state_0_ troj6_0n19 
+NAND troj6_0U21 troj6_0n9 troj6_0state_2_ troj6_0state_0_ troj6_0state_1_ troj6_0n13 
+NAND troj6_0U22 troj6_0n10 troj6_0n20 troj6_0n13 
+NOR troj6_0U23 troj6_0n20 troj6_0n19 troj6_0state_0_ 
+AND troj6_0U24 troj6_0N76 troj6_0state_3_ troj6_0state_1_ troj6_0n14 troj6_0n12 
+OR troj6_0U25_1 troj6_0N78_1 troj6_0n13 troj6_0state_2_ troj6_0n20 
+OR troj6_0U25_2 troj6_0N78_2 troj6_0n12 troj6_0n10 troj6_0n9 
+AND troj6_0U25_3 troj6_0N78_3 troj6_0N78_1 troj6_0N78_2 
+NOT troj6_0U25_4 troj6_0N78 troj6_0N78_3 
+XOR trojan6_0 G416 tempG416 Trojan_out0 

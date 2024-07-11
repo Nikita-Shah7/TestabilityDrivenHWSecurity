@@ -8,7 +8,7 @@ NAND U7 n150 n151 n152 n153
 NAND U8 n153 n378 n154 
 NAND U9 n154 n155 n156 
 NAND U10 n156 n157 n142 n158 
-NAND U11 n158 n76 n159 
+NAND U11  tempn158  n76 n159 
 NAND U12 n159 n160 n141 
 NAND U13 n155 G6 n133 
 NAND U14 n152 n161 n157 n98 
@@ -773,3 +773,7 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR troj9_0U1         Trigger_en9_0 troj9_0n1 troj9_0n2 n126 n269 n204 
+NAND troj9_0U2 troj9_0n2 n280 n270 
+OR troj9_0U3 troj9_0n1 n87 n420 n392 n340 n325 
+XOR trojan9_0 n158 tempn158 Trigger_en9_0 

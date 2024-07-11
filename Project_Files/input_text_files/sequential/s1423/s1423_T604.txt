@@ -8,7 +8,7 @@ NAND U7 n150 n151 n152 n153
 NAND U8 n153 n378 n154 
 NAND U9 n154 n155 n156 
 NAND U10 n156 n157 n142 n158 
-NAND U11 n158 n76 n159 
+NAND U11  tempn158  n76 n159 
 NAND U12 n159 n160 n141 
 NAND U13 n155 G6 n133 
 NAND U14 n152 n161 n157 n98 
@@ -95,7 +95,7 @@ NAND U94 n231 G9 n378
 NAND U95 G503 n232 n233 n234 
 OR U96 n234 n235 n452 
 NAND U97 n233 G5 n236 
-NAND U98 n232 G2 n237 
+NAND U98  tempn232  G2 n237 
 NAND U99 G498 n238 n239 n240 
 OR U100 n240 n235 n451 
 NAND U101 n239 G4 n236 
@@ -773,3 +773,52 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig8_0U1 Trigger_en0_0 trig8_0n1 trig8_0n2 
+OR trig8_0U2 trig8_0n2 trig8_0n3 trig8_0n4 
+NAND trig8_0U3 trig8_0n4 n310 n278 n344 
+NAND trig8_0U4 trig8_0n3 n270 trig8_0n5 n274 
+BUF trig8_0U5 trig8_0n5 n109 
+OR trig8_0U6 trig8_0n1 n379 n286 trig8_0n6 n146 trig8_0n7 
+OR trig8_0U7 trig8_0n7 n245 n230 
+OR trig8_0U8 trig8_0n6 n87 n383 
+DFF troj4_0state_reg_0_ troj4_0state_0_ troj4_0n13 CK troj4_0N66 troj4_0n11 
+DFF troj4_0state_reg_3_ troj4_0state_3_ troj4_0n19 CK troj4_0N69 troj4_0n11 
+DFF troj4_0state_reg_2_ troj4_0state_2_ troj4_0n16 CK troj4_0N68 troj4_0n11 
+DFF troj4_0state_reg_1_ troj4_0state_1_ troj4_0n17 CK troj4_0N67 troj4_0n11 
+DFF troj4_0Trojan_out0_reg Trojan_out0 ** CK troj4_0N64 troj4_0n10 
+BUF troj4_0U3 troj4_0n1 Trigger_en0_0 
+OR troj4_0U4 troj4_0n2 troj4_0state_3_ troj4_0n1 
+BUF troj4_0U5 troj4_0n3 troj4_0state_1_ 
+NOT troj4_0U6-NOT troj4_0U6-s-bar troj4_0state_1_ 
+AND troj4_0U6-AND-A troj4_0U6-output-A Trigger_en0_0 troj4_0U6-s-bar 
+AND troj4_0U6-AND-B troj4_0U6-output-B troj4_0n5 troj4_0state_1_ 
+OR troj4_0U6-OR troj4_0n4 troj4_0U6-output-A troj4_0U6-output-B 
+NOT troj4_0U7-NOT troj4_0U7-s-bar troj4_0state_0_ 
+AND troj4_0U7-AND-A troj4_0U7-output-A troj4_0n6 troj4_0U7-s-bar 
+AND troj4_0U7-AND-B troj4_0U7-output-B troj4_0n7 troj4_0state_0_ 
+OR troj4_0U7-OR troj4_0N65 troj4_0U7-output-A troj4_0U7-output-B 
+BUF troj4_0U8 troj4_0n5 troj4_0n2 
+BUF troj4_0U10 troj4_0n9 troj4_0n4 
+NOT troj4_0U11-NOT troj4_0U11-s-bar troj4_0state_2_ 
+AND troj4_0U11-AND-A troj4_0U11-output-A troj4_0n9 troj4_0U11-s-bar 
+AND troj4_0U11-AND-B troj4_0U11-output-B troj4_0n5 troj4_0state_2_ 
+OR troj4_0U11-OR troj4_0n7 troj4_0U11-output-A troj4_0U11-output-B 
+BUF troj4_0U12 troj4_0N63 troj4_0n7 
+NAND troj4_0U13 troj4_0n6 troj4_0n9 troj4_0n8 
+BUF troj4_0U14 troj4_0n10 troj4_0N63 
+BUF troj4_0U15 troj4_0n11 troj4_0N65 
+NOR troj4_0U16 troj4_0N69 troj4_0n12 troj4_0n13 
+AND troj4_0U18 troj4_0N67 troj4_0n17 troj4_0n16 troj4_0n18 
+NAND troj4_0U19 troj4_0n18 troj4_0state_0_ troj4_0n19 
+NAND troj4_0U20 troj4_0n14 troj4_0n17 troj4_0n16 troj4_0state_3_ 
+NOR troj4_0U21 troj4_0N64 troj4_0n12 troj4_0state_0_ troj4_0n16 
+NAND troj4_0U22 troj4_0n12 troj4_0n15 troj4_0n19 
+NAND troj4_0U23 troj4_0n15 troj4_0state_1_ troj4_0n19 
+XOR trojan4_0 n232 tempn232 Trojan_out0 
+NOR troj4_1U1 Trigger_en1_4 troj4_1n1 troj4_1n2 
+OR troj4_1U2 troj4_1n2 n112 troj4_1n3 troj4_1n4 
+OR troj4_1U3 troj4_1n4 n191 n189 n175 
+BUF troj4_1U4 troj4_1n3 n274 
+OR troj4_1U5 troj4_1n1 n267 n238 troj4_1n5 
+OR troj4_1U6 troj4_1n5 n400 n311 n299 
+XOR trojan4_1 n158 tempn158 Trigger_en1_4 

@@ -5,7 +5,7 @@ NAND U4 n147 n148 n75
 NAND U5 n146 n360 n149 
 AND U6 G705 G14 n150 
 NAND U7 n150 n151 n152 n153 
-NAND U8 n153 n378 n154 
+NAND U8  tempn153  n378 n154 
 NAND U9 n154 n155 n156 
 NAND U10 n156 n157 n142 n158 
 NAND U11 n158 n76 n159 
@@ -53,7 +53,7 @@ NAND U52 n194 G11 n196
 NAND U53 G608 n197 n198 
 OR U54 n198 n196 n371 
 NAND U55 n197 G10 n196 
-NOR U56 G590 n199 n200 
+NOR U56  tempG590  n199 n200 
 NOR U57 n199 n201 n81 
 NOR U58 n201 n345 n202 
 NOR U59 n202 n76 n203 
@@ -773,3 +773,31 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+BUF trig12_0U1 Trigger_en0_0 trig12_0n1 
+OR trig12_0U2 trig12_0n1 n129 n107 G613 trig12_0n2 trig12_0n3 
+OR trig12_0U3 trig12_0n3 n322 n292 n253 n229 n201 
+NAND trig12_0U4 trig12_0n2 n93 n213 
+DFF troj6_0counter_reg_0_ troj6_0counter_0_ ** CK troj6_0n10 ** 
+DFF troj6_0counter_reg_1_ ** troj6_0n6 CK troj6_0N1 troj6_0n9 
+DFF troj6_0counter_reg_2_ ** troj6_0n8 CK troj6_0N2 troj6_0n9 
+DFF troj6_0counter_reg_3_ ** troj6_0n7 CK troj6_0N3 troj6_0n9 
+DFF troj6_0Trojan_out0_reg Trojan_out0 ** CK troj6_0N6 ** 
+BUF troj6_0U3 troj6_0n9 Trigger_en0_0 
+XNOR troj6_0U4 troj6_0n10 troj6_0n1 Trigger_en0_0 
+AND troj6_0U5 troj6_0N6 troj6_0n2 troj6_0n3 troj6_0n4 
+XNOR troj6_0U6 troj6_0N3 troj6_0n5 troj6_0n3 
+BUF troj6_0U7 troj6_0n3 troj6_0n7 
+NAND troj6_0U8 troj6_0n5 troj6_0n4 troj6_0n2 
+BUF troj6_0U9 troj6_0n2 troj6_0n8 
+XNOR troj6_0U10 troj6_0N2 troj6_0n8 troj6_0n4 
+NOR troj6_0U11 troj6_0n4 troj6_0n1 troj6_0n6 
+BUF troj6_0U12 troj6_0n1 troj6_0counter_0_ 
+XNOR troj6_0U13 troj6_0N1 troj6_0counter_0_ troj6_0n6 
+XOR trojan6_0 G590 tempG590 Trojan_out0 
+NOR troj6_1U1         Trigger_en1_6 troj6_1n1 troj6_1n2 n129 n295 n292 
+NAND troj6_1U2 troj6_1n2 troj6_1n3 troj6_1n4 
+BUF troj6_1U3 troj6_1n4 n306 
+NOR troj6_1U4 troj6_1n3 n409 n395 
+NAND troj6_1U5 troj6_1n1 n227 n142 troj6_1n5 n139 
+NOR troj6_1U6 troj6_1n5 n109 G498 
+XOR trojan6_1 n153 tempn153 Trigger_en1_6 

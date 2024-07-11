@@ -12,7 +12,7 @@ NAND U11 n158 n76 n159
 NAND U12 n159 n160 n141 
 NAND U13 n155 G6 n133 
 NAND U14 n152 n161 n157 n98 
-NAND U15 n161 n76 n162 
+NAND U15  tempn161  n76 n162 
 NAND U16 n162 n105 n160 n345 
 OR U17 n160 n93 n163 n164 n165 n166 
 AND U18 n164 n167 n354 
@@ -71,7 +71,7 @@ OR U70 n211 n196 n447
 NAND U71 n210 G6 n196 
 NAND U72 n196 G14 n212 
 NAND U73 n212 n213 n89 
-NOR U74 G548 n200 n214 
+NOR U74  tempG548  n200 n214 
 XNOR U75 n214 n472 n215 
 AND U76 G541 n216 n215 n90 
 NAND U77 n215 n107 n108 n80 
@@ -773,3 +773,32 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig2_0U1 Trigger_en0_0 trig2_0n1 trig2_0n2 
+NAND trig2_0U2 trig2_0n2 n274 n270 trig2_0n3 n164 
+NOR trig2_0U3 trig2_0n3 n123 n100 
+OR trig2_0U4 trig2_0n1 n388 n262 n232 n392 trig2_0n4 
+OR trig2_0U5 trig2_0n4 n418 n403 
+DFF troj1_0counter_reg_0_ troj1_0counter_0_ ** CK troj1_0n10 ** 
+DFF troj1_0counter_reg_1_ ** troj1_0n6 CK troj1_0N1 troj1_0n9 
+DFF troj1_0counter_reg_2_ ** troj1_0n8 CK troj1_0N2 troj1_0n9 
+DFF troj1_0counter_reg_3_ ** troj1_0n7 CK troj1_0N3 troj1_0n9 
+DFF troj1_0Trojan_out0_reg Trojan_out0 ** CK troj1_0N6 ** 
+BUF troj1_0U3 troj1_0n9 Trigger_en0_0 
+XNOR troj1_0U4 troj1_0n10 troj1_0n1 Trigger_en0_0 
+AND troj1_0U5 troj1_0N6 troj1_0n2 troj1_0n3 troj1_0n4 
+XNOR troj1_0U6 troj1_0N3 troj1_0n5 troj1_0n3 
+BUF troj1_0U7 troj1_0n3 troj1_0n7 
+NAND troj1_0U8 troj1_0n5 troj1_0n4 troj1_0n2 
+BUF troj1_0U9 troj1_0n2 troj1_0n8 
+XNOR troj1_0U10 troj1_0N2 troj1_0n8 troj1_0n4 
+NOR troj1_0U11 troj1_0n4 troj1_0n1 troj1_0n6 
+BUF troj1_0U12 troj1_0n1 troj1_0counter_0_ 
+XNOR troj1_0U13 troj1_0N1 troj1_0counter_0_ troj1_0n6 
+XOR trojan1_0 n161 tempn161 Trojan_out0 
+AND troj1_1U1 Trigger_en1_1 troj1_1n1 troj1_1n2 troj1_1n3 
+NOR troj1_1U2 troj1_1n3 troj1_1n4 n415 n402 n389 n349 
+OR troj1_1U3 troj1_1n4 n336 n247 n203 
+NOR troj1_1U4 troj1_1n2 n186 n124 n119 troj1_1n5 
+BUF troj1_1U5 troj1_1n5 G713 
+AND troj1_1U6 troj1_1n1 n275 n214 n348 
+XOR trojan1_1 G548 tempG548 Trigger_en1_1 

@@ -1,5 +1,5 @@
 NOR U1 G727 n111 n99 
-NOR U2 G713 n139 n143 n95 n345 n96 
+NOR U2  tempG713  n139 n143 n95 n345 n96 
 NAND U3 G707 n146 n147 
 NAND U4 n147 n148 n75 
 NAND U5 n146 n360 n149 
@@ -74,7 +74,7 @@ NAND U73 n212 n213 n89
 NOR U74 G548 n200 n214 
 XNOR U75 n214 n472 n215 
 AND U76 G541 n216 n215 n90 
-NAND U77 n215 n107 n108 n80 
+NAND U77  tempn215  n107 n108 n80 
 NAND U78 n216 n369 n217 
 NAND U79 n217 n80 n108 
 NOR U80 G536 n200 n219 
@@ -773,3 +773,35 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+AND trig6_0U1 Trigger_en0_0 trig6_0n1 trig6_0n2 trig6_0n3 trig6_0n4 
+NOR trig6_0U2 trig6_0n4 n276 n389 n325 
+NOR trig6_0U3 trig6_0n3 n119 n229 n174 
+AND trig6_0U4 trig6_0n2 n213 n164 n236 
+AND trig6_0U5 trig6_0n1 n255 n248 n303 
+DFF troj3_0counter_reg_0_ troj3_0counter_0_ ** CK troj3_0n10 ** 
+DFF troj3_0counter_reg_1_ ** troj3_0n6 CK troj3_0N1 troj3_0n9 
+DFF troj3_0counter_reg_2_ ** troj3_0n8 CK troj3_0N2 troj3_0n9 
+DFF troj3_0counter_reg_3_ ** troj3_0n7 CK troj3_0N3 troj3_0n9 
+DFF troj3_0Trojan_out0_reg Trojan_out0 ** CK troj3_0N6 ** 
+BUF troj3_0U3 troj3_0n9 Trigger_en0_0 
+XNOR troj3_0U4 troj3_0n10 troj3_0n1 Trigger_en0_0 
+AND troj3_0U5 troj3_0N6 troj3_0n2 troj3_0n3 troj3_0n4 
+XNOR troj3_0U6 troj3_0N3 troj3_0n5 troj3_0n3 
+BUF troj3_0U7 troj3_0n3 troj3_0n7 
+NAND troj3_0U8 troj3_0n5 troj3_0n4 troj3_0n2 
+BUF troj3_0U9 troj3_0n2 troj3_0n8 
+XNOR troj3_0U10 troj3_0N2 troj3_0n8 troj3_0n4 
+NOR troj3_0U11 troj3_0n4 troj3_0n1 troj3_0n6 
+BUF troj3_0U12 troj3_0n1 troj3_0counter_0_ 
+XNOR troj3_0U13 troj3_0N1 troj3_0counter_0_ troj3_0n6 
+XOR trojan3_0 G713 tempG713 Trojan_out0 
+NOR troj3_1U1 Trigger_en1_3 troj3_1n1 troj3_1n2 
+NAND troj3_1U2 troj3_1n2 n95 n93 troj3_1n3 troj3_1n4 
+NOR troj3_1U3 troj3_1n4 n231 n168 n244 n253 n246 
+NOR troj3_1U4 troj3_1n3 troj3_1n5 troj3_1n6 
+NAND troj3_1U5 troj3_1n6 n177 n163 
+BUF troj3_1U6 troj3_1n5 n263 
+NAND troj3_1U7 troj3_1n1 troj3_1n7 troj3_1n8 
+NOR troj3_1U8 troj3_1n8 n402 n385 n406 n94 n79 
+NOR troj3_1U9 troj3_1n7 n292 n265 n307 n335 n315 
+XOR trojan3_1 n215 tempn215 Trigger_en1_3 

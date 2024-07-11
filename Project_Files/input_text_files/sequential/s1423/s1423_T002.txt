@@ -159,7 +159,7 @@ NAND U158 n279 G14 n277
 XNOR U159 n282 n281 n439 
 NOR U160 G392 n283 n284 
 NOR U161 n283 n285 n121 
-AND U162 G384 n286 n85 n84 
+AND U162  tempG384  n286 n85 n84 
 NOR U163 n285 n86 n440 
 NAND U164 n286 n440 n86 
 AND U165 G379 n287 n86 n84 
@@ -773,3 +773,12 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+AND troj2_0U1 Trigger_en2_0 troj2_0n1 n169 troj2_0n2 troj2_0n3 
+AND troj2_0U2 troj2_0n3 troj2_0n4 troj2_0n5 troj2_0n6 troj2_0n7 
+BUF troj2_0U3 troj2_0n7 n336 
+NOR troj2_0U4 troj2_0n6 n429 n409 
+BUF troj2_0U5 troj2_0n5 n104 
+NOR troj2_0U6 troj2_0n4 n313 n295 
+AND troj2_0U7 troj2_0n2 n289 n250 n387 
+NOR troj2_0U8 troj2_0n1 G693 G573 
+XOR trojan2_0 G384 tempG384 Trigger_en2_0 

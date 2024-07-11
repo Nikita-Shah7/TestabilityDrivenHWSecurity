@@ -88,7 +88,7 @@ XNOR U87 n223 n346 n222
 NAND U88 n222 n224 n203 n225 
 NAND U89 n225 n169 n88 n226 
 NAND U90 n226 n227 n134 
-NAND U91 n224 n98 n228 
+NAND U91  tempn224  n98 n228 
 NAND U92 n228 n82 n364 
 NAND U93 n200 n230 n231 
 NAND U94 n231 G9 n378 
@@ -357,7 +357,7 @@ BUF U356 n93 n168
 BUF U357 n94 n163 
 BUF U358 n95 n145 
 BUF U359 n96 n144 
-BUF U360 n97 n235 
+BUF U360  tempn97  n235 
 BUF U361 n98 n169 
 BUF U363 n100 n360 
 BUF U364 n101 n433 
@@ -773,3 +773,13 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR troj19_0U1         Trigger_en19_0 troj19_0n1 troj19_0n2 n162 n241 n226 
+OR troj19_0U2 troj19_0n2 n85 n340 n325 
+NAND troj19_0U3 troj19_0n1 G663 troj19_0n3 n258 troj19_0n4 
+NOR troj19_0U4 troj19_0n4 n127 n151 n144 
+BUF troj19_0U5 troj19_0n3 n113 
+XOR trojan19_0 n224 tempn224 Trigger_en19_0 
+AND troj19_1U1         Trigger_en19_1 n254 troj19_1n1 n258 troj19_1n2 
+NOR troj19_1U2 troj19_1n2 n396 n386 n333 n229 
+BUF troj19_1U3 troj19_1n1 n178 
+XOR trojan19_1 n97 tempn97 Trigger_en19_1 

@@ -89,7 +89,7 @@ NAND U88 n222 n224 n203 n225
 NAND U89 n225 n169 n88 n226 
 NAND U90 n226 n227 n134 
 NAND U91 n224 n98 n228 
-NAND U92 n228 n82 n364 
+NAND U92  tempn228  n82 n364 
 NAND U93 n200 n230 n231 
 NAND U94 n231 G9 n378 
 NAND U95 G503 n232 n233 n234 
@@ -773,3 +773,41 @@ AND \DFF_0/Q_reg-SDFF-AND-A \DFF_0/Q_reg-SDFF-output-A G332BF \DFF_0/Q_reg-SDFF-
 AND \DFF_0/Q_reg-SDFF-AND-B \DFF_0/Q_reg-SDFF-output-B test_si test_se 
 OR \DFF_0/Q_reg-SDFF-OR \DFF_0/Q_reg-SDFF-MUX21 \DFF_0/Q_reg-SDFF-output-A \DFF_0/Q_reg-SDFF-output-B 
 DFF \DFF_0/Q_reg-SDFF G22 ** CK \DFF_0/Q_reg-SDFF-MUX21 ** 
+NOR trig56_0U1 Trigger_en0_0 trig56_0n1 trig56_0n2 
+OR trig56_0U2 trig56_0n2 n151 trig56_0n3 n226 n162 
+BUF trig56_0U3 trig56_0n3 n105 
+OR trig56_0U4 trig56_0n1 n392 n327 n262 n253 n229 
+DFF troj12_0state_reg_0_ troj12_0state_0_ troj12_0n26 CK troj12_0N90 troj12_0n10 
+DFF troj12_0state_reg_3_ troj12_0state_3_ troj12_0n19 CK troj12_0N93 troj12_0n10 
+DFF troj12_0state_reg_1_ troj12_0state_1_ troj12_0n20 CK troj12_0N91 troj12_0n10 
+DFF troj12_0state_reg_2_ troj12_0state_2_ troj12_0n28 CK troj12_0N92 troj12_0n10 
+DFF troj12_0Trojan_out0_reg Trojan_out0 ** CK troj12_0N88 troj12_0n9 
+BUF troj12_0U5 troj12_0n4 troj12_0state_1_ 
+BUF troj12_0U6 troj12_0n3 Trigger_en0_0 
+NAND troj12_0U7 troj12_0n5 troj12_0state_2_ troj12_0state_3_ 
+NAND troj12_0U8 troj12_0n6 troj12_0n7 troj12_0n8 
+NAND troj12_0U9 troj12_0n2 troj12_0state_0_ troj12_0n4 
+XOR troj12_0U10 troj12_0n8 troj12_0n4 troj12_0state_3_ 
+XOR troj12_0U11 troj12_0n7 troj12_0n4 troj12_0state_2_ 
+NOT troj12_0U12-NOT troj12_0U12-s-bar troj12_0state_0_ 
+AND troj12_0U12-AND-A troj12_0U12-output-A troj12_0n6 troj12_0U12-s-bar 
+AND troj12_0U12-AND-B troj12_0U12-output-B troj12_0n5 troj12_0state_0_ 
+OR troj12_0U12-OR troj12_0n1 troj12_0U12-output-A troj12_0U12-output-B 
+BUF troj12_0U13 troj12_0n9 troj12_0N87 
+BUF troj12_0U14 troj12_0n10 troj12_0N89 
+NAND troj12_0U16 troj12_0N92 troj12_0n15 troj12_0n16 
+BUF troj12_0U17 troj12_0n15 troj12_0n17 
+BUF troj12_0U21 troj12_0n22 troj12_0n23 
+BUF troj12_0U22 troj12_0n21 troj12_0n11 
+NOR troj12_0U23 troj12_0n11 troj12_0n19 troj12_0state_2_ 
+NAND troj12_0U24 troj12_0N90 troj12_0n13 troj12_0n14 troj12_0n23 troj12_0n24 
+XNOR troj12_0U26 troj12_0n25 troj12_0n28 troj12_0state_1_ 
+NAND troj12_0U27 troj12_0n23 troj12_0n26 troj12_0n28 troj12_0n29 
+NAND troj12_0U28 troj12_0n14 troj12_0n29 troj12_0n28 troj12_0state_0_ 
+NAND troj12_0U29 troj12_0n13 troj12_0n18 troj12_0n29 
+NOR troj12_0U30 troj12_0n29 troj12_0n20 troj12_0state_3_ 
+NOR troj12_0U31 troj12_0n18 troj12_0n28 troj12_0state_0_ 
+AND troj12_0U32 troj12_0N88 troj12_0n12 troj12_0n20 troj12_0n28 troj12_0n19 
+BUF troj12_0U33 troj12_0n12 troj12_0n27 
+NOR troj12_0U34 troj12_0n27 troj12_0n26 troj12_0state_1_ 
+XOR trojan12_0 n228 tempn228 Trojan_out0 
