@@ -7,1023 +7,1023 @@ No. of Primary Outputs: 15
 No. of Gates: 840
 No. of DFFs: 79
 No. of Nodes: 1931
-Execution Time: 32244000 ns
+Execution Time: 666628000 ns
 Primary Inputs: troj10_0n24 test_si troj10_0n4 CK test_se troj10_0N96 troj10_0n14 G15 G12 G16 troj10_0n30 G0 G3 G1 G4 G2 G5 G7 G8 G9 G10 G13 G11 G6 G14
 Outputs: troj10_0n26 troj10_0n27 Trigger_en0_13 Trigger_en0_10 Trigger_en0_8 Trigger_en0_7 troj10_0n33 Trigger_en0_4 Trigger_en0_12 troj10_0n31 Trigger_en0_11 G729 Trigger_en0_0 G702 G727
 
 
 ----------------------------------------
-Signal	CC0	CC1	SC0	SC1
+Signal	CC0	CC1	CO	SC0	SC1
 ----------------------------------------
-troj10_0n24	1	1	0	0
-test_si	1	1	0	0
-troj10_0n4	1	1	0	0
-CK	1	1	0	0
-test_se	1	1	0	0
-troj10_0N96	1	1	0	0
-troj10_0n14	1	1	0	0
-G15	1	1	0	0
-G12	1	1	0	0
-G16	1	1	0	0
-troj10_0n30	1	1	0	0
-G0	1	1	0	0
-G3	1	1	0	0
-G1	1	1	0	0
-G4	1	1	0	0
-G2	1	1	0	0
-G5	1	1	0	0
-G7	1	1	0	0
-G8	1	1	0	0
-G9	1	1	0	0
-G10	1	1	0	0
-G13	1	1	0	0
-G11	1	1	0	0
-G6	1	1	0	0
-G14	1	1	0	0
-G729	8	24	1	4
-n539	8	19	1	3
-n363	8	19	1	3
-G726	8	14	1	2
-n538	8	9	1	1
-n465	8	9	1	1
-n537	8	9	1	1
-n458	8	9	1	1
-n536	8	9	1	1
-n378	8	9	1	1
-n535	8	24	1	4
-n360	8	24	1	4
-n534	8	19	1	3
-n433	8	19	1	3
-n533	8	14	1	2
-n434	8	14	1	2
-n532	8	9	1	1
-n432	8	9	1	1
-n531	8	11	1	1
-n370	8	11	1	1
-n530	8	11	1	1
-n371	8	11	1	1
-n529	8	16	1	2
-n345	8	16	1	2
-n528	8	11	1	1
-n444	8	11	1	1
-n527	8	11	1	1
-n445	8	11	1	1
-n526	8	11	1	1
-n446	8	11	1	1
-n525	8	11	1	1
-n447	8	11	1	1
-n524	8	39	1	4
-n472	8	39	1	4
-n523	8	39	1	4
-n369	8	39	1	4
-n522	8	39	1	4
-n471	8	39	1	4
-n521	8	38	1	4
-n356	8	38	1	4
-n520	8	33	1	4
-n346	8	33	1	4
-n519	8	28	1	3
-n452	8	28	1	3
-n518	8	28	1	3
-n451	8	28	1	3
-n517	8	28	1	3
-n450	8	28	1	3
-n516	8	30	1	3
-n372	8	30	1	3
-n515	8	31	1	4
-n351	8	31	1	4
-n514	8	26	1	3
-n358	8	26	1	3
-n513	8	21	1	3
-n352	8	21	1	3
-n512	8	16	1	2
-n366	8	16	1	2
-n511	8	11	1	1
-n435	8	11	1	1
-n510	8	37	1	5
-n473	8	37	1	5
-n509	8	32	1	4
-n350	8	32	1	4
-n436	8	27	1	3
-n508	8	51	1	5
-n437	8	51	1	5
-n507	8	48	1	5
-n438	8	48	1	5
-n506	8	77	1	8
-n361	8	77	1	8
-n505	8	59	1	7
-n443	8	59	1	7
-n504	8	40	1	6
-n439	8	40	1	6
-n503	8	35	1	5
-n448	8	35	1	5
-n502	8	30	1	4
-n440	8	30	1	4
-n501	8	25	1	3
-n449	8	25	1	3
-n500	8	20	1	2
-n442	8	20	1	2
-n499	8	60	1	6
-n373	8	60	1	6
-n498	8	41	1	5
-n441	8	41	1	5
-n497	8	36	1	5
-n456	8	36	1	5
-n496	8	31	1	4
-n455	8	31	1	4
-n495	8	26	1	3
-n454	8	26	1	3
-n494	8	21	1	2
-n453	8	21	1	2
-n493	8	40	1	4
-n357	8	40	1	4
-n492	8	40	1	4
-n354	8	40	1	4
-n491	8	39	1	4
-n470	8	39	1	4
-n490	8	39	1	4
-n353	8	39	1	4
-n489	8	39	1	5
-n469	8	39	1	5
-n488	8	34	1	4
-n459	8	34	1	4
-n460	8	29	1	3
-n487	8	33	1	4
-n461	8	33	1	4
-n486	8	28	1	3
-n364	8	28	1	3
-n485	8	27	1	3
-n374	8	27	1	3
-n457	8	23	1	3
-n484	8	18	1	2
-n462	8	18	1	2
-n483	8	43	1	4
-n359	8	43	1	4
-n482	8	45	1	5
-n367	8	45	1	5
-n481	8	40	1	4
-n375	8	40	1	4
-n480	8	38	1	4
-n463	8	38	1	4
-n479	8	33	1	4
-n376	8	33	1	4
-n464	8	28	1	3
-n478	8	38	1	5
-n466	8	38	1	5
-n467	8	31	1	4
-n477	8	26	1	3
-n368	8	26	1	3
-n476	8	21	1	3
-n377	8	21	1	3
-n468	8	16	1	3
-G23	8	11	1	2
-G22	8	6	1	1
-troj10_0state_0_	3	3	1	1
-troj10_0n28	3	3	1	1
-troj10_0state_1_	14	4	3	1
-troj10_0n25	14	4	3	1
-troj10_0state_2_	15	4	3	1
-troj10_0n22	15	4	3	1
-troj10_0state_3_	19	42	4	9
-troj10_0n27	19	42	4	9
-Trojan_out0	6	56	2	13
-\DFF_73/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_72/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_71/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_70/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_69/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_68/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_67/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_66/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_65/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_64/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_63/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_62/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_61/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_60/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_59/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_58/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_57/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_56/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_55/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_54/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_53/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_52/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_51/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_50/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_49/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_48/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_47/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_46/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_45/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_44/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_43/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_42/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_41/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_40/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_39/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_38/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_37/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_36/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_35/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_34/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_33/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_32/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_31/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_30/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_29/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_28/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_27/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_26/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_25/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_24/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_23/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_22/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_21/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_20/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_19/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_18/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_17/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_16/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_15/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_14/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_13/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_12/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_11/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_10/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_9/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_8/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_7/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_6/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_5/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_4/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_3/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_2/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_1/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_0/Q_reg-SDFF-s-bar	2	2	0	0
-\DFF_0/Q_reg-SDFF-output-B	2	3	0	0
-troj10_0n15	2	2	0	0
-G701BF	2	2	0	0
-n141	2	2	0	0
-n138	2	2	0	0
-n142	2	2	0	0
-n149	2	3	0	0
-G657	2	3	0	0
-n139	2	2	0	0
-\DFF_73/Q_reg-SDFF-output-B	2	21	0	3
-n75	9	20	1	3
-\DFF_72/Q_reg-SDFF-output-B	2	16	0	2
-\DFF_71/Q_reg-SDFF-output-B	2	11	0	1
-n88	9	10	1	1
-\DFF_70/Q_reg-SDFF-output-B	2	11	0	1
-n89	9	10	1	1
-\DFF_69/Q_reg-SDFF-output-B	2	11	0	1
-n231	11	2	1	0
-n335	11	2	1	0
-n429	11	2	1	0
-n99	9	10	1	1
-\DFF_68/Q_reg-SDFF-output-B	2	26	0	4
-n100	9	25	1	4
-\DFF_67/Q_reg-SDFF-output-B	2	21	0	3
-n101	9	20	1	3
-\DFF_66/Q_reg-SDFF-output-B	2	16	0	2
-n102	9	15	1	2
-\DFF_65/Q_reg-SDFF-output-B	2	11	0	1
-n104	9	10	1	1
-\DFF_64/Q_reg-SDFF-output-B	2	13	0	1
-\DFF_63/Q_reg-SDFF-output-B	2	13	0	1
-\DFF_62/Q_reg-SDFF-output-B	2	18	0	2
-\DFF_61/Q_reg-SDFF-output-B	2	13	0	1
-\DFF_60/Q_reg-SDFF-output-B	2	13	0	1
-\DFF_59/Q_reg-SDFF-output-B	2	13	0	1
-\DFF_58/Q_reg-SDFF-output-B	2	13	0	1
-n306	45	9	4	1
-\DFF_57/Q_reg-SDFF-output-B	2	41	0	4
-n106	9	40	1	4
-\DFF_56/Q_reg-SDFF-output-B	2	41	0	4
-n107	9	40	1	4
-\DFF_55/Q_reg-SDFF-output-B	2	41	0	4
-n108	9	40	1	4
-\DFF_54/Q_reg-SDFF-output-B	2	40	0	4
-n109	9	39	1	4
-\DFF_53/Q_reg-SDFF-output-B	2	35	0	4
-n110	9	34	1	4
-\DFF_52/Q_reg-SDFF-output-B	2	30	0	3
-\DFF_51/Q_reg-SDFF-output-B	2	30	0	3
-\DFF_50/Q_reg-SDFF-output-B	2	30	0	3
-n340	85	9	9	1
-\DFF_49/Q_reg-SDFF-output-B	2	32	0	3
-\DFF_48/Q_reg-SDFF-output-B	2	33	0	4
-n338	37	17	4	2
-\DFF_47/Q_reg-SDFF-output-B	2	28	0	3
-n336	35	17	4	2
-n113	9	27	1	3
-\DFF_46/Q_reg-SDFF-output-B	2	23	0	3
-n337	30	17	4	2
-n114	9	22	1	3
-\DFF_45/Q_reg-SDFF-output-B	2	18	0	2
-\DFF_44/Q_reg-SDFF-output-B	2	13	0	1
-n115	9	12	1	1
-\DFF_43/Q_reg-SDFF-output-B	2	39	0	5
-n116	9	38	1	5
-\DFF_42/Q_reg-SDFF-output-B	2	34	0	4
-n117	9	33	1	4
-n118	9	28	1	3
-\DFF_41/Q_reg-SDFF-output-B	2	29	0	3
-\DFF_40/Q_reg-SDFF-output-B	2	53	0	5
-n119	9	52	1	5
-\DFF_39/Q_reg-SDFF-output-B	2	50	0	5
-\DFF_38/Q_reg-SDFF-output-B	2	79	0	8
-\DFF_37/Q_reg-SDFF-output-B	2	74	0	7
-n120	9	73	1	7
-\DFF_36/Q_reg-SDFF-output-B	2	56	0	6
-\DFF_35/Q_reg-SDFF-output-B	2	37	0	5
-n121	9	36	1	5
-\DFF_34/Q_reg-SDFF-output-B	2	32	0	4
-\DFF_33/Q_reg-SDFF-output-B	2	27	0	3
-\DFF_32/Q_reg-SDFF-output-B	2	22	0	2
-\DFF_31/Q_reg-SDFF-output-B	2	62	0	6
-\DFF_30/Q_reg-SDFF-output-B	2	57	0	5
-\DFF_29/Q_reg-SDFF-output-B	2	38	0	5
-n122	9	37	1	5
-\DFF_28/Q_reg-SDFF-output-B	2	33	0	4
-n123	9	32	1	4
-\DFF_27/Q_reg-SDFF-output-B	2	28	0	3
-n124	9	27	1	3
-\DFF_26/Q_reg-SDFF-output-B	2	23	0	2
-n125	9	22	1	2
-\DFF_25/Q_reg-SDFF-output-B	2	42	0	4
-\DFF_24/Q_reg-SDFF-output-B	2	42	0	4
-\DFF_23/Q_reg-SDFF-output-B	2	41	0	4
-n126	9	40	1	4
-\DFF_22/Q_reg-SDFF-output-B	2	41	0	4
-n127	9	40	1	4
-\DFF_21/Q_reg-SDFF-output-B	2	41	0	5
-n128	9	40	1	5
-\DFF_20/Q_reg-SDFF-output-B	2	36	0	4
-n129	9	35	1	4
-n130	9	30	1	3
-\DFF_19/Q_reg-SDFF-output-B	2	31	0	3
-\DFF_18/Q_reg-SDFF-output-B	2	35	0	4
-\DFF_17/Q_reg-SDFF-output-B	2	30	0	3
-\DFF_16/Q_reg-SDFF-output-B	2	29	0	3
-n131	9	28	1	3
-n132	9	24	1	3
-\DFF_15/Q_reg-SDFF-output-B	2	25	0	3
-\DFF_14/Q_reg-SDFF-output-B	2	20	0	2
-n267	28	9	3	1
-n133	9	19	1	2
-\DFF_13/Q_reg-SDFF-output-B	2	45	0	4
-n134	9	44	1	4
-\DFF_12/Q_reg-SDFF-output-B	2	47	0	5
-\DFF_11/Q_reg-SDFF-output-B	2	42	0	4
-\DFF_10/Q_reg-SDFF-output-B	2	40	0	4
-\DFF_9/Q_reg-SDFF-output-B	2	35	0	4
-\DFF_8/Q_reg-SDFF-output-B	2	30	0	3
-\DFF_7/Q_reg-SDFF-output-B	2	40	0	5
-n135	9	39	1	5
-\DFF_6/Q_reg-SDFF-output-B	2	35	0	4
-\DFF_5/Q_reg-SDFF-output-B	2	28	0	3
-\DFF_4/Q_reg-SDFF-output-B	2	23	0	3
-n136	9	22	1	3
-n137	9	17	1	3
-\DFF_3/Q_reg-SDFF-output-B	2	18	0	3
-\DFF_2/Q_reg-SDFF-output-B	2	13	0	2
-\DFF_1/Q_reg-SDFF-output-B	2	8	0	1
-troj10_0U12-s-bar	4	4	1	1
-troj10_0U17-s-bar	4	4	1	1
-troj10_0U19-s-bar	4	4	1	1
-troj10_0U6-s-bar	5	15	1	3
-troj10_0U8-s-bar	5	15	1	3
-troj10_0n21	4	18	1	4
-troj10_0U3-s-bar	5	16	1	3
-troj10_0U5-s-bar	5	16	1	3
-troj10_0U7-s-bar	5	16	1	3
-troj10_0n29	5	30	1	6
-troj10_0N94	4	54	1	12
-troj10_0U59-s-bar	43	20	9	4
-troj10_0n32	4	50	1	11
-troj10_0n26	4	23	1	5
-troj10_0n13	20	43	4	9
-troj10_0U65-s-bar	43	20	9	4
-troj10_0U66-s-bar	43	20	9	4
-n330	14	3	2	0
-n184	3	11	0	1
-n146	28	3	4	0
-n192	23	3	3	0
-\DFF_64/Q_reg-SDFF-output-A	3	6	0	0
-n148	2	4	0	0
-n172	18	11	2	1
-n171	38	9	4	1
-n409	11	2	1	0
-n420	11	2	1	0
-n422	11	2	1	0
-n417	11	2	1	0
-n428	48	9	6	1
-n431	11	2	1	0
-n426	11	2	1	0
-n188	24	3	3	0
-trig42_0n4	21	19	3	2
-n190	19	3	2	0
-n183	23	3	2	0
-n186	23	3	2	0
-n187	21	10	2	1
-n301	19	55	2	5
-n304	20	18	2	2
-n305	20	18	2	2
-n302	20	18	2	2
-n303	20	18	2	2
-n339	18	94	2	10
-n259	14	2	1	0
-n430	49	10	6	1
-n334	38	2	4	0
-n329	119	10	14	1
-n155	21	2	2	0
-G175	3	12	0	1
-n268	55	10	5	1
-troj10_0U12-output-A	2	6	0	1
-troj10_0U17-output-A	3	7	0	1
-troj10_0U19-output-A	3	7	0	1
-troj10_0n20	39	5	8	1
-troj10_0n33	34	4	7	1
-troj10_0n31	6	31	1	6
-troj10_0n18	73	6	15	1
-troj10_0n23	55	5	12	1
-troj10_0n19	55	5	12	1
-n182	22	4	2	0
-n185	22	4	2	0
-n103	4	12	0	1
-\DFF_64/Q_reg-SDFF-MUX21	6	7	0	0
-n147	25	3	3	0
-n189	30	3	4	0
-n191	25	3	3	0
-n193	20	3	2	0
-n170	21	19	2	2
-n145	23	9	2	1
-n203	100	19	10	2
-n262	146	19	16	2
-n144	24	9	2	1
-n332	9	9	1	1
-n333	121	2	14	0
-\DFF_13/Q_reg-SDFF-output-A	3	15	0	1
-n266	20	29	2	3
-troj10_0N98	13	2	2	0
-troj10_0N99	17	40	3	8
-troj10_0N97	12	2	2	0
-G693	11	3	0	0
-G687	11	3	0	0
-G682	26	3	2	0
-G707	7	26	0	3
-G675	7	25	0	3
-G669	7	20	0	2
-G663	7	21	0	2
-n95	24	10	2	1
-n105	101	20	10	2
-trig45_0n1	101	20	10	2
-n258	3	149	0	16
-n213	21	2	2	0
-n411	10	29	1	3
-tempn96	25	10	2	1
-G332BF	12	10	1	1
-\DFF_13/Q_reg-SDFF-MUX21	6	16	0	1
-\DFF_70/Q_reg-SDFF-output-A	3	6	0	0
-\DFF_69/Q_reg-SDFF-output-A	3	6	0	0
-trig50_0n6	12	4	0	0
-\DFF_68/Q_reg-SDFF-output-A	3	6	0	0
-\DFF_72/Q_reg-SDFF-output-A	3	29	0	3
-\DFF_67/Q_reg-SDFF-output-A	3	28	0	3
-\DFF_66/Q_reg-SDFF-output-A	3	23	0	2
-\DFF_65/Q_reg-SDFF-output-A	3	24	0	2
-n300	54	2	6	0
-n257	162	4	17	0
-n261	183	4	20	0
-n112	4	150	0	16
-n212	13	10	1	1
-n256	30	3	3	0
-n230	13	10	1	1
-n111	22	3	2	0
-n410	70	10	7	1
-n421	64	10	7	1
-n423	69	10	7	1
-n418	70	10	7	1
-n427	70	10	7	1
-n96	32	17	4	3
-n331	12	2	1	0
-\DFF_0/Q_reg-SDFF-output-A	3	13	0	1
-\DFF_70/Q_reg-SDFF-MUX21	6	7	0	0
-\DFF_69/Q_reg-SDFF-MUX21	6	7	0	0
-trig50_0n1	47	4	4	0
-\DFF_68/Q_reg-SDFF-MUX21	6	7	0	0
-\DFF_72/Q_reg-SDFF-MUX21	6	17	0	2
-\DFF_67/Q_reg-SDFF-MUX21	6	22	0	3
-\DFF_66/Q_reg-SDFF-MUX21	6	17	0	2
-\DFF_65/Q_reg-SDFF-MUX21	6	12	0	1
-n169	13	10	1	1
-G447	153	5	16	0
-n196	12	2	1	0
-G451	8	31	0	3
-n200	13	12	1	1
-n235	12	2	1	0
-n318	13	12	1	1
-G727	4	32	0	3
-n260	42	10	5	1
-trig42_0n5	4	50	0	5
-n167	13	12	1	1
-n419	13	12	1	1
-n416	12	13	1	1
-n414	53	10	5	1
-n424	13	12	1	1
-n425	13	12	1	1
-G328BF	6	13	0	1
-\DFF_0/Q_reg-SDFF-MUX21	6	4	0	0
-n151	40	10	4	1
-n265	40	14	4	1
-n98	14	11	1	1
-\DFF_43/Q_reg-SDFF-output-A	3	8	0	0
-n195	21	3	2	0
-n194	4	2	0	0
-n198	21	3	2	0
-n197	4	2	0	0
-n205	21	3	2	0
-n204	4	2	0	0
-n207	21	3	2	0
-n206	4	2	0	0
-n209	21	3	2	0
-n208	4	2	0	0
-n211	21	3	2	0
-n210	4	2	0	0
-\DFF_44/Q_reg-SDFF-output-A	3	34	0	3
-n90	14	13	1	1
-n234	21	3	2	0
-n240	21	3	2	0
-n243	21	3	2	0
-n97	13	3	1	0
-n91	14	13	1	1
-G441	15	43	1	5
-trig42_0n1	88	5	9	0
-n164	9	53	1	5
-n165	21	22	2	2
-n415	54	10	5	1
-n163	14	22	1	2
-n168	52	9	5	1
-n166	21	22	2	2
-n402	53	9	5	1
-n326	11	126	1	14
-\DFF_1/Q_reg-SDFF-output-A	3	16	0	1
-trig53_0n3	7	14	0	1
-trig53_0n5	59	11	6	1
-n264	40	9	4	1
-\DFF_43/Q_reg-SDFF-MUX21	6	9	0	0
-G613	6	5	0	0
-G608	6	5	0	0
-G577	6	5	0	0
-G573	6	5	0	0
-G569	6	5	0	0
-G565	6	5	0	0
-\DFF_44/Q_reg-SDFF-MUX21	6	14	0	1
-n236	4	22	0	2
-n237	4	23	0	2
-\DFF_42/Q_reg-SDFF-output-A	3	46	0	5
-n94	15	23	1	2
-n93	53	10	5	1
-n92	22	23	2	2
-n322	207	10	23	1
-n327	167	10	19	1
-n328	50	21	6	2
-\DFF_1/Q_reg-SDFF-MUX21	6	9	0	1
-trig53_0n4	12	69	1	7
-n143	24	41	2	4
-\DFF_63/Q_reg-SDFF-output-A	3	8	0	0
-trig51_0n4	7	6	0	0
-\DFF_62/Q_reg-SDFF-output-A	3	8	0	0
-\DFF_60/Q_reg-SDFF-output-A	3	8	0	0
-\DFF_59/Q_reg-SDFF-output-A	3	8	0	0
-trig44_0n3	6	13	0	0
-\DFF_58/Q_reg-SDFF-output-A	3	8	0	0
-\DFF_57/Q_reg-SDFF-output-A	3	8	0	0
-n233	24	2	2	0
-n239	24	2	2	0
-n242	24	2	2	0
-n232	25	2	2	0
-n238	25	2	2	0
-n241	25	2	2	0
-\DFF_42/Q_reg-SDFF-MUX21	6	35	0	4
-n413	86	10	9	1
-n160	119	11	11	1
-trig47_0n2	13	3	1	0
-n320	224	11	25	1
-n323	216	11	24	1
-n324	19	216	2	24
-n325	50	9	5	1
-G237	13	64	1	7
-G713	3	91	0	9
-n76	25	42	2	4
-\DFF_63/Q_reg-SDFF-MUX21	6	9	0	0
-trig51_0n3	3	28	0	3
-\DFF_62/Q_reg-SDFF-MUX21	6	9	0	0
-\DFF_60/Q_reg-SDFF-MUX21	6	9	0	0
-\DFF_59/Q_reg-SDFF-MUX21	6	9	0	0
-\DFF_58/Q_reg-SDFF-MUX21	6	9	0	0
-\DFF_57/Q_reg-SDFF-MUX21	6	9	0	0
-G503	8	22	0	2
-G498	8	22	0	2
-G494	8	22	0	2
-trig52_0n2	53	3	4	0
-n412	31	54	3	5
-n159	14	3	1	0
-n162	48	9	5	1
-n319	20	233	2	26
-n321	52	9	5	1
-G247	13	33	1	3
-G242	15	33	1	3
-\DFF_20/Q_reg-SDFF-output-A	3	67	0	7
-\DFF_73/Q_reg-SDFF-output-A	3	94	0	9
-n202	20	126	2	12
-n263	34	35	4	3
-\DFF_51/Q_reg-SDFF-output-A	3	25	0	2
-\DFF_50/Q_reg-SDFF-output-A	3	25	0	2
-\DFF_49/Q_reg-SDFF-output-A	3	25	0	2
-n408	64	32	6	3
-n158	46	15	4	1
-n161	52	26	5	2
-trig41_0n3	49	10	5	1
-G260	13	34	1	3
-G252	15	34	1	3
-\DFF_22/Q_reg-SDFF-output-A	3	36	0	3
-\DFF_21/Q_reg-SDFF-output-A	3	36	0	3
-\DFF_20/Q_reg-SDFF-MUX21	6	37	0	4
-\DFF_73/Q_reg-SDFF-MUX21	6	22	0	3
-n201	17	29	2	3
-G438	3	37	0	4
-\DFF_51/Q_reg-SDFF-MUX21	6	26	0	2
-\DFF_50/Q_reg-SDFF-MUX21	6	26	0	2
-\DFF_49/Q_reg-SDFF-MUX21	6	26	0	2
-n407	78	13	7	1
-n405	45	14	4	1
-trig41_0n2	286	4	31	0
-\DFF_24/Q_reg-SDFF-output-A	3	37	0	3
-\DFF_23/Q_reg-SDFF-output-A	3	37	0	3
-\DFF_22/Q_reg-SDFF-MUX21	6	37	0	3
-\DFF_21/Q_reg-SDFF-MUX21	6	37	0	3
-\DFF_41/Q_reg-SDFF-output-A	3	40	0	4
-n406	54	9	5	1
-trig40_0n4	11	148	1	14
-\DFF_24/Q_reg-SDFF-MUX21	6	38	0	3
-\DFF_23/Q_reg-SDFF-MUX21	6	38	0	3
-\DFF_41/Q_reg-SDFF-MUX21	6	30	0	3
-n404	24	46	2	4
-trig40_0n3	12	149	1	14
-n403	70	23	6	2
-n157	33	54	3	5
-n156	72	3	6	0
-n152	92	15	8	1
-n398	94	10	11	1
-n400	72	10	8	1
-n401	25	42	4	4
-trig54_0n3	170	8	17	0
-n154	6	22	0	2
-n396	103	11	12	1
-n397	37	9	4	1
-n399	32	9	4	1
-trig47_0n3	167	11	19	1
-G109	3	28	0	4
-trig54_0n2	200	4	19	0
-n153	32	7	3	0
-n180	12	112	1	13
-n395	9	45	1	5
-trig40_0n1	413	10	45	1
-trig48_0n2	3	390	0	42
-G118	2	22	0	2
-G113	2	21	0	2
-\DFF_2/Q_reg-SDFF-output-A	3	31	0	4
-n150	33	33	2	3
-n174	171	9	21	1
-n392	152	10	18	1
-n393	49	22	6	2
-n394	46	22	5	2
-\DFF_4/Q_reg-SDFF-output-A	3	25	0	2
-\DFF_3/Q_reg-SDFF-output-A	3	24	0	2
-\DFF_2/Q_reg-SDFF-MUX21	6	14	0	2
-G705	2	35	0	3
-n389	10	21	1	2
-trig41_0n1	593	11	67	1
-trig44_0n5	11	173	1	20
-trig53_0n6	255	3	28	0
-G129	3	52	0	6
-G125	3	49	0	5
-\DFF_4/Q_reg-SDFF-MUX21	6	24	0	2
-\DFF_3/Q_reg-SDFF-MUX21	6	19	0	2
-\DFF_71/Q_reg-SDFF-output-A	3	38	0	3
-n385	27	22	3	2
-n390	19	22	2	2
-n391	19	30	2	3
-Trigger_en0_1	5	880	0	98
-trig44_0n4	12	174	1	20
-\DFF_6/Q_reg-SDFF-output-A	3	55	0	6
-\DFF_5/Q_reg-SDFF-output-A	3	52	0	5
-\DFF_71/Q_reg-SDFF-MUX21	6	12	0	1
-n383	44	23	5	2
-n386	36	23	4	2
-n387	31	36	3	4
-n388	56	9	6	1
-G140	3	22	0	2
-troj10_0U66-output-B	6	923	0	107
-trig44_0n1	120	4	12	0
-\DFF_6/Q_reg-SDFF-MUX21	6	36	0	4
-\DFF_5/Q_reg-SDFF-MUX21	6	29	0	3
-n227	24	53	2	6
-n382	69	9	7	1
-trig47_0n1	387	3	43	0
-n384	64	9	6	1
-G149	3	34	0	3
-G144	2	33	0	3
-\DFF_7/Q_reg-SDFF-output-A	3	25	0	2
-n226	98	10	10	1
-n381	44	33	4	3
-n87	25	54	2	6
-Trigger_en0_7	4	425	0	46
-G154	2	34	0	3
-\DFF_9/Q_reg-SDFF-output-A	3	37	0	3
-\DFF_8/Q_reg-SDFF-output-A	3	36	0	3
-\DFF_7/Q_reg-SDFF-MUX21	6	26	0	2
-n225	31	10	3	1
-n179	45	35	4	3
-G159	2	65	0	7
-\DFF_10/Q_reg-SDFF-output-A	3	37	0	3
-\DFF_9/Q_reg-SDFF-MUX21	6	36	0	3
-\DFF_8/Q_reg-SDFF-MUX21	6	31	0	3
-n175	51	10	5	1
-n290	10	54	1	5
-n380	34	90	3	8
-trig44_0n2	69	7	5	0
-trig53_0n2	143	8	14	0
-\DFF_11/Q_reg-SDFF-output-A	3	68	0	7
-\DFF_10/Q_reg-SDFF-MUX21	6	38	0	3
-n287	80	9	8	1
-n289	26	19	3	2
-n347	42	19	5	2
-n83	11	55	1	5
-G166	3	37	0	3
-Trigger_en0_4	5	190	0	17
-\DFF_11/Q_reg-SDFF-MUX21	6	43	0	4
-trig50_0n5	3	289	0	30
-n288	56	10	7	1
-n86	27	20	3	2
-G208	3	45	0	5
-n298	66	12	6	1
-n344	9	89	1	9
-\DFF_12/Q_reg-SDFF-output-A	3	40	0	3
-trig50_0n3	4	290	0	30
-n284	12	2	1	0
-n317	21	10	2	1
-n285	21	36	2	4
-n286	51	9	6	1
-\DFF_17/Q_reg-SDFF-output-A	3	48	0	5
-n343	31	19	3	2
-n181	10	120	1	12
-\DFF_12/Q_reg-SDFF-MUX21	6	41	0	3
-n84	13	3	1	0
-n309	3	24	0	2
-n310	2	12	0	1
-n283	37	31	4	3
-n85	22	37	2	4
-\DFF_17/Q_reg-SDFF-MUX21	6	31	0	3
-n173	176	10	19	1
-n341	45	20	5	2
-n342	20	42	2	4
-n379	156	10	16	1
-G379	14	33	1	3
-n308	62	4	7	0
-n312	57	4	6	0
-n314	52	4	5	0
-n316	47	4	4	0
-n307	45	3	5	0
-n311	40	3	4	0
-n313	35	3	3	0
-n315	14	2	1	0
-G392	3	50	0	5
-G384	14	50	1	5
-G218	3	48	0	5
-G214	3	23	0	2
-n355	21	10	2	1
-\DFF_32/Q_reg-SDFF-output-A	3	36	0	3
-G321	8	46	0	5
-G315	8	41	0	4
-G309	8	36	0	3
-G303	7	15	0	1
-trig46_0n3	3	255	0	27
-\DFF_34/Q_reg-SDFF-output-A	3	53	0	5
-\DFF_33/Q_reg-SDFF-output-A	3	53	0	5
-\DFF_19/Q_reg-SDFF-output-A	3	51	0	5
-\DFF_18/Q_reg-SDFF-output-A	3	26	0	2
-n229	63	10	7	1
-n362	35	10	4	1
-n365	19	30	2	3
-\DFF_32/Q_reg-SDFF-MUX21	6	23	0	2
-\DFF_28/Q_reg-SDFF-output-A	3	49	0	5
-\DFF_27/Q_reg-SDFF-output-A	3	44	0	4
-\DFF_26/Q_reg-SDFF-output-A	3	39	0	3
-\DFF_25/Q_reg-SDFF-output-A	3	18	0	1
-\DFF_34/Q_reg-SDFF-MUX21	6	33	0	4
-\DFF_33/Q_reg-SDFF-MUX21	6	28	0	3
-\DFF_19/Q_reg-SDFF-MUX21	6	32	0	3
-\DFF_18/Q_reg-SDFF-MUX21	6	27	0	2
-n299	85	11	9	1
-n348	19	72	2	8
-n82	64	11	7	1
-trig48_0n1	64	11	7	1
-n349	38	9	4	1
-trig52_0n3	127	10	13	1
-G189	3	22	0	2
-\DFF_28/Q_reg-SDFF-MUX21	6	34	0	4
-\DFF_27/Q_reg-SDFF-MUX21	6	29	0	3
-\DFF_26/Q_reg-SDFF-MUX21	6	24	0	2
-\DFF_25/Q_reg-SDFF-MUX21	6	19	0	1
-n281	67	24	6	2
-G198	3	22	0	2
-n228	40	9	4	1
-Trigger_en0_8	4	457	0	48
-G193	2	21	0	2
-trig52_0n1	411	3	44	0
-\DFF_14/Q_reg-SDFF-output-A	3	25	0	2
-n280	25	76	2	7
-n282	33	76	3	7
-n277	76	25	7	2
-\DFF_16/Q_reg-SDFF-output-A	3	25	0	2
-n224	21	15	2	1
-\DFF_15/Q_reg-SDFF-output-A	3	24	0	2
-\DFF_14/Q_reg-SDFF-MUX21	6	21	0	2
-n278	74	35	7	3
-n276	103	9	10	1
-n279	27	2	2	0
-n254	26	85	2	8
-trig49_0n4	189	10	17	1
-\DFF_16/Q_reg-SDFF-MUX21	6	26	0	2
-n222	45	22	4	2
-\DFF_15/Q_reg-SDFF-MUX21	6	25	0	2
-G405	3	102	0	9
-G397	3	61	0	5
-n295	10	35	1	3
-n79	27	86	2	8
-trig49_0n1	363	4	36	0
-n223	31	54	3	5
-n81	46	23	4	2
-\DFF_36/Q_reg-SDFF-output-A	3	105	0	9
-\DFF_35/Q_reg-SDFF-output-A	3	64	0	5
-n292	27	36	3	3
-n296	19	36	2	3
-n270	21	19	2	2
-n297	44	19	4	2
-trig42_0n3	3	93	0	10
-G408	2	97	0	9
-G526	13	45	1	4
-n199	24	64	2	6
-n218	97	10	10	1
-n221	58	10	6	1
-\DFF_36/Q_reg-SDFF-MUX21	6	57	0	6
-\DFF_35/Q_reg-SDFF-MUX21	6	38	0	5
-n291	9	57	1	5
-n293	97	9	9	1
-n178	99	9	10	1
-n271	72	10	7	1
-n294	3	24	0	2
-n78	22	20	2	2
-trig42_0n2	4	94	0	10
-\DFF_37/Q_reg-SDFF-output-A	3	100	0	9
-\DFF_52/Q_reg-SDFF-output-A	3	48	0	4
-G590	13	38	1	3
-n219	19	106	2	11
-n80	98	11	10	1
-n220	49	9	5	1
-trig54_0n5	10	108	1	10
-n177	10	108	1	11
-n255	20	10	2	1
-trig49_0n3	10	130	1	12
-trig50_0n4	130	4	14	0
-trig51_0n5	232	10	22	1
-Trigger_en0_12	4	573	0	59
-trig53_0n1	554	4	60	0
-n269	39	10	4	1
-n273	12	2	1	0
-G365	4	70	0	6
-n77	4	25	0	2
-n274	21	31	2	3
-n275	29	31	3	3
-Trigger_en0_2	6	182	0	19
-\DFF_37/Q_reg-SDFF-MUX21	6	75	0	7
-\DFF_52/Q_reg-SDFF-MUX21	6	31	0	3
-\DFF_61/Q_reg-SDFF-output-A	3	41	0	3
-G536	13	33	1	3
-n215	92	10	9	1
-n217	52	10	5	1
-G531	15	33	1	3
-trig54_0n4	11	109	1	10
-n176	11	20	1	2
-trig50_0n2	269	4	28	0
-n253	96	21	9	2
-trig49_0n2	213	3	22	0
-trig51_0n1	412	10	40	1
-Trigger_en0_13	5	698	0	74
-G427	2	21	0	2
-\DFF_30/Q_reg-SDFF-output-A	3	73	0	6
-G373	26	14	2	1
-G360	20	49	2	4
-n272	32	31	3	3
-G416	3	42	0	4
-troj10_0U65-output-B	7	225	0	28
-\DFF_61/Q_reg-SDFF-MUX21	6	14	0	1
-\DFF_54/Q_reg-SDFF-output-A	3	36	0	3
-n214	19	101	2	10
-n216	50	9	5	1
-\DFF_53/Q_reg-SDFF-output-A	3	36	0	3
-trig54_0n1	71	3	6	0
-G702	12	50	1	5
-Trigger_en0_10	5	460	0	47
-n250	32	10	3	1
-Trigger_en0_9	4	577	0	58
-\DFF_40/Q_reg-SDFF-output-A	3	24	0	2
-\DFF_30/Q_reg-SDFF-MUX21	6	58	0	5
-\DFF_31/Q_reg-SDFF-output-A	3	17	0	1
-\DFF_29/Q_reg-SDFF-output-A	3	52	0	4
-trig40_0n2	136	12	12	1
-G424	3	45	0	4
-\DFF_38/Q_reg-SDFF-output-A	3	45	0	4
-\DFF_54/Q_reg-SDFF-MUX21	6	37	0	3
-G548	13	33	1	3
-G541	15	33	1	3
-\DFF_53/Q_reg-SDFF-MUX21	6	36	0	3
-Trigger_en0_14	4	272	0	25
-n247	60	10	7	1
-n251	33	10	4	1
-n252	20	42	2	4
-troj10_0n3	621	5	67	0
-\DFF_40/Q_reg-SDFF-MUX21	6	25	0	2
-\DFF_31/Q_reg-SDFF-MUX21	6	18	0	1
-\DFF_29/Q_reg-SDFF-MUX21	6	39	0	4
-Trigger_en0_0	4	591	0	61
-\DFF_39/Q_reg-SDFF-output-A	3	48	0	4
-\DFF_38/Q_reg-SDFF-MUX21	6	46	0	4
-\DFF_56/Q_reg-SDFF-output-A	3	36	0	3
-\DFF_55/Q_reg-SDFF-output-A	3	36	0	3
-troj10_0U59-output-B	5	315	0	34
-n246	69	11	8	1
-n244	77	11	9	1
-n248	19	69	2	8
-n249	37	9	4	1
-trig43_0n3	3	681	0	77
-G459	3	42	0	4
-trig51_0n2	149	4	15	0
-troj10_0U3-output-B	16	10	3	1
-\DFF_39/Q_reg-SDFF-MUX21	6	49	0	4
-\DFF_56/Q_reg-SDFF-MUX21	6	37	0	3
-\DFF_55/Q_reg-SDFF-MUX21	6	37	0	3
-n245	42	9	4	1
-trig43_0n2	3	100	0	10
-trig45_0n2	10	287	1	28
-G469	3	41	0	4
-G464	23	23	2	2
-\DFF_45/Q_reg-SDFF-output-A	3	45	0	4
-Trigger_en0_11	5	562	0	55
-G477	23	24	2	2
-trig46_0n2	4	189	0	18
-trig43_0n1	825	3	91	0
-Trigger_en0_5	11	496	1	50
-\DFF_47/Q_reg-SDFF-output-A	3	44	0	4
-\DFF_46/Q_reg-SDFF-output-A	3	26	0	2
-\DFF_45/Q_reg-SDFF-MUX21	6	19	0	2
-\DFF_48/Q_reg-SDFF-output-A	3	27	0	2
-trig46_0n1	445	4	45	0
-Trigger_en0_3	826	4	91	0
-troj10_0U66-output-A	12	517	1	54
-\DFF_47/Q_reg-SDFF-MUX21	6	29	0	3
-\DFF_46/Q_reg-SDFF-MUX21	6	24	0	2
-\DFF_48/Q_reg-SDFF-MUX21	6	28	0	2
-Trigger_en0_6	446	5	45	0
-troj10_0n6	48	21	9	4
-troj10_0U59-output-A	44	25	9	4
-troj10_0n2	19	518	1	54
-troj10_0U65-output-A	44	26	9	4
-troj10_0U5-output-A	6	38	1	7
-troj10_0n11	50	26	9	4
-troj10_0U3-output-A	6	535	1	57
-troj10_0n7	52	27	9	4
-troj10_0U7-output-A	6	43	1	7
-troj10_0n1	23	11	4	1
-troj10_0U5-output-B	16	32	3	5
-troj10_0U7-output-B	16	32	3	5
-troj10_0U12-output-B	4	15	1	2
-troj10_0n5	23	33	4	5
-troj10_0n10	23	33	4	5
-troj10_0n9	7	7	1	1
-troj10_0U17-output-B	4	37	1	6
-troj10_0U19-output-B	4	37	1	6
-troj10_0U6-output-B	8	12	1	2
-troj10_0U8-output-B	8	12	1	2
-troj10_0n8	8	8	1	1
-troj10_0n12	8	8	1	1
-troj10_0U6-output-A	6	24	1	4
-troj10_0U8-output-A	6	24	1	4
-troj10_0N95	15	13	2	2
-troj10_0N93	15	13	2	2
-troj10_0n17	16	14	2	2
-troj10_0n16	16	14	2	2
+troj10_0n24	1	1	70	0	0
+test_si	1	1	217	0	0
+troj10_0n4	1	1	28	0	0
+CK	1	1	1	0	0
+test_se	1	1	25	0	0
+troj10_0N96	1	1	88	0	0
+troj10_0n14	1	1	42	0	0
+G15	1	1	225	0	0
+G12	1	1	525	0	0
+G16	1	1	178	0	0
+troj10_0n30	1	1	50	0	0
+G0	1	1	340	0	0
+G3	1	1	256	0	0
+G1	1	1	308	0	0
+G4	1	1	244	0	0
+G2	1	1	199	0	0
+G5	1	1	368	0	0
+G7	1	1	2339	0	0
+G8	1	1	106	0	0
+G9	1	1	572	0	0
+G10	1	1	371	0	0
+G13	1	1	353	0	0
+G11	1	1	189	0	0
+G6	1	1	276	0	0
+G14	1	1	31	0	0
+G729	8	24	0	1	4
+n539	8	19	7	1	3
+n363	8	19	193	1	3
+G726	8	14	207	1	2
+n538	8	9	214	1	1
+n465	8	9	122	1	1
+n537	8	9	343	1	1
+n458	8	9	165	1	1
+n536	8	9	515	1	1
+n378	8	9	24	1	1
+n535	8	24	546	1	4
+n360	8	24	140	1	4
+n534	8	19	693	1	3
+n433	8	19	171	1	3
+n533	8	14	871	1	2
+n434	8	14	77	1	2
+n532	8	9	955	1	1
+n432	8	9	364	1	1
+n531	8	11	1326	1	1
+n370	8	11	87	1	1
+n530	8	11	1420	1	1
+n371	8	11	87	1	1
+n529	8	16	1514	1	2
+n345	8	16	90	1	2
+n528	8	11	1611	1	1
+n444	8	11	250	1	1
+n527	8	11	1868	1	1
+n445	8	11	200	1	1
+n526	8	11	2075	1	1
+n446	8	11	250	1	1
+n525	8	11	2332	1	1
+n447	8	11	182	1	1
+n524	8	39	2521	1	4
+n472	8	39	252	1	4
+n523	8	39	2780	1	4
+n369	8	39	250	1	4
+n522	8	39	3037	1	4
+n471	8	39	212	1	4
+n521	8	38	3256	1	4
+n356	8	38	250	1	4
+n520	8	33	3513	1	4
+n346	8	33	182	1	4
+n519	8	28	3702	1	3
+n452	8	28	131	1	3
+n518	8	28	3840	1	3
+n451	8	28	131	1	3
+n517	8	28	3978	1	3
+n450	8	28	131	1	3
+n516	8	30	4116	1	3
+n372	8	30	75	1	3
+n515	8	31	4198	1	4
+n351	8	31	151	1	4
+n514	8	26	4356	1	3
+n358	8	26	151	1	3
+n513	8	21	4514	1	3
+n352	8	21	151	1	3
+n512	8	16	4672	1	2
+n366	8	16	163	1	2
+n511	8	11	4842	1	1
+n435	8	11	562	1	1
+n510	8	37	5411	1	5
+n473	8	37	100	1	5
+n509	8	32	5518	1	4
+n350	8	32	403	1	4
+n436	8	27	121	1	3
+n508	8	51	128	1	5
+n437	8	51	97	1	5
+n507	8	48	232	1	5
+n438	8	48	278	1	5
+n506	8	77	517	1	8
+n361	8	77	189	1	8
+n505	8	59	713	1	7
+n443	8	59	224	1	7
+n504	8	40	944	1	6
+n439	8	40	575	1	6
+n503	8	35	1526	1	5
+n448	8	35	548	1	5
+n502	8	30	2081	1	4
+n440	8	30	496	1	4
+n501	8	25	2584	1	3
+n449	8	25	518	1	3
+n500	8	20	3109	1	2
+n442	8	20	140	1	2
+n499	8	60	3256	1	6
+n373	8	60	544	1	6
+n498	8	41	3807	1	5
+n441	8	41	558	1	5
+n497	8	36	4372	1	5
+n456	8	36	256	1	5
+n496	8	31	4635	1	4
+n455	8	31	256	1	4
+n495	8	26	4898	1	3
+n454	8	26	256	1	3
+n494	8	21	5161	1	2
+n453	8	21	256	1	2
+n493	8	40	5424	1	4
+n357	8	40	195	1	4
+n492	8	40	5626	1	4
+n354	8	40	221	1	4
+n491	8	39	5854	1	4
+n470	8	39	151	1	4
+n490	8	39	6012	1	4
+n353	8	39	261	1	4
+n489	8	39	6280	1	5
+n469	8	39	293	1	5
+n488	8	34	6580	1	4
+n459	8	34	182	1	4
+n460	8	29	187	1	3
+n487	8	33	194	1	4
+n461	8	33	183	1	4
+n486	8	28	384	1	3
+n364	8	28	101	1	3
+n485	8	27	492	1	3
+n374	8	27	236	1	3
+n457	8	23	240	1	3
+n484	8	18	247	1	2
+n462	8	18	116	1	2
+n483	8	43	370	1	4
+n359	8	43	83	1	4
+n482	8	45	460	1	5
+n367	8	45	112	1	5
+n481	8	40	579	1	4
+n375	8	40	112	1	4
+n480	8	38	698	1	4
+n463	8	38	112	1	4
+n479	8	33	817	1	4
+n376	8	33	112	1	4
+n464	8	28	112	1	3
+n478	8	38	119	1	5
+n466	8	38	174	1	5
+n467	8	31	204	1	4
+n477	8	26	211	1	3
+n368	8	26	204	1	3
+n476	8	21	422	1	3
+n377	8	21	191	1	3
+n468	8	16	196	1	3
+G23	8	11	203	1	2
+G22	8	6	210	1	1
+troj10_0state_0_	3	3	20	1	1
+troj10_0n28	3	3	67	1	1
+troj10_0state_1_	14	4	21	3	1
+troj10_0n25	14	4	17	3	1
+troj10_0state_2_	15	4	16	3	1
+troj10_0n22	15	4	41	3	1
+troj10_0state_3_	19	42	4	4	9
+troj10_0n27	19	42	0	4	9
+Trojan_out0	6	56	77	2	13
+\DFF_73/Q_reg-SDFF-s-bar	2	2	96	0	0
+\DFF_72/Q_reg-SDFF-s-bar	2	2	231	0	0
+\DFF_71/Q_reg-SDFF-s-bar	2	2	247	0	0
+\DFF_70/Q_reg-SDFF-s-bar	2	2	344	0	0
+\DFF_69/Q_reg-SDFF-s-bar	2	2	516	0	0
+\DFF_68/Q_reg-SDFF-s-bar	2	2	547	0	0
+\DFF_67/Q_reg-SDFF-s-bar	2	2	716	0	0
+\DFF_66/Q_reg-SDFF-s-bar	2	2	889	0	0
+\DFF_65/Q_reg-SDFF-s-bar	2	2	974	0	0
+\DFF_64/Q_reg-SDFF-s-bar	2	2	1327	0	0
+\DFF_63/Q_reg-SDFF-s-bar	2	2	1423	0	0
+\DFF_62/Q_reg-SDFF-s-bar	2	2	1517	0	0
+\DFF_61/Q_reg-SDFF-s-bar	2	2	1647	0	0
+\DFF_60/Q_reg-SDFF-s-bar	2	2	1871	0	0
+\DFF_59/Q_reg-SDFF-s-bar	2	2	2078	0	0
+\DFF_58/Q_reg-SDFF-s-bar	2	2	2335	0	0
+\DFF_57/Q_reg-SDFF-s-bar	2	2	2524	0	0
+\DFF_56/Q_reg-SDFF-s-bar	2	2	2811	0	0
+\DFF_55/Q_reg-SDFF-s-bar	2	2	3068	0	0
+\DFF_54/Q_reg-SDFF-s-bar	2	2	3287	0	0
+\DFF_53/Q_reg-SDFF-s-bar	2	2	3544	0	0
+\DFF_52/Q_reg-SDFF-s-bar	2	2	3745	0	0
+\DFF_51/Q_reg-SDFF-s-bar	2	2	3860	0	0
+\DFF_50/Q_reg-SDFF-s-bar	2	2	3998	0	0
+\DFF_49/Q_reg-SDFF-s-bar	2	2	4136	0	0
+\DFF_48/Q_reg-SDFF-s-bar	2	2	4220	0	0
+\DFF_47/Q_reg-SDFF-s-bar	2	2	4395	0	0
+\DFF_46/Q_reg-SDFF-s-bar	2	2	4535	0	0
+\DFF_45/Q_reg-SDFF-s-bar	2	2	4712	0	0
+\DFF_44/Q_reg-SDFF-s-bar	2	2	4871	0	0
+\DFF_43/Q_reg-SDFF-s-bar	2	2	5414	0	0
+\DFF_42/Q_reg-SDFF-s-bar	2	2	5559	0	0
+\DFF_41/Q_reg-SDFF-s-bar	2	2	5963	0	0
+\DFF_40/Q_reg-SDFF-s-bar	2	2	147	0	0
+\DFF_39/Q_reg-SDFF-s-bar	2	2	275	0	0
+\DFF_38/Q_reg-SDFF-s-bar	2	2	557	0	0
+\DFF_37/Q_reg-SDFF-s-bar	2	2	808	0	0
+\DFF_36/Q_reg-SDFF-s-bar	2	2	1044	0	0
+\DFF_35/Q_reg-SDFF-s-bar	2	2	1585	0	0
+\DFF_34/Q_reg-SDFF-s-bar	2	2	2129	0	0
+\DFF_33/Q_reg-SDFF-s-bar	2	2	2632	0	0
+\DFF_32/Q_reg-SDFF-s-bar	2	2	3140	0	0
+\DFF_31/Q_reg-SDFF-s-bar	2	2	3268	0	0
+\DFF_30/Q_reg-SDFF-s-bar	2	2	3875	0	0
+\DFF_29/Q_reg-SDFF-s-bar	2	2	4419	0	0
+\DFF_28/Q_reg-SDFF-s-bar	2	2	4679	0	0
+\DFF_27/Q_reg-SDFF-s-bar	2	2	4937	0	0
+\DFF_26/Q_reg-SDFF-s-bar	2	2	5195	0	0
+\DFF_25/Q_reg-SDFF-s-bar	2	2	5437	0	0
+\DFF_24/Q_reg-SDFF-s-bar	2	2	5658	0	0
+\DFF_23/Q_reg-SDFF-s-bar	2	2	5886	0	0
+\DFF_22/Q_reg-SDFF-s-bar	2	2	6043	0	0
+\DFF_21/Q_reg-SDFF-s-bar	2	2	6311	0	0
+\DFF_20/Q_reg-SDFF-s-bar	2	2	6642	0	0
+\DFF_19/Q_reg-SDFF-s-bar	2	2	6815	0	0
+\DFF_18/Q_reg-SDFF-s-bar	2	2	215	0	0
+\DFF_17/Q_reg-SDFF-s-bar	2	2	427	0	0
+\DFF_16/Q_reg-SDFF-s-bar	2	2	512	0	0
+\DFF_15/Q_reg-SDFF-s-bar	2	2	754	0	0
+\DFF_14/Q_reg-SDFF-s-bar	2	2	267	0	0
+\DFF_13/Q_reg-SDFF-s-bar	2	2	380	0	0
+\DFF_12/Q_reg-SDFF-s-bar	2	2	495	0	0
+\DFF_11/Q_reg-SDFF-s-bar	2	2	642	0	0
+\DFF_10/Q_reg-SDFF-s-bar	2	2	730	0	0
+\DFF_9/Q_reg-SDFF-s-bar	2	2	849	0	0
+\DFF_8/Q_reg-SDFF-s-bar	2	2	967	0	0
+\DFF_7/Q_reg-SDFF-s-bar	2	2	139	0	0
+\DFF_6/Q_reg-SDFF-s-bar	2	2	350	0	0
+\DFF_5/Q_reg-SDFF-s-bar	2	2	258	0	0
+\DFF_4/Q_reg-SDFF-s-bar	2	2	442	0	0
+\DFF_3/Q_reg-SDFF-s-bar	2	2	639	0	0
+\DFF_2/Q_reg-SDFF-s-bar	2	2	229	0	0
+\DFF_1/Q_reg-SDFF-s-bar	2	2	221	0	0
+\DFF_0/Q_reg-SDFF-s-bar	2	2	225	0	0
+\DFF_0/Q_reg-SDFF-output-B	2	3	215	0	0
+troj10_0n15	2	2	41	0	0
+G701BF	2	2	225	0	0
+n141	2	2	367	0	0
+n138	2	2	370	0	0
+n142	2	2	325	0	0
+n149	2	3	236	0	0
+G657	2	3	351	0	0
+n139	2	2	96	0	0
+\DFF_73/Q_reg-SDFF-output-B	2	21	5	0	3
+n75	9	20	216	1	3
+\DFF_72/Q_reg-SDFF-output-B	2	16	205	0	2
+\DFF_71/Q_reg-SDFF-output-B	2	11	212	0	1
+n88	9	10	121	1	1
+\DFF_70/Q_reg-SDFF-output-B	2	11	341	0	1
+n89	9	10	188	1	1
+\DFF_69/Q_reg-SDFF-output-B	2	11	513	0	1
+n231	11	2	1647	1	0
+n335	11	2	5658	1	0
+n429	11	2	96	1	0
+n99	9	10	23	1	1
+\DFF_68/Q_reg-SDFF-output-B	2	26	544	0	4
+n100	9	25	312	1	4
+\DFF_67/Q_reg-SDFF-output-B	2	21	691	0	3
+n101	9	20	170	1	3
+\DFF_66/Q_reg-SDFF-output-B	2	16	869	0	2
+n102	9	15	76	1	2
+\DFF_65/Q_reg-SDFF-output-B	2	11	953	0	1
+n104	9	10	364	1	1
+\DFF_64/Q_reg-SDFF-output-B	2	13	1324	0	1
+\DFF_63/Q_reg-SDFF-output-B	2	13	1418	0	1
+\DFF_62/Q_reg-SDFF-output-B	2	18	1512	0	2
+\DFF_61/Q_reg-SDFF-output-B	2	13	1609	0	1
+\DFF_60/Q_reg-SDFF-output-B	2	13	1866	0	1
+\DFF_59/Q_reg-SDFF-output-B	2	13	2073	0	1
+\DFF_58/Q_reg-SDFF-output-B	2	13	2330	0	1
+n306	45	9	251	4	1
+\DFF_57/Q_reg-SDFF-output-B	2	41	2519	0	4
+n106	9	40	251	1	4
+\DFF_56/Q_reg-SDFF-output-B	2	41	2778	0	4
+n107	9	40	249	1	4
+\DFF_55/Q_reg-SDFF-output-B	2	41	3035	0	4
+n108	9	40	211	1	4
+\DFF_54/Q_reg-SDFF-output-B	2	40	3254	0	4
+n109	9	39	249	1	4
+\DFF_53/Q_reg-SDFF-output-B	2	35	3511	0	4
+n110	9	34	181	1	4
+\DFF_52/Q_reg-SDFF-output-B	2	30	3700	0	3
+\DFF_51/Q_reg-SDFF-output-B	2	30	3838	0	3
+\DFF_50/Q_reg-SDFF-output-B	2	30	3976	0	3
+n340	85	9	74	9	1
+\DFF_49/Q_reg-SDFF-output-B	2	32	4114	0	3
+\DFF_48/Q_reg-SDFF-output-B	2	33	4196	0	4
+n338	37	17	142	4	2
+\DFF_47/Q_reg-SDFF-output-B	2	28	4354	0	3
+n336	35	17	142	4	2
+n113	9	27	556	1	3
+\DFF_46/Q_reg-SDFF-output-B	2	23	4512	0	3
+n337	30	17	142	4	2
+n114	9	22	531	1	3
+\DFF_45/Q_reg-SDFF-output-B	2	18	4670	0	2
+\DFF_44/Q_reg-SDFF-output-B	2	13	4840	0	1
+n115	9	12	561	1	1
+\DFF_43/Q_reg-SDFF-output-B	2	39	5409	0	5
+n116	9	38	99	1	5
+\DFF_42/Q_reg-SDFF-output-B	2	34	5516	0	4
+n117	9	33	402	1	4
+n118	9	28	150	1	3
+\DFF_41/Q_reg-SDFF-output-B	2	29	5926	0	3
+\DFF_40/Q_reg-SDFF-output-B	2	53	126	0	5
+n119	9	52	96	1	5
+\DFF_39/Q_reg-SDFF-output-B	2	50	230	0	5
+\DFF_38/Q_reg-SDFF-output-B	2	79	515	0	8
+\DFF_37/Q_reg-SDFF-output-B	2	74	711	0	7
+n120	9	73	998	1	7
+\DFF_36/Q_reg-SDFF-output-B	2	56	942	0	6
+\DFF_35/Q_reg-SDFF-output-B	2	37	1524	0	5
+n121	9	36	547	1	5
+\DFF_34/Q_reg-SDFF-output-B	2	32	2079	0	4
+\DFF_33/Q_reg-SDFF-output-B	2	27	2582	0	3
+\DFF_32/Q_reg-SDFF-output-B	2	22	3107	0	2
+\DFF_31/Q_reg-SDFF-output-B	2	62	3254	0	6
+\DFF_30/Q_reg-SDFF-output-B	2	57	3805	0	5
+\DFF_29/Q_reg-SDFF-output-B	2	38	4370	0	5
+n122	9	37	255	1	5
+\DFF_28/Q_reg-SDFF-output-B	2	33	4633	0	4
+n123	9	32	255	1	4
+\DFF_27/Q_reg-SDFF-output-B	2	28	4896	0	3
+n124	9	27	255	1	3
+\DFF_26/Q_reg-SDFF-output-B	2	23	5159	0	2
+n125	9	22	255	1	2
+\DFF_25/Q_reg-SDFF-output-B	2	42	5422	0	4
+\DFF_24/Q_reg-SDFF-output-B	2	42	5624	0	4
+\DFF_23/Q_reg-SDFF-output-B	2	41	5852	0	4
+n126	9	40	181	1	4
+\DFF_22/Q_reg-SDFF-output-B	2	41	6010	0	4
+n127	9	40	260	1	4
+\DFF_21/Q_reg-SDFF-output-B	2	41	6278	0	5
+n128	9	40	292	1	5
+\DFF_20/Q_reg-SDFF-output-B	2	36	6578	0	4
+n129	9	35	181	1	4
+n130	9	30	186	1	3
+\DFF_19/Q_reg-SDFF-output-B	2	31	6767	0	3
+\DFF_18/Q_reg-SDFF-output-B	2	35	192	0	4
+\DFF_17/Q_reg-SDFF-output-B	2	30	382	0	3
+\DFF_16/Q_reg-SDFF-output-B	2	29	490	0	3
+n131	9	28	235	1	3
+n132	9	24	239	1	3
+\DFF_15/Q_reg-SDFF-output-B	2	25	733	0	3
+\DFF_14/Q_reg-SDFF-output-B	2	20	245	0	2
+n267	28	9	106	3	1
+n133	9	19	258	1	2
+\DFF_13/Q_reg-SDFF-output-B	2	45	368	0	4
+n134	9	44	82	1	4
+\DFF_12/Q_reg-SDFF-output-B	2	47	458	0	5
+\DFF_11/Q_reg-SDFF-output-B	2	42	577	0	4
+\DFF_10/Q_reg-SDFF-output-B	2	40	696	0	4
+\DFF_9/Q_reg-SDFF-output-B	2	35	815	0	4
+\DFF_8/Q_reg-SDFF-output-B	2	30	934	0	3
+\DFF_7/Q_reg-SDFF-output-B	2	40	117	0	5
+n135	9	39	173	1	5
+\DFF_6/Q_reg-SDFF-output-B	2	35	298	0	4
+\DFF_5/Q_reg-SDFF-output-B	2	28	209	0	3
+\DFF_4/Q_reg-SDFF-output-B	2	23	420	0	3
+n136	9	22	190	1	3
+n137	9	17	195	1	3
+\DFF_3/Q_reg-SDFF-output-B	2	18	618	0	3
+\DFF_2/Q_reg-SDFF-output-B	2	13	201	0	2
+\DFF_1/Q_reg-SDFF-output-B	2	8	208	0	1
+troj10_0U12-s-bar	4	4	25	1	1
+troj10_0U17-s-bar	4	4	39	1	1
+troj10_0U19-s-bar	4	4	112	1	1
+troj10_0U6-s-bar	5	15	24	1	3
+troj10_0U8-s-bar	5	15	97	1	3
+troj10_0n21	4	18	52	1	4
+troj10_0U3-s-bar	5	16	561	1	3
+troj10_0U5-s-bar	5	16	78	1	3
+troj10_0U7-s-bar	5	16	156	1	3
+troj10_0n29	5	30	1	1	6
+troj10_0N94	4	54	78	1	12
+troj10_0U59-s-bar	43	20	157	9	4
+troj10_0n32	4	50	22	1	11
+troj10_0n26	4	23	0	1	5
+troj10_0n13	20	43	78	4	9
+troj10_0U65-s-bar	43	20	65	9	4
+troj10_0U66-s-bar	43	20	563	9	4
+n330	14	3	213	2	0
+n184	3	11	361	0	1
+n146	28	3	211	4	0
+n192	23	3	489	3	0
+\DFF_64/Q_reg-SDFF-output-A	3	6	1323	0	0
+n148	2	4	186	0	0
+n172	18	11	179	2	1
+n171	38	9	181	4	1
+n409	11	2	246	1	0
+n420	11	2	330	1	0
+n422	11	2	298	1	0
+n417	11	2	189	1	0
+n428	48	9	89	6	1
+n431	11	2	96	1	0
+n426	11	2	234	1	0
+n188	24	3	697	3	0
+trig42_0n4	21	19	302	3	2
+n190	19	3	487	2	0
+n183	23	3	351	2	0
+n186	23	3	465	2	0
+n187	21	10	562	2	1
+n301	19	55	241	2	5
+n304	20	18	240	2	2
+n305	20	18	240	2	2
+n302	20	18	240	2	2
+n303	20	18	172	2	2
+n339	18	94	65	2	10
+n259	14	2	5562	1	0
+n430	49	10	88	6	1
+n334	38	2	226	4	0
+n329	119	10	228	14	1
+n155	21	2	256	2	0
+G175	3	12	370	0	1
+n268	55	10	105	5	1
+troj10_0U12-output-A	2	6	23	0	1
+troj10_0U17-output-A	3	7	36	0	1
+troj10_0U19-output-A	3	7	109	0	1
+troj10_0n20	39	5	17	8	1
+troj10_0n33	34	4	0	7	1
+troj10_0n31	6	31	0	1	6
+troj10_0n18	73	6	16	15	1
+troj10_0n23	55	5	46	12	1
+troj10_0n19	55	5	17	12	1
+n182	22	4	350	2	0
+n185	22	4	464	2	0
+n103	4	12	560	0	1
+\DFF_64/Q_reg-SDFF-MUX21	6	7	1320	0	0
+n147	25	3	211	3	0
+n189	30	3	430	4	0
+n191	25	3	165	3	0
+n193	20	3	489	2	0
+n170	21	19	169	2	2
+n145	23	9	75	2	1
+n203	100	19	160	10	2
+n262	146	19	13	16	2
+n144	24	9	74	2	1
+n332	9	9	219	1	1
+n333	121	2	226	14	0
+\DFF_13/Q_reg-SDFF-output-A	3	15	367	0	1
+n266	20	29	95	2	3
+troj10_0N98	13	2	58	2	0
+troj10_0N99	17	40	5	3	8
+troj10_0N97	12	2	39	2	0
+G693	11	3	343	0	0
+G687	11	3	457	0	0
+G682	26	3	546	2	0
+G707	7	26	207	0	3
+G675	7	25	693	0	3
+G669	7	20	871	0	2
+G663	7	21	485	0	2
+n95	24	10	74	2	1
+n105	101	20	159	10	2
+trig45_0n1	101	20	563	10	2
+n258	3	149	311	0	16
+n213	21	2	11	2	0
+n411	10	29	222	1	3
+tempn96	25	10	73	2	1
+G332BF	12	10	216	1	1
+\DFF_13/Q_reg-SDFF-MUX21	6	16	364	0	1
+\DFF_70/Q_reg-SDFF-output-A	3	6	340	0	0
+\DFF_69/Q_reg-SDFF-output-A	3	6	512	0	0
+trig50_0n6	12	4	456	0	0
+\DFF_68/Q_reg-SDFF-output-A	3	6	543	0	0
+\DFF_72/Q_reg-SDFF-output-A	3	29	204	0	3
+\DFF_67/Q_reg-SDFF-output-A	3	28	690	0	3
+\DFF_66/Q_reg-SDFF-output-A	3	23	868	0	2
+\DFF_65/Q_reg-SDFF-output-A	3	24	952	0	2
+n300	54	2	125	6	0
+n257	162	4	411	17	0
+n261	183	4	760	20	0
+n112	4	150	5414	0	16
+n212	13	10	192	1	1
+n256	30	3	4847	3	0
+n230	13	10	401	1	1
+n111	22	3	10	2	0
+n410	70	10	238	7	1
+n421	64	10	322	7	1
+n423	69	10	290	7	1
+n418	70	10	181	7	1
+n427	70	10	226	7	1
+n96	32	17	66	4	3
+n331	12	2	214	1	0
+\DFF_0/Q_reg-SDFF-output-A	3	13	214	0	1
+\DFF_70/Q_reg-SDFF-MUX21	6	7	337	0	0
+\DFF_69/Q_reg-SDFF-MUX21	6	7	509	0	0
+trig50_0n1	47	4	413	4	0
+\DFF_68/Q_reg-SDFF-MUX21	6	7	540	0	0
+\DFF_72/Q_reg-SDFF-MUX21	6	17	201	0	2
+\DFF_67/Q_reg-SDFF-MUX21	6	22	687	0	3
+\DFF_66/Q_reg-SDFF-MUX21	6	17	865	0	2
+\DFF_65/Q_reg-SDFF-MUX21	6	12	949	0	1
+n169	13	10	114	1	1
+G447	153	5	5411	16	0
+n196	12	2	190	1	0
+G451	8	31	4842	0	3
+n200	13	12	1636	1	1
+n235	12	2	399	1	0
+n318	13	12	5647	1	1
+G727	4	32	0	0	3
+n260	42	10	5523	5	1
+trig42_0n5	4	50	271	0	5
+n167	13	12	235	1	1
+n419	13	12	319	1	1
+n416	12	13	287	1	1
+n414	53	10	246	5	1
+n424	13	12	178	1	1
+n425	13	12	223	1	1
+G328BF	6	13	210	0	1
+\DFF_0/Q_reg-SDFF-MUX21	6	4	211	0	0
+n151	40	10	239	4	1
+n265	40	14	84	4	1
+n98	14	11	118	1	1
+\DFF_43/Q_reg-SDFF-output-A	3	8	5408	0	0
+n195	21	3	187	2	0
+n194	4	2	188	0	0
+n198	21	3	1517	2	0
+n197	4	2	1518	0	0
+n205	21	3	1871	2	0
+n204	4	2	569	0	0
+n207	21	3	187	2	0
+n206	4	2	188	0	0
+n209	21	3	2335	2	0
+n208	4	2	2336	0	0
+n211	21	3	2524	2	0
+n210	4	2	421	0	0
+\DFF_44/Q_reg-SDFF-output-A	3	34	4839	0	3
+n90	14	13	3057	1	1
+n234	21	3	3845	2	0
+n240	21	3	3983	2	0
+n243	21	3	4121	2	0
+n97	13	3	398	1	0
+n91	14	13	5875	1	1
+G441	15	43	5518	1	5
+trig42_0n1	88	5	233	9	0
+n164	9	53	468	1	5
+n165	21	22	310	2	2
+n415	54	10	246	5	1
+n163	14	22	310	1	2
+n168	52	9	138	5	1
+n166	21	22	216	2	2
+n402	53	9	182	5	1
+n326	11	126	331	1	14
+\DFF_1/Q_reg-SDFF-output-A	3	16	207	0	1
+trig53_0n3	7	14	684	0	1
+trig53_0n5	59	11	639	6	1
+n264	40	9	89	4	1
+\DFF_43/Q_reg-SDFF-MUX21	6	9	5405	0	0
+G613	6	5	184	0	0
+G608	6	5	1514	0	0
+G577	6	5	1868	0	0
+G573	6	5	184	0	0
+G569	6	5	2332	0	0
+G565	6	5	2521	0	0
+\DFF_44/Q_reg-SDFF-MUX21	6	14	4836	0	1
+n236	4	22	676	0	2
+n237	4	23	388	0	2
+\DFF_42/Q_reg-SDFF-output-A	3	46	5515	0	5
+n94	15	23	309	1	2
+n93	53	10	415	5	1
+n92	22	23	215	2	2
+n322	207	10	250	23	1
+n327	167	10	516	19	1
+n328	50	21	6594	6	2
+\DFF_1/Q_reg-SDFF-MUX21	6	9	204	0	1
+trig53_0n4	12	69	629	1	7
+n143	24	41	74	2	4
+\DFF_63/Q_reg-SDFF-output-A	3	8	1417	0	0
+trig51_0n4	7	6	556	0	0
+\DFF_62/Q_reg-SDFF-output-A	3	8	1511	0	0
+\DFF_60/Q_reg-SDFF-output-A	3	8	1865	0	0
+\DFF_59/Q_reg-SDFF-output-A	3	8	2072	0	0
+trig44_0n3	6	13	177	0	0
+\DFF_58/Q_reg-SDFF-output-A	3	8	2329	0	0
+\DFF_57/Q_reg-SDFF-output-A	3	8	2518	0	0
+n233	24	2	722	2	0
+n239	24	2	674	2	0
+n242	24	2	4122	2	0
+n232	25	2	3846	2	0
+n238	25	2	386	2	0
+n241	25	2	548	2	0
+\DFF_42/Q_reg-SDFF-MUX21	6	35	5512	0	4
+n413	86	10	246	9	1
+n160	119	11	358	11	1
+trig47_0n2	13	3	412	1	0
+n320	224	11	719	25	1
+n323	216	11	241	24	1
+n324	19	216	6026	2	24
+n325	50	9	476	5	1
+G237	13	64	6580	1	7
+G713	3	91	7	0	9
+n76	25	42	310	2	4
+\DFF_63/Q_reg-SDFF-MUX21	6	9	1414	0	0
+trig51_0n3	3	28	534	0	3
+\DFF_62/Q_reg-SDFF-MUX21	6	9	1508	0	0
+\DFF_60/Q_reg-SDFF-MUX21	6	9	1862	0	0
+\DFF_59/Q_reg-SDFF-MUX21	6	9	2069	0	0
+\DFF_58/Q_reg-SDFF-MUX21	6	9	2326	0	0
+\DFF_57/Q_reg-SDFF-MUX21	6	9	2515	0	0
+G503	8	22	3840	0	2
+G498	8	22	3978	0	2
+G494	8	22	4116	0	2
+trig52_0n2	53	3	520	4	0
+n412	31	54	225	3	5
+n159	14	3	355	1	0
+n162	48	9	343	5	1
+n319	20	233	5640	2	26
+n321	52	9	510	5	1
+G247	13	33	6012	1	3
+G242	15	33	6280	1	3
+\DFF_20/Q_reg-SDFF-output-A	3	67	6577	0	7
+\DFF_73/Q_reg-SDFF-output-A	3	94	4	0	9
+n202	20	126	313	2	12
+n263	34	35	5931	4	3
+\DFF_51/Q_reg-SDFF-output-A	3	25	3837	0	2
+\DFF_50/Q_reg-SDFF-output-A	3	25	3975	0	2
+\DFF_49/Q_reg-SDFF-output-A	3	25	4113	0	2
+n408	64	32	215	6	3
+n158	46	15	312	4	1
+n161	52	26	300	5	2
+trig41_0n3	49	10	985	5	1
+G260	13	34	5626	1	3
+G252	15	34	5854	1	3
+\DFF_22/Q_reg-SDFF-output-A	3	36	6009	0	3
+\DFF_21/Q_reg-SDFF-output-A	3	36	6277	0	3
+\DFF_20/Q_reg-SDFF-MUX21	6	37	6574	0	4
+\DFF_73/Q_reg-SDFF-MUX21	6	22	1	0	3
+n201	17	29	304	2	3
+G438	3	37	5928	0	4
+\DFF_51/Q_reg-SDFF-MUX21	6	26	3834	0	2
+\DFF_50/Q_reg-SDFF-MUX21	6	26	3972	0	2
+\DFF_49/Q_reg-SDFF-MUX21	6	26	4110	0	2
+n407	78	13	248	7	1
+n405	45	14	202	4	1
+trig41_0n2	286	4	709	31	0
+\DFF_24/Q_reg-SDFF-output-A	3	37	5623	0	3
+\DFF_23/Q_reg-SDFF-output-A	3	37	5851	0	3
+\DFF_22/Q_reg-SDFF-MUX21	6	37	6006	0	3
+\DFF_21/Q_reg-SDFF-MUX21	6	37	6274	0	3
+\DFF_41/Q_reg-SDFF-output-A	3	40	5925	0	4
+n406	54	9	207	5	1
+trig40_0n4	11	148	580	1	14
+\DFF_24/Q_reg-SDFF-MUX21	6	38	5620	0	3
+\DFF_23/Q_reg-SDFF-MUX21	6	38	5848	0	3
+\DFF_41/Q_reg-SDFF-MUX21	6	30	5922	0	3
+n404	24	46	192	2	4
+trig40_0n3	12	149	579	1	14
+n403	70	23	168	6	2
+n157	33	54	158	3	5
+n156	72	3	255	6	0
+n152	92	15	234	8	1
+n398	94	10	118	11	1
+n400	72	10	353	8	1
+n401	25	42	206	4	4
+trig54_0n3	170	8	336	17	0
+n154	6	22	252	0	2
+n396	103	11	109	12	1
+n397	37	9	435	4	1
+n399	32	9	626	4	1
+trig47_0n3	167	11	258	19	1
+G109	3	28	203	0	4
+trig54_0n2	200	4	306	19	0
+n153	32	7	242	3	0
+n180	12	112	100	1	13
+n395	9	45	227	1	5
+trig40_0n1	413	10	178	45	1
+trig48_0n2	3	390	67	0	42
+G118	2	22	422	0	2
+G113	2	21	620	0	2
+\DFF_2/Q_reg-SDFF-output-A	3	31	200	0	4
+n150	33	33	216	2	3
+n174	171	9	41	21	1
+n392	152	10	121	18	1
+n393	49	22	303	6	2
+n394	46	22	214	5	2
+\DFF_4/Q_reg-SDFF-output-A	3	25	419	0	2
+\DFF_3/Q_reg-SDFF-output-A	3	24	617	0	2
+\DFF_2/Q_reg-SDFF-MUX21	6	14	197	0	2
+G705	2	35	214	0	3
+n389	10	21	110	1	2
+trig41_0n1	593	11	402	67	1
+trig44_0n5	11	173	179	1	20
+trig53_0n6	255	3	443	28	0
+G129	3	52	300	0	6
+G125	3	49	211	0	5
+\DFF_4/Q_reg-SDFF-MUX21	6	24	416	0	2
+\DFF_3/Q_reg-SDFF-MUX21	6	19	614	0	2
+\DFF_71/Q_reg-SDFF-output-A	3	38	211	0	3
+n385	27	22	93	3	2
+n390	19	22	994	2	2
+n391	19	30	122	2	3
+Trigger_en0_1	5	880	115	0	98
+trig44_0n4	12	174	178	1	20
+\DFF_6/Q_reg-SDFF-output-A	3	55	297	0	6
+\DFF_5/Q_reg-SDFF-output-A	3	52	208	0	5
+\DFF_71/Q_reg-SDFF-MUX21	6	12	208	0	1
+n383	44	23	76	5	2
+n386	36	23	550	4	2
+n387	31	36	526	3	4
+n388	56	9	960	6	1
+G140	3	22	119	0	2
+troj10_0U66-output-B	6	923	72	0	107
+trig44_0n1	120	4	70	12	0
+\DFF_6/Q_reg-SDFF-MUX21	6	36	294	0	4
+\DFF_5/Q_reg-SDFF-MUX21	6	29	205	0	3
+n227	24	53	67	2	6
+n382	69	9	635	7	1
+trig47_0n1	387	3	38	43	0
+n384	64	9	509	6	1
+G149	3	34	817	0	3
+G144	2	33	936	0	3
+\DFF_7/Q_reg-SDFF-output-A	3	25	116	0	2
+n226	98	10	1700	10	1
+n381	44	33	509	4	3
+n87	25	54	66	2	6
+Trigger_en0_7	4	425	0	0	46
+G154	2	34	698	0	3
+\DFF_9/Q_reg-SDFF-output-A	3	37	814	0	3
+\DFF_8/Q_reg-SDFF-output-A	3	36	933	0	3
+\DFF_7/Q_reg-SDFF-MUX21	6	26	113	0	2
+n225	31	10	1679	3	1
+n179	45	35	56	4	3
+G159	2	65	579	0	7
+\DFF_10/Q_reg-SDFF-output-A	3	37	695	0	3
+\DFF_9/Q_reg-SDFF-MUX21	6	36	811	0	3
+\DFF_8/Q_reg-SDFF-MUX21	6	31	930	0	3
+n175	51	10	40	5	1
+n290	10	54	162	1	5
+n380	34	90	463	3	8
+trig44_0n2	69	7	121	5	0
+trig53_0n2	143	8	555	14	0
+\DFF_11/Q_reg-SDFF-output-A	3	68	576	0	7
+\DFF_10/Q_reg-SDFF-MUX21	6	38	692	0	3
+n287	80	9	666	8	1
+n289	26	19	507	3	2
+n347	42	19	387	5	2
+n83	11	55	161	1	5
+G166	3	37	460	0	3
+Trigger_en0_4	5	190	0	0	17
+\DFF_11/Q_reg-SDFF-MUX21	6	43	573	0	4
+trig50_0n5	3	289	457	0	30
+n288	56	10	527	7	1
+n86	27	20	506	3	2
+G208	3	45	384	0	5
+n298	66	12	177	6	1
+n344	9	89	127	1	9
+\DFF_12/Q_reg-SDFF-output-A	3	40	457	0	3
+trig50_0n3	4	290	456	0	30
+n284	12	2	2119	1	0
+n317	21	10	516	2	1
+n285	21	36	570	2	4
+n286	51	9	475	6	1
+\DFF_17/Q_reg-SDFF-output-A	3	48	381	0	5
+n343	31	19	208	3	2
+n181	10	120	96	1	12
+\DFF_12/Q_reg-SDFF-MUX21	6	41	454	0	3
+n84	13	3	2631	1	0
+n309	3	24	4677	0	2
+n310	2	12	514	0	1
+n283	37	31	560	4	3
+n85	22	37	2597	2	4
+\DFF_17/Q_reg-SDFF-MUX21	6	31	378	0	3
+n173	176	10	40	19	1
+n341	45	20	6772	5	2
+n342	20	42	197	2	4
+n379	156	10	264	16	1
+G379	14	33	3109	1	3
+n308	62	4	4639	7	0
+n312	57	4	4902	6	0
+n314	52	4	5165	5	0
+n316	47	4	5427	4	0
+n307	45	3	613	5	0
+n311	40	3	4903	4	0
+n313	35	3	5166	3	0
+n315	14	2	512	1	0
+G392	3	50	2081	0	5
+G384	14	50	2584	1	5
+G218	3	48	6769	0	5
+G214	3	23	194	0	2
+n355	21	10	253	2	1
+\DFF_32/Q_reg-SDFF-output-A	3	36	3106	0	3
+G321	8	46	4635	0	5
+G315	8	41	4898	0	4
+G309	8	36	5161	0	3
+G303	7	15	5424	0	1
+trig46_0n3	3	255	271	0	27
+\DFF_34/Q_reg-SDFF-output-A	3	53	2078	0	5
+\DFF_33/Q_reg-SDFF-output-A	3	53	2581	0	5
+\DFF_19/Q_reg-SDFF-output-A	3	51	6766	0	5
+\DFF_18/Q_reg-SDFF-output-A	3	26	191	0	2
+n229	63	10	200	7	1
+n362	35	10	538	4	1
+n365	19	30	250	2	3
+\DFF_32/Q_reg-SDFF-MUX21	6	23	3103	0	2
+\DFF_28/Q_reg-SDFF-output-A	3	49	4632	0	5
+\DFF_27/Q_reg-SDFF-output-A	3	44	4895	0	4
+\DFF_26/Q_reg-SDFF-output-A	3	39	5158	0	3
+\DFF_25/Q_reg-SDFF-output-A	3	18	5421	0	1
+\DFF_34/Q_reg-SDFF-MUX21	6	33	2075	0	4
+\DFF_33/Q_reg-SDFF-MUX21	6	28	2578	0	3
+\DFF_19/Q_reg-SDFF-MUX21	6	32	6763	0	3
+\DFF_18/Q_reg-SDFF-MUX21	6	27	188	0	2
+n299	85	11	178	9	1
+n348	19	72	495	2	8
+n82	64	11	449	7	1
+trig48_0n1	64	11	446	7	1
+n349	38	9	747	4	1
+trig52_0n3	127	10	446	13	1
+G189	3	22	247	0	2
+\DFF_28/Q_reg-SDFF-MUX21	6	34	4629	0	4
+\DFF_27/Q_reg-SDFF-MUX21	6	29	4892	0	3
+\DFF_26/Q_reg-SDFF-MUX21	6	24	5155	0	2
+\DFF_25/Q_reg-SDFF-MUX21	6	19	5418	0	1
+n281	67	24	165	6	2
+G198	3	22	492	0	2
+n228	40	9	1686	4	1
+Trigger_en0_8	4	457	0	0	48
+G193	2	21	735	0	2
+trig52_0n1	411	3	162	44	0
+\DFF_14/Q_reg-SDFF-output-A	3	25	244	0	2
+n280	25	76	507	2	7
+n282	33	76	1554	3	7
+n277	76	25	156	7	2
+\DFF_16/Q_reg-SDFF-output-A	3	25	489	0	2
+n224	21	15	1674	2	1
+\DFF_15/Q_reg-SDFF-output-A	3	24	732	0	2
+\DFF_14/Q_reg-SDFF-MUX21	6	21	241	0	2
+n278	74	35	972	7	3
+n276	103	9	801	10	1
+n279	27	2	1019	2	0
+n254	26	85	147	2	8
+trig49_0n4	189	10	469	17	1
+\DFF_16/Q_reg-SDFF-MUX21	6	26	486	0	2
+n222	45	22	1644	4	2
+\DFF_15/Q_reg-SDFF-MUX21	6	25	729	0	2
+G405	3	102	944	0	9
+G397	3	61	1526	0	5
+n295	10	35	138	1	3
+n79	27	86	535	2	8
+trig49_0n1	363	4	295	36	0
+n223	31	54	3716	3	5
+n81	46	23	1643	4	2
+\DFF_36/Q_reg-SDFF-output-A	3	105	941	0	9
+\DFF_35/Q_reg-SDFF-output-A	3	64	1523	0	5
+n292	27	36	3282	3	3
+n296	19	36	568	2	3
+n270	21	19	129	2	2
+n297	44	19	547	4	2
+trig42_0n3	3	93	318	0	10
+G408	2	97	713	0	9
+G526	13	45	3702	1	4
+n199	24	64	1625	2	6
+n218	97	10	2885	10	1
+n221	58	10	3576	6	1
+\DFF_36/Q_reg-SDFF-MUX21	6	57	938	0	6
+\DFF_35/Q_reg-SDFF-MUX21	6	38	1520	0	5
+n291	9	57	3261	1	5
+n293	97	9	507	9	1
+n178	99	9	49	10	1
+n271	72	10	168	7	1
+n294	3	24	588	0	2
+n78	22	20	264	2	2
+trig42_0n2	4	94	317	0	10
+\DFF_37/Q_reg-SDFF-output-A	3	100	710	0	9
+\DFF_52/Q_reg-SDFF-output-A	3	48	3699	0	4
+G590	13	38	1611	1	3
+n219	19	106	3270	2	11
+n80	98	11	2884	10	1
+n220	49	9	3537	5	1
+trig54_0n5	10	108	496	1	10
+n177	10	108	40	1	11
+n255	20	10	573	2	1
+trig49_0n3	10	130	528	1	12
+trig50_0n4	130	4	330	14	0
+trig51_0n5	232	10	330	22	1
+Trigger_en0_12	4	573	0	0	59
+trig53_0n1	554	4	144	60	0
+n269	39	10	139	4	1
+n273	12	2	265	1	0
+G365	4	70	3807	0	6
+n77	4	25	587	0	2
+n274	21	31	255	2	3
+n275	29	31	530	3	3
+Trigger_en0_2	6	182	139	0	19
+\DFF_37/Q_reg-SDFF-MUX21	6	75	707	0	7
+\DFF_52/Q_reg-SDFF-MUX21	6	31	3696	0	3
+\DFF_61/Q_reg-SDFF-output-A	3	41	1608	0	3
+G536	13	33	3256	1	3
+n215	92	10	2803	9	1
+n217	52	10	3101	5	1
+G531	15	33	3513	1	3
+trig54_0n4	11	109	495	1	10
+n176	11	20	30	1	2
+trig50_0n2	269	4	191	28	0
+n253	96	21	487	9	2
+trig49_0n2	213	3	445	22	0
+trig51_0n1	412	10	150	40	1
+Trigger_en0_13	5	698	0	0	74
+G427	2	21	128	0	2
+\DFF_30/Q_reg-SDFF-output-A	3	73	3804	0	6
+G373	26	14	3256	2	1
+G360	20	49	542	2	4
+n272	32	31	245	3	3
+G416	3	42	517	0	4
+troj10_0U65-output-B	7	225	96	0	28
+\DFF_61/Q_reg-SDFF-MUX21	6	14	1605	0	1
+\DFF_54/Q_reg-SDFF-output-A	3	36	3253	0	3
+n214	19	101	2794	2	10
+n216	50	9	3061	5	1
+\DFF_53/Q_reg-SDFF-output-A	3	36	3510	0	3
+trig54_0n1	71	3	435	6	0
+G702	12	50	0	1	5
+Trigger_en0_10	5	460	0	0	47
+n250	32	10	530	3	1
+Trigger_en0_9	4	577	81	0	58
+\DFF_40/Q_reg-SDFF-output-A	3	24	125	0	2
+\DFF_30/Q_reg-SDFF-MUX21	6	58	3801	0	5
+\DFF_31/Q_reg-SDFF-output-A	3	17	3253	0	1
+\DFF_29/Q_reg-SDFF-output-A	3	52	4369	0	4
+trig40_0n2	136	12	455	12	1
+G424	3	45	232	0	4
+\DFF_38/Q_reg-SDFF-output-A	3	45	514	0	4
+\DFF_54/Q_reg-SDFF-MUX21	6	37	3250	0	3
+G548	13	33	2780	1	3
+G541	15	33	3037	1	3
+\DFF_53/Q_reg-SDFF-MUX21	6	36	3507	0	3
+Trigger_en0_14	4	272	234	0	25
+n247	60	10	523	7	1
+n251	33	10	910	4	1
+n252	20	42	520	2	4
+troj10_0n3	621	5	37	67	0
+\DFF_40/Q_reg-SDFF-MUX21	6	25	122	0	2
+\DFF_31/Q_reg-SDFF-MUX21	6	18	3250	0	1
+\DFF_29/Q_reg-SDFF-MUX21	6	39	4366	0	4
+Trigger_en0_0	4	591	0	0	61
+\DFF_39/Q_reg-SDFF-output-A	3	48	229	0	4
+\DFF_38/Q_reg-SDFF-MUX21	6	46	511	0	4
+\DFF_56/Q_reg-SDFF-output-A	3	36	2777	0	3
+\DFF_55/Q_reg-SDFF-output-A	3	36	3034	0	3
+troj10_0U59-output-B	5	315	191	0	34
+n246	69	11	514	8	1
+n244	77	11	4211	9	1
+n248	19	69	4378	2	8
+n249	37	9	4528	4	1
+trig43_0n3	3	681	262	0	77
+G459	3	42	4672	0	4
+trig51_0n2	149	4	413	15	0
+troj10_0U3-output-B	16	10	32	3	1
+\DFF_39/Q_reg-SDFF-MUX21	6	49	226	0	4
+\DFF_56/Q_reg-SDFF-MUX21	6	37	2774	0	3
+\DFF_55/Q_reg-SDFF-MUX21	6	37	3031	0	3
+n245	42	9	484	4	1
+trig43_0n2	3	100	843	0	10
+trig45_0n2	10	287	296	1	28
+G469	3	41	4356	0	4
+G464	23	23	4514	2	2
+\DFF_45/Q_reg-SDFF-output-A	3	45	4669	0	4
+Trigger_en0_11	5	562	0	0	55
+G477	23	24	4198	2	2
+trig46_0n2	4	189	337	0	18
+trig43_0n1	825	3	118	91	0
+Trigger_en0_5	11	496	87	1	50
+\DFF_47/Q_reg-SDFF-output-A	3	44	4353	0	4
+\DFF_46/Q_reg-SDFF-output-A	3	26	4511	0	2
+\DFF_45/Q_reg-SDFF-MUX21	6	19	4666	0	2
+\DFF_48/Q_reg-SDFF-output-A	3	27	4195	0	2
+trig46_0n1	445	4	81	45	0
+Trigger_en0_3	826	4	117	91	0
+troj10_0U66-output-A	12	517	66	1	54
+\DFF_47/Q_reg-SDFF-MUX21	6	29	4350	0	3
+\DFF_46/Q_reg-SDFF-MUX21	6	24	4508	0	2
+\DFF_48/Q_reg-SDFF-MUX21	6	28	4192	0	2
+Trigger_en0_6	446	5	80	45	0
+troj10_0n6	48	21	73	9	4
+troj10_0U59-output-A	44	25	152	9	4
+troj10_0n2	19	518	59	1	54
+troj10_0U65-output-A	44	26	59	9	4
+troj10_0U5-output-A	6	38	56	1	7
+troj10_0n11	50	26	146	9	4
+troj10_0U3-output-A	6	535	42	1	57
+troj10_0n7	52	27	51	9	4
+troj10_0U7-output-A	6	43	129	1	7
+troj10_0n1	23	11	25	4	1
+troj10_0U5-output-B	16	32	46	3	5
+troj10_0U7-output-B	16	32	119	3	5
+troj10_0U12-output-B	4	15	21	1	2
+troj10_0n5	23	33	39	4	5
+troj10_0n10	23	33	112	4	5
+troj10_0n9	7	7	18	1	1
+troj10_0U17-output-B	4	37	35	1	6
+troj10_0U19-output-B	4	37	108	1	6
+troj10_0U6-output-B	8	12	13	1	2
+troj10_0U8-output-B	8	12	86	1	2
+troj10_0n8	8	8	31	1	1
+troj10_0n12	8	8	104	1	1
+troj10_0U6-output-A	6	24	15	1	4
+troj10_0U8-output-A	6	24	88	1	4
+troj10_0N95	15	13	6	2	2
+troj10_0N93	15	13	79	2	2
+troj10_0n17	16	14	5	2	2
+troj10_0n16	16	14	78	2	2

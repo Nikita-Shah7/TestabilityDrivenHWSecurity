@@ -48,18 +48,21 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_combinational_controllability();
+    friend void assign_combinational_observability();
     friend void assign_sequential_controllability();
     friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend int xor_sc0_helper(Gate *);
     friend int xor_sc1_helper(Gate *);
     friend int find_sc0(Gate *);
     friend int find_sc1(Gate *);
     friend void display_scoap_values();
-    friend void generate_output_file(string, int);
+    friend void generate_output_file(string, long long);
     friend void clear_circuit_details();
 };
 
@@ -113,12 +116,15 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_combinational_controllability();
+    friend void assign_combinational_observability();
     friend void assign_sequential_controllability();
     friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend int xor_sc0_helper(Gate *);
     friend int xor_sc1_helper(Gate *);
     friend int find_sc0(Gate *);
@@ -152,12 +158,15 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_combinational_controllability();
+    friend void assign_combinational_observability();
     friend void assign_sequential_controllability();
     friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend int xor_sc0_helper(Gate *);
     friend int xor_sc1_helper(Gate *);
     friend int find_sc0(Gate *);
@@ -194,7 +203,7 @@ class Node
     int level;
     vector<Node *> next;
     int indeg, outdeg;
-    int CC0, CC1;
+    int CC0, CC1, CO;
     int SC0, SC1;
 
 public:
@@ -210,18 +219,21 @@ public:
     friend void traverse_circuit();
     friend void assign_scoap();
     friend void assign_combinational_controllability();
+    friend void assign_combinational_observability();
     friend void assign_sequential_controllability();
     friend void initialization();
     friend int xor_cc0_helper(Gate *);
     friend int xor_cc1_helper(Gate *);
     friend int find_cc0(Gate *);
     friend int find_cc1(Gate *);
+    friend int co_helper(Gate *, string);
+    friend int find_co(Gate *);
     friend int xor_sc0_helper(Gate *);
     friend int xor_sc1_helper(Gate *);
     friend int find_sc0(Gate *);
     friend int find_sc1(Gate *);
     friend void display_scoap_values();
-    friend void generate_output_file(string, int);
+    friend void generate_output_file(string, long long);
 };
 
 Node ::Node()
@@ -233,6 +245,7 @@ Node ::Node()
     outdeg = 0;
     CC0 = INF - 2;
     CC1 = INF - 2;
+    CO = INF - 2;
     SC0 = INF - 2;
     SC1 = INF - 2;
 }
@@ -246,6 +259,7 @@ Node ::Node(string nme, string ty)
     outdeg = 0;
     CC0 = INF - 2;
     CC1 = INF - 2;
+    CO = INF - 2;
     SC0 = INF - 2;
     SC1 = INF - 2;
 }
@@ -441,7 +455,7 @@ void traverse_circuit()
 void display_scoap_values()
 {
     divider();
-    cout << "Signal\tCC0\tCC1\tSC0\tSC1";
+    cout << "Signal\tCC0\tCC1\tCO\tSC0\tSC1";
     divider();
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
@@ -449,7 +463,7 @@ void display_scoap_values()
         {
             if (node->type == "WIRE")
             {
-                cout << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->SC0 << "\t" << node->SC1 << endl;
+                cout << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->CO << "\t" << node->SC0 << "\t" << node->SC1 << endl;
             }
         }
     }
@@ -931,6 +945,136 @@ int find_sc1(Gate *gate)
     return sc1;
 }
 
+int co_helper(Gate *gate, string input)
+{
+    int co_ = 0;
+    string gate_type = gate->type;
+    if (gate_type == "AND")
+    {
+        co_ = -1 * circuit->node_list[input]->CC1;
+    }
+    else if (gate_type == "OR")
+    {
+        co_ = -1 * circuit->node_list[input]->CC0;
+    }
+    else if (gate_type == "NAND")
+    {
+        co_ = -1 * circuit->node_list[input]->CC1;
+    }
+    else if (gate_type == "NOR")
+    {
+        co_ = -1 * circuit->node_list[input]->CC0;
+    }
+    else if (gate_type == "XOR")
+    {
+        if (gate->inputs[0] == input)
+        {
+            int cc0_input = circuit->node_list[gate->inputs[1]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[1]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+        else
+        {
+            int cc0_input = circuit->node_list[gate->inputs[0]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[0]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+    }
+    else if (gate_type == "XNOR")
+    {
+        if (gate->inputs[0] == input)
+        {
+            int cc0_input = circuit->node_list[gate->inputs[1]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[1]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+        else
+        {
+            int cc0_input = circuit->node_list[gate->inputs[0]]->CC0;
+            int cc1_input = circuit->node_list[gate->inputs[0]]->CC1;
+            co_ = min(cc0_input, cc1_input);
+        }
+    }
+    else if (gate_type == "NOT")
+    {
+        ;
+    }
+    else if (gate_type == "BUF")
+    {
+        ;
+    }
+    return co_;
+}
+
+int find_co(Gate *gate)
+{
+    string gate_type = gate->type;
+    int co = 0;
+    if (gate_type != "DFF")
+    {
+        co = circuit->node_list[gate->outputs[0]]->CO;
+    }
+    else
+    {
+        if (gate->outputs[0] != "**")
+            co += circuit->node_list[gate->outputs[0]]->CO;
+        if (gate->outputs[1] != "**")
+            co += circuit->node_list[gate->outputs[1]]->CO;
+    }
+
+    if (gate_type == "AND")
+    {
+        int X1 = 0;
+        for (auto input : gate->inputs)
+            X1 += circuit->node_list[input]->CC1;
+        co += X1 + 1;
+    }
+    else if (gate_type == "OR")
+    {
+        int X0 = 0;
+        for (auto input : gate->inputs)
+            X0 += circuit->node_list[input]->CC0;
+        co += X0 + 1;
+    }
+    else if (gate_type == "NAND")
+    {
+        int X1 = 0;
+        for (auto input : gate->inputs)
+            X1 += circuit->node_list[input]->CC1;
+        co += X1 + 1;
+    }
+    else if (gate_type == "NOR")
+    {
+        int X0 = 0;
+        for (auto input : gate->inputs)
+            X0 += circuit->node_list[input]->CC0;
+        co += X0 + 1;
+    }
+    else if (gate_type == "XOR")
+    {
+        // co = xor_co_helper(gate);
+        co += 1;
+    }
+    else if (gate_type == "XNOR")
+    {
+        // co = xor_cc0_helper(gate);
+        co += 1;
+    }
+    else if (gate_type == "NOT")
+    {
+        co += 1;
+    }
+    else if (gate_type == "BUF")
+    {
+        co += 1;
+    }
+    else if (gate_type == "DFF")
+    {
+        co += 1;
+    }
+    return co;
+}
+
 void initialization()
 {
     // level = 1 gates i/p
@@ -1060,6 +1204,58 @@ void assign_sequential_controllability()
     }
 }
 
+void assign_combinational_observability()
+{
+    // level = last
+    for (auto po : circuit->primary_outputs)
+    {
+        Node *node = circuit->node_list[po->name];
+        node->CO = 0;
+    }
+
+    int iteration = 1;
+
+    while(iteration<=MAX_ITERATIONS)
+    {
+        bool flag = 1;    
+        for (int i = circuit->no_of_levels; i > 0; i--)
+        {
+            for (auto node : circuit->levelized_circuit[i])
+            {
+                if (node->type == "NON-WIRE")
+                {
+                    Gate *gate = circuit->gate_node_list[node];
+                    int co = find_co(gate);
+                    if (co > INF - ERR)
+                        co = INF - 2;
+                    for (auto input : gate->inputs)
+                    {
+                        if (input == "**")
+                            continue;
+                        int co_ = co_helper(gate, input);
+                        if (co_ > INF - ERR)
+                            co = INF - 2;
+                        circuit->node_list[input]->CO = min(circuit->node_list[input]->CO, co + co_);
+                    }
+                    if (co > INF - ERR)
+                        flag = 1;
+                }
+            }
+        }
+        // cout << "\n\nITERATION " << iteration << "::";
+        // display_scoap_values();
+
+        if (!flag) {
+            iteration = 0;
+            return ;
+        }
+        else {
+            iteration++;
+        }
+    }
+    return;
+}
+
 void assign_scoap()
 {
     // cout << "\n\nINITIALIZATION ::";
@@ -1071,9 +1267,12 @@ void assign_scoap()
 
     assign_sequential_controllability();
     // display_scoap_values();
+
+    assign_combinational_observability();
+    // display_scoap_values();
 }
 
-void generate_output_file(string filename, int duration)
+void generate_output_file(string filename, long long duration)
 {
     ofstream output_file(filename);
 
@@ -1104,7 +1303,7 @@ void generate_output_file(string filename, int duration)
 
     // 2. SCOAP VALUES::
     output_file << "\n----------------------------------------\n";
-    output_file << "Signal\tCC0\tCC1\tSC0\tSC1";
+    output_file << "Signal\tCC0\tCC1\tCO\tSC0\tSC1";
     output_file << "\n----------------------------------------\n";
     for (int i = 1; i <= circuit->no_of_levels; i++)
     {
@@ -1112,7 +1311,7 @@ void generate_output_file(string filename, int duration)
         {
             if (node->type == "WIRE")
             {
-                output_file << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->SC0 << "\t" << node->SC1 << endl;
+                output_file << node->name << "\t" << node->CC0 << "\t" << node->CC1 << "\t" << node->CO << "\t" << node->SC0 << "\t" << node->SC1 << endl;
             }
         }
     }
@@ -1283,7 +1482,7 @@ void read_files()
             string sub_dir_name = ent->d_name;
             if (sub_dir_name == "." || sub_dir_name == "..")
                 continue;
-            // if(sub_dir_name!="s13207") continue;
+            if(sub_dir_name!="s13207") continue;
             cout << sub_dir_name << endl;
 
             string input_sub_folder = input_folder + sub_dir_name + "/";
@@ -1349,17 +1548,17 @@ int main()
     read_files();
 
     // string filename;
-    // // cout << "Enter Input Text File: ";
-    // // cin >> filename;
-    // // filename += "b1";
-    // // filename += "s1423_T400";
-    // filename += "s35932scan";
+    // // // cout << "Enter Input Text File: ";
+    // // // cin >> filename;
+    // // filename += "s27";
+    // filename += "s13207_T400";
+    // // filename += "s35932scan";
 
-    // string input_folder = "../input_text_files/sequential/s35932/";
-    // string output_folder = "../output_text_files/sequential/s35932/";
+    // string input_folder = "../input_text_files/sequential/s13207/";
+    // // string output_folder = "../output_text_files/sequential/s35932/";
 
     // // string input_folder = "../input_text_files/";
-    // // string output_folder = "../output_text_files/";
+    // string output_folder = "../output_text_files/";
 
     // string input_file = input_folder + filename + ".txt";
     // string output_file = output_folder + filename + ".txt";
@@ -1370,11 +1569,11 @@ int main()
     // // display_node_structure();
 
     // gates_nodes_levelization();
-    // display_circuit_details();
+    // // display_circuit_details();
     // // display_gate_structure();
     // // display_dff_structure();
     // // display_node_structure();
-    // traverse_circuit();
+    // // traverse_circuit();
 
     // auto start = chrono::high_resolution_clock::now();
     // assign_scoap();
@@ -1382,9 +1581,9 @@ int main()
     // auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 
     // // display_scoap_values();
-    // // generate_output_file(output_file, duration);
+    // generate_output_file(output_file, duration);
 
-    // // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
+    // // // cout << "Time taken to calculate the SCOAP Values: " << duration << " ns" << endl;
 
     return 0;
 }
